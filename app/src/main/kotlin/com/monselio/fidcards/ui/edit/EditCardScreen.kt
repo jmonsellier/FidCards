@@ -1,11 +1,15 @@
 package com.monselio.fidcards.ui.edit
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.fillMaxSize
@@ -46,13 +50,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
 import com.monselio.fidcards.R
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.ui.home.colorFromName
+import java.io.File
 
 /** Couleurs proposées quand l'enseigne est absente du catalogue (docs/PROJET.md §5.3). */
 private val SWATCHES = listOf(
@@ -154,7 +161,9 @@ fun EditCardScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            if (state.brand == null) {
+            LogoPicker(state = state, viewModel = viewModel)
+
+            if (state.brand == null && state.logoPath == null) {
                 ColorPicker(
                     name = state.name,
                     selected = state.colorArgb,
@@ -262,6 +271,57 @@ private fun FormatField(current: BarcodeFormat, onSelect: (BarcodeFormat) -> Uni
                         onSelect(format)
                     },
                 )
+            }
+        }
+    }
+}
+
+/**
+ * Logo choisi depuis la galerie via le Photo Picker — donc sans permission de
+ * stockage (§7). Prioritaire sur le logo du catalogue et sur la pastille.
+ */
+@Composable
+private fun LogoPicker(state: EditUiState, viewModel: EditCardViewModel) {
+    val pickerLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.PickVisualMedia(),
+    ) { uri -> uri?.let(viewModel::onLogoPicked) }
+
+    Column {
+        Text(
+            text = stringResource(R.string.edit_logo_label),
+            style = MaterialTheme.typography.labelLarge,
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(top = 4.dp),
+        ) {
+            if (state.logoPath != null) {
+                Surface(
+                    shape = MaterialTheme.shapes.medium,
+                    color = Color.White,
+                    modifier = Modifier.size(64.dp),
+                ) {
+                    AsyncImage(
+                        model = File(state.logoPath),
+                        contentDescription = null,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.padding(6.dp),
+                    )
+                }
+            }
+            TextButton(
+                onClick = {
+                    pickerLauncher.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly),
+                    )
+                },
+            ) {
+                Text(stringResource(R.string.edit_logo_pick))
+            }
+            if (state.logoPath != null) {
+                TextButton(onClick = viewModel::removeLogo) {
+                    Text(stringResource(R.string.edit_logo_remove))
+                }
             }
         }
     }

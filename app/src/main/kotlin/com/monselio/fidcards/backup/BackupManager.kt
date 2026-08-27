@@ -5,6 +5,7 @@ import android.net.Uri
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.data.CardRepository
+import com.monselio.fidcards.data.ImageStore
 import java.io.File
 import java.util.UUID
 import java.util.zip.ZipEntry
@@ -34,11 +35,12 @@ sealed interface BackupResult {
 class BackupManager(
     private val context: Context,
     private val repository: CardRepository,
+    private val imageStore: ImageStore,
 ) {
 
     /** Répertoire local des images de cartes (logos choisis, photos recto/verso). */
     val imagesDir: File
-        get() = File(context.filesDir, "images").apply { mkdirs() }
+        get() = imageStore.dir
 
     suspend fun export(uri: Uri): BackupResult = withContext(Dispatchers.IO) {
         try {

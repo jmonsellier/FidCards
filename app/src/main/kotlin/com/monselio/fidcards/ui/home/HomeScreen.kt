@@ -114,7 +114,7 @@ fun HomeScreen(
 }
 
 @Composable
-private fun CardGrid(cards: List<Card>, onCardClick: (Long) -> Unit) {
+private fun CardGrid(cards: List<HomeCard>, onCardClick: (Long) -> Unit) {
     if (cards.isEmpty()) {
         Text(
             text = stringResource(R.string.home_no_results),
@@ -133,12 +133,12 @@ private fun CardGrid(cards: List<Card>, onCardClick: (Long) -> Unit) {
         verticalArrangement = Arrangement.spacedBy(12.dp),
         modifier = Modifier.fillMaxSize(),
     ) {
-        items(cards, key = { it.id }) { card ->
+        items(cards, key = { it.card.id }) { item ->
             CardTile(
-                card = card,
-                logoModel = card.logoPath,
-                logoOnDark = false,
-                onClick = { onCardClick(card.id) },
+                card = item.card,
+                logoModel = item.logoModel,
+                logoOnDark = item.logoOnDark,
+                onClick = { onCardClick(item.card.id) },
             )
         }
     }

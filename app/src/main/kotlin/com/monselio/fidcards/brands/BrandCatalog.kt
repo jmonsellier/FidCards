@@ -19,16 +19,30 @@ data class Brand(
     val logo: String?,
     /** Pastille sur laquelle poser le logo : `light` ou `dark`, indépendant du thème (§6.3.1). */
     val backgroundDark: Boolean,
-) {
-    val logoAssetUri: String?
-        get() = logo?.let { "file:///android_asset/brands/$it" }
-}
+)
 
 class BrandCatalog(private val context: Context) {
 
     val brands: List<Brand> by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { load() }
 
     private val byId: Map<String, Brand> by lazy { brands.associateBy { it.id } }
+
+    /**
+     * Index des fichiers réellement embarqués, par nom de base : l'optimisation
+     * (tools/optimize-logos.sh) peut changer l'extension (svg rasterisé, png
+     * converti en webp) sans que brands.json ait à suivre.
+     */
+    private val logoFiles: Map<String, String> by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        context.assets.list("brands")
+            ?.associateBy { it.substringBeforeLast('.') }
+            .orEmpty()
+    }
+
+    fun logoAssetUri(brand: Brand?): String? {
+        val declared = brand?.logo ?: return null
+        val actual = logoFiles[declared.substringBeforeLast('.')] ?: return null
+        return "file:///android_asset/brands/$actual"
+    }
 
     private fun load(): List<Brand> {
         val json = context.assets.open("brands.json").bufferedReader().use { it.readText() }

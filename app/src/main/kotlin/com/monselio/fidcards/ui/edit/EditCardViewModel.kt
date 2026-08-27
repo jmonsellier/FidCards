@@ -12,6 +12,7 @@ import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.data.CardRepository
+import com.monselio.fidcards.data.ImageStore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -30,6 +31,8 @@ data class EditUiState(
     /** Enseignes partageant la même carte, à signaler pour éviter les doublons (§6.4). */
     val groupSiblings: List<Brand> = emptyList(),
     val colorArgb: Int? = null,
+    /** Logo choisi à la main (fichier local), prioritaire sur celui du catalogue. */
+    val logoPath: String? = null,
     val suggestions: List<Brand> = emptyList(),
     val nameError: Boolean = false,
     /** La valeur ne s'encode pas dans le format choisi (checksum, caractères, longueur). */
@@ -41,10 +44,15 @@ data class EditUiState(
 class EditCardViewModel(
     private val repository: CardRepository,
     private val catalog: BrandCatalog,
+    private val imageStore: ImageStore,
     private val cardId: Long?,
     scannedValue: String?,
     scannedFormat: BarcodeFormat?,
 ) : ViewModel() {
+
+    /** Fichiers importés pendant l'édition, à purger s'ils ne sont pas enregistrés. */
+    private val pickedLogos = mutableListOf<String>()
+    private var savedLogoPath: String? = null
 
     private val _uiState = MutableStateFlow(
         EditUiState(
@@ -81,6 +89,7 @@ class EditCardViewModel(
                             brand = brand,
                             groupSiblings = siblings,
                             colorArgb = card.colorArgb,
+                            logoPath = card.logoPath,
                         )
                     }
                 }
@@ -139,6 +148,18 @@ class EditCardViewModel(
         _uiState.update { it.copy(colorArgb = argb) }
     }
 
+    fun onLogoPicked(uri: android.net.Uri) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val path = imageStore.import(uri) ?: return@launch
+            pickedLogos += path
+            _uiState.update { it.copy(logoPath = path) }
+        }
+    }
+
+    fun removeLogo() {
+        _uiState.update { it.copy(logoPath = null) }
+    }
+
     fun save() {
         val state = _uiState.value
         val name = state.name.trim()
@@ -161,10 +182,14 @@ class EditCardViewModel(
                         barcodeFormat = state.format,
                         brandId = state.brand?.id,
                         colorArgb = state.colorArgb,
+                        logoPath = state.logoPath,
                         createdAt = System.currentTimeMillis(),
                     ),
                 )
             } else {
+                if (existing.logoPath != state.logoPath) {
+                    imageStore.delete(existing.logoPath)
+                }
                 repository.update(
                     existing.copy(
                         name = name,
@@ -173,9 +198,11 @@ class EditCardViewModel(
                         barcodeFormat = state.format,
                         brandId = state.brand?.id,
                         colorArgb = state.colorArgb,
+                        logoPath = state.logoPath,
                     ),
                 )
             }
+            savedLogoPath = state.logoPath
             _uiState.update { it.copy(saved = true) }
         }
     }
@@ -184,8 +211,16 @@ class EditCardViewModel(
         val card = editedCard ?: return
         viewModelScope.launch {
             repository.delete(card)
+            imageStore.delete(card.logoPath)
+            imageStore.delete(card.frontImagePath)
+            imageStore.delete(card.backImagePath)
             _uiState.update { it.copy(deleted = true) }
         }
+    }
+
+    override fun onCleared() {
+        // Purge des logos importés puis abandonnés (édition annulée ou remplacés).
+        pickedLogos.filter { it != savedLogoPath }.forEach(imageStore::delete)
     }
 
     companion object {
@@ -196,6 +231,7 @@ class EditCardViewModel(
                     EditCardViewModel(
                         repository = app.container.cardRepository,
                         catalog = app.container.brandCatalog,
+                        imageStore = app.container.imageStore,
                         cardId = cardId,
                         scannedValue = scannedValue,
                         scannedFormat = scannedFormat?.let {

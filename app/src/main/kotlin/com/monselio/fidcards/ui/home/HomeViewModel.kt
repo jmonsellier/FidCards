@@ -6,23 +6,35 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.monselio.fidcards.FidCardsApplication
+import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.data.CardRepository
 import com.monselio.fidcards.data.RecencyScore
 import com.monselio.fidcards.settings.SettingsRepository
 import com.monselio.fidcards.settings.SortMode
 import com.monselio.fidcards.util.searchNormalized
+import java.io.File
 import java.text.Collator
 import java.util.Locale
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/** Une carte prête à afficher : logo résolu (fichier perso ou asset du catalogue). */
+data class HomeCard(
+    val card: Card,
+    val logoModel: Any?,
+    /** Cartouche sombre exigé par le logo (§6.3.1), indépendamment du thème. */
+    val logoOnDark: Boolean,
+)
+
 data class HomeUiState(
-    val cards: List<Card> = emptyList(),
+    val cards: List<HomeCard> = emptyList(),
     /** Vrai dès que la première émission de la base est arrivée. */
     val loaded: Boolean = false,
     /** Vrai si la base contient au moins une carte, indépendamment du filtre. */
@@ -33,6 +45,7 @@ data class HomeUiState(
 class HomeViewModel(
     private val repository: CardRepository,
     private val settings: SettingsRepository,
+    private val catalog: BrandCatalog,
 ) : ViewModel() {
 
     private val query = MutableStateFlow("")
@@ -43,12 +56,27 @@ class HomeViewModel(
     val uiState: StateFlow<HomeUiState> =
         combine(repository.observeAll(), query, settings.sortMode) { cards, q, sort ->
             HomeUiState(
-                cards = sort(filter(cards, q), sort),
+                cards = sort(filter(cards, q), sort).map(::toHomeCard),
                 loaded = true,
                 hasAnyCard = cards.isNotEmpty(),
                 sortMode = sort,
             )
-        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
+        }
+            // Le catalogue se charge des assets au premier accès : hors du main thread.
+            .flowOn(Dispatchers.Default)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeUiState())
+
+    private fun toHomeCard(card: Card): HomeCard {
+        card.logoPath?.let { path ->
+            return HomeCard(card, File(path), logoOnDark = false)
+        }
+        val brand = catalog.byId(card.brandId)
+        return HomeCard(
+            card = card,
+            logoModel = catalog.logoAssetUri(brand),
+            logoOnDark = brand?.backgroundDark == true,
+        )
+    }
 
     private fun filter(cards: List<Card>, q: String): List<Card> {
         if (q.isBlank()) return cards
@@ -84,7 +112,11 @@ class HomeViewModel(
         val Factory = viewModelFactory {
             initializer {
                 val app = this[APPLICATION_KEY] as FidCardsApplication
-                HomeViewModel(app.container.cardRepository, app.container.settingsRepository)
+                HomeViewModel(
+                    app.container.cardRepository,
+                    app.container.settingsRepository,
+                    app.container.brandCatalog,
+                )
             }
         }
     }

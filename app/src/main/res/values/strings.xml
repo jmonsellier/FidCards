@@ -39,6 +39,9 @@
     <string name="edit_format_label">Format du code</string>
     <string name="edit_display_value_label">Numéro imprimé (si différent)</string>
     <string name="edit_display_value_help">À renseigner uniquement si le numéro imprimé sur la carte diffère du contenu encodé.</string>
+    <string name="edit_logo_label">Logo</string>
+    <string name="edit_logo_pick">Choisir une image</string>
+    <string name="edit_logo_remove">Retirer</string>
     <string name="edit_color_label">Couleur de la vignette</string>
     <string name="edit_group_info">Carte commune « %1$s » — vaut aussi chez : %2$s. Inutile de créer plusieurs cartes.</string>
     <string name="edit_save">Enregistrer</string>
