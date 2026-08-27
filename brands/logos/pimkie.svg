@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 70 95.00582"
+   fill="none"
+   role="img"
+   aria-label="Custom path"
+   version="1.1"
+   id="svg1"
+   sodipodi:docname="Pimkie logo.svg"
+   width="49"
+   height="66.504074"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.7329677"
+     inkscape:cx="-3.2931234"
+     inkscape:cy="5.3055877"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1" />
+  <path
+     d="m 0,95.000823 v -11.214 h 2.428 c 1.352,0 2.013,0.117 2.674,0.486 0.967,0.556 1.461,1.531 1.461,2.893 0,2.288 -1.158,3.296 -3.752,3.296 H 1.928 v 4.539 z m 2.539,-5.584 c 1.46,0 2.07,-0.655 2.07,-2.254 0,-1.598 -0.634,-2.32 -2.015,-2.32 h -0.66 v 4.575 h 0.605 z m 11.379,5.584 v -11.214 h 1.958 v 11.214 z m 17.768,0 v -6.22 c 0,-0.606 0.028,-1.159 0.083,-2.537 v -0.42 a 103.577,103.577 0 0 1 -0.716,2.96 l -1.739,6.22 h -1.683 l -1.656,-6.02 c -0.33,-1.126 -0.633,-2.304 -0.772,-3.16 v 0.37 c 0,0.133 0.028,0.486 0.056,0.975 0.027,0.756 0.027,1.076 0.027,1.884 v 5.953 h -1.6 v -11.214 h 2.345 l 1.71,5.834 c 0.498,1.715 0.526,1.9 0.773,3.21 l 0.056,0.203 0.027,-0.22 0.167,-0.79 c 0.167,-0.772 0.194,-0.838 0.633,-2.336 l 1.656,-5.9 h 2.316 v 11.213 h -1.683 z m 14.824,0 -3.008,-5.43 -0.58,0.855 v 4.575 h -1.93 v -11.214 h 1.93 v 4.977 l 3.283,-4.977 h 1.85 l -3.256,4.724 3.725,6.49 z m 8.083,0 v -11.214 h 1.958 v 11.214 z m 9.199,0 v -11.198 h 5.986 v 1.06 h -4.055 v 3.732 h 3.116 v 1.092 h -3.117 v 4.255 H 70 v 1.06 h -6.208 z m -32.05,-40.941 c -1.083,-1.707 -1.797,-3.327 -2.189,-4.847 v 28.762 H 0 V 0.00582343 H 29.553 V 43.323823 c 1.436,-5.297 6.636,-9.439 11.686,-13.068 0.016,-0.009 0.022,-0.017 0.03,-0.025 3.272,-2.546 4.666,-5.581 5.155,-6.926 0.017,-0.047 0.233,-0.8 0.245,-0.845 1.98,-7.839 -1.343,-19.0389996 -17.116,-22.45399957 0,0 39.867,-1.17000003 40.439,29.65799957 0.566,30.683 -31.487,35.049 -38.25,24.396 z"
+     fill="currentColor"
+     id="path1" />
+</svg>
