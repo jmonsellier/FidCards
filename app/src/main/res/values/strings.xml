@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">FidCards</string>
+
+    <!-- Accueil -->
+    <string name="home_title" translatable="false">FidCards</string>
+    <string name="home_empty_title">Aucune carte pour l\'instant</string>
+    <string name="home_empty_body">Touchez le bouton + pour ajouter votre première carte de fidélité.</string>
+    <string name="home_add_card">Ajouter une carte</string>
+    <string name="home_search_hint">Rechercher une carte</string>
+    <string name="search_clear">Effacer la recherche</string>
+    <string name="home_no_results">Aucune carte ne correspond à la recherche.</string>
+    <string name="home_sort">Trier</string>
+    <string name="sort_recency">Récemment utilisées</string>
+    <string name="sort_name_asc">Nom A → Z</string>
+    <string name="sort_name_desc">Nom Z → A</string>
+
+    <!-- Plein écran -->
+    <string name="detail_back">Retour</string>
+    <string name="detail_generation_error">Impossible de générer le code. Présentez le numéro ci-dessous en caisse.</string>
+</resources>

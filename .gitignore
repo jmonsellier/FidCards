@@ -1,6 +1,7 @@
 # Android / Gradle
 *.iml
 .gradle/
+.kotlin/
 local.properties
 .idea/
 build/
@@ -11,6 +12,7 @@ captures/
 *.aab
 *.keystore
 *.jks
+keystore.properties
 
 # Sourcing des logos : archives de travail, hors livrable
 brands/_rejetes/
