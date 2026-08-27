@@ -46,4 +46,27 @@
     <string name="edit_delete_confirm_title">Supprimer cette carte ?</string>
     <string name="edit_delete_confirm_text">La carte et ses photos seront définitivement supprimées.</string>
     <string name="action_cancel">Annuler</string>
+
+    <!-- Réglages -->
+    <string name="settings_title">Réglages</string>
+    <string name="settings_open">Réglages</string>
+    <string name="settings_theme">Thème</string>
+    <string name="theme_system">Suivre le système</string>
+    <string name="theme_light">Clair</string>
+    <string name="theme_dark">Sombre</string>
+    <string name="settings_backup">Sauvegarde</string>
+    <string name="settings_export">Exporter les cartes</string>
+    <string name="settings_export_desc">Archive ZIP avec les cartes et leurs images. C\'est l\'unique moyen de migrer vers un autre téléphone.</string>
+    <string name="settings_import">Importer une sauvegarde</string>
+    <string name="settings_import_desc">Restaure une archive ZIP exportée par FidCards.</string>
+    <string name="import_dialog_title">Importer la sauvegarde ?</string>
+    <string name="import_dialog_text">« Fusionner » ajoute les cartes absentes (les doublons sont ignorés). « Remplacer » supprime d\'abord toutes les cartes actuelles.</string>
+    <string name="import_merge">Fusionner</string>
+    <string name="import_replace">Remplacer</string>
+    <string name="backup_export_done">Export terminé : %1$d carte(s).</string>
+    <string name="backup_import_done">Import terminé : %1$d ajoutée(s), %2$d ignorée(s).</string>
+    <string name="backup_error_version">Version de sauvegarde inconnue — mettez d\'abord l\'application à jour.</string>
+    <string name="backup_error_generic">Échec de l\'opération. Vérifiez le fichier choisi.</string>
+    <string name="settings_about">À propos</string>
+    <string name="settings_about_body">Version %1$s · GPL-3.0 · © 2026 Monselio.\nCartes de fidélité du foyer, sans réseau, sans compte, sans traceur.</string>
 </resources>

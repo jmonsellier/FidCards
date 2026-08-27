@@ -11,6 +11,7 @@ import com.monselio.fidcards.ui.edit.EditCardScreen
 import com.monselio.fidcards.ui.home.HomeScreen
 import com.monselio.fidcards.ui.navigation.Destinations
 import com.monselio.fidcards.ui.scan.ScanScreen
+import com.monselio.fidcards.ui.settings.SettingsScreen
 
 @Composable
 fun FidCardsApp() {
@@ -24,7 +25,12 @@ fun FidCardsApp() {
             HomeScreen(
                 onCardClick = { id -> navController.navigate(Destinations.cardDetail(id)) },
                 onAddCard = { navController.navigate(Destinations.SCAN) },
+                onOpenSettings = { navController.navigate(Destinations.SETTINGS) },
             )
+        }
+
+        composable(Destinations.SETTINGS) {
+            SettingsScreen(onBack = { navController.popBackStack() })
         }
 
         composable(

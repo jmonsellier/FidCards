@@ -1,6 +1,7 @@
 package com.monselio.fidcards
 
 import android.content.Context
+import com.monselio.fidcards.backup.BackupManager
 import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.CardRepository
 import com.monselio.fidcards.data.FidCardsDatabase
@@ -19,4 +20,6 @@ class AppContainer(private val context: Context) {
     val settingsRepository: SettingsRepository by lazy { SettingsRepository(context) }
 
     val brandCatalog: BrandCatalog by lazy { BrandCatalog(context) }
+
+    val backupManager: BackupManager by lazy { BackupManager(context, cardRepository) }
 }
