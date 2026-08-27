@@ -4,8 +4,20 @@
 familial proche, via un dépôt GitHub privé. Aucune publication sur les stores pour le
 moment ; le §15 recense ce qu'on garde ouvert pour ne pas fermer cette porte.
 
-**Dernière mise à jour** : 2026-08-25 · **Statut** : cadrage terminé, aucune ligne de code
-écrite.
+**Dernière mise à jour** : 2026-08-27 · **Statut** : phases 0 à 8 implémentées et
+vérifiées sur AVD (Pixel 8, API 35). Restent, sur téléphone physique : le scan caméra
+réel, le test en caisse (§10.2), et côté Jérôme : la création du keystore, le premier
+tag et la release signée (voir README).
+
+**Écarts au cadrage, constatés à l'implémentation** :
+
+| Sujet | Prévu | Réel |
+|---|---|---|
+| Génération des codes | zxing-cpp | `com.google.zxing:core` : l'AAR zxing-cpp 3.1.1 n'expose **aucune** API d'écriture (vérifié dans classes.jar). Java pur, sans Play Services, round-trip testable en JVM |
+| compileSdk | 36 | **37.1** : le BOM Compose 2026.08.00 (Compose 1.12) l'exige |
+| Gradle / plugin Kotlin | — | Gradle 9.7.1 (AGP 9.3.2 refuse 9.3.1) ; AGP 9 intègre Kotlin : `org.jetbrains.kotlin.android` interdit |
+| UPC-E scanné | tel quel | zxing-cpp rapporte le texte étendu EAN-13 : recompression vers la forme courte à 8 chiffres au scan (`UpcE`), verrouillée par test instrumenté |
+| Poids des logos | < 1 Mo | 1,6 Mo d'assets (SVG minifiés, rasters 512 px → WebP) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
 
 ---
 

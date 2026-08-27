@@ -1,9 +1,19 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
 }
+
+// Signature de release : keystore.properties (hors dépôt) à la racine du projet.
+// Le keystore est l'objet le plus irréversible du projet (docs/PROJET.md §14) :
+// à sauvegarder hors du dépôt ET hors de la machine. Sans lui, le build release
+// est signé en debug — installable pour tester, mais à ne jamais distribuer.
+val keystoreProperties: Properties? = rootProject.file("keystore.properties")
+    .takeIf { it.isFile }
+    ?.let { file -> Properties().apply { file.inputStream().use(::load) } }
 
 android {
     namespace = "com.monselio.fidcards"
@@ -16,9 +26,20 @@ android {
         minSdk = 26
         targetSdk = 36
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        if (keystoreProperties != null) {
+            create("release") {
+                storeFile = rootProject.file(keystoreProperties.getProperty("storeFile"))
+                storePassword = keystoreProperties.getProperty("storePassword")
+                keyAlias = keystoreProperties.getProperty("keyAlias")
+                keyPassword = keystoreProperties.getProperty("keyPassword")
+            }
+        }
     }
 
     buildTypes {
@@ -33,6 +54,12 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro",
             )
+            signingConfig = if (keystoreProperties != null) {
+                signingConfigs.getByName("release")
+            } else {
+                logger.warn("keystore.properties absent : release signée en DEBUG, ne pas distribuer.")
+                signingConfigs.getByName("debug")
+            }
         }
     }
 
