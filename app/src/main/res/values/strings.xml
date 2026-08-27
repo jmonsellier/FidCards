@@ -17,5 +17,33 @@
 
     <!-- Plein écran -->
     <string name="detail_back">Retour</string>
+    <string name="detail_edit">Modifier la carte</string>
     <string name="detail_generation_error">Impossible de générer le code. Présentez le numéro ci-dessous en caisse.</string>
+
+    <!-- Scan -->
+    <string name="scan_title">Scanner une carte</string>
+    <string name="scan_hint">Visez le code-barres de la carte. La détection est automatique.</string>
+    <string name="scan_manual_entry">Saisie manuelle</string>
+    <string name="scan_permission_rationale">Sans accès à la caméra, le scan est impossible. Vous pouvez saisir la carte à la main, ou autoriser la caméra.</string>
+    <string name="scan_retry_permission">Autoriser la caméra</string>
+    <string name="scan_camera_unavailable">Aucune caméra utilisable sur cet appareil. Saisissez la carte à la main.</string>
+
+    <!-- Ajout / édition -->
+    <string name="edit_title_new">Nouvelle carte</string>
+    <string name="edit_title_edit">Modifier la carte</string>
+    <string name="edit_name_label">Enseigne</string>
+    <string name="edit_name_help">Le nom affiché sur la vignette. L\'autocomplétion propose les enseignes connues.</string>
+    <string name="edit_name_error">Le nom est obligatoire.</string>
+    <string name="edit_value_label">Contenu du code</string>
+    <string name="edit_value_error">Cette valeur ne s\'encode pas dans le format choisi (longueur, caractères ou clé de contrôle).</string>
+    <string name="edit_format_label">Format du code</string>
+    <string name="edit_display_value_label">Numéro imprimé (si différent)</string>
+    <string name="edit_display_value_help">À renseigner uniquement si le numéro imprimé sur la carte diffère du contenu encodé.</string>
+    <string name="edit_color_label">Couleur de la vignette</string>
+    <string name="edit_group_info">Carte commune « %1$s » — vaut aussi chez : %2$s. Inutile de créer plusieurs cartes.</string>
+    <string name="edit_save">Enregistrer</string>
+    <string name="edit_delete">Supprimer</string>
+    <string name="edit_delete_confirm_title">Supprimer cette carte ?</string>
+    <string name="edit_delete_confirm_text">La carte et ses photos seront définitivement supprimées.</string>
+    <string name="action_cancel">Annuler</string>
 </resources>

@@ -1,19 +1,16 @@
 package com.monselio.fidcards.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.monselio.fidcards.ui.detail.CardDetailScreen
+import com.monselio.fidcards.ui.edit.EditCardScreen
 import com.monselio.fidcards.ui.home.HomeScreen
 import com.monselio.fidcards.ui.navigation.Destinations
+import com.monselio.fidcards.ui.scan.ScanScreen
 
 @Composable
 fun FidCardsApp() {
@@ -26,7 +23,7 @@ fun FidCardsApp() {
         composable(Destinations.HOME) {
             HomeScreen(
                 onCardClick = { id -> navController.navigate(Destinations.cardDetail(id)) },
-                onAddCard = { navController.navigate(Destinations.editNew()) },
+                onAddCard = { navController.navigate(Destinations.SCAN) },
             )
         }
 
@@ -35,19 +32,59 @@ fun FidCardsApp() {
             arguments = listOf(navArgument("cardId") { type = NavType.LongType }),
         ) { entry ->
             val cardId = entry.arguments?.getLong("cardId") ?: 0L
-            CardDetailScreen(cardId = cardId, onBack = { navController.popBackStack() })
+            CardDetailScreen(
+                cardId = cardId,
+                onBack = { navController.popBackStack() },
+                onEdit = { navController.navigate(Destinations.edit(cardId)) },
+            )
         }
 
-        composable(Destinations.EDIT) {
-            // Remplacé par l'écran d'ajout / édition en phase 4.
-            PlaceholderScreen("Ajout / édition — à venir")
+        composable(Destinations.SCAN) {
+            ScanScreen(
+                onScanned = { value, format ->
+                    navController.navigate(Destinations.editScanned(value, format.name)) {
+                        popUpTo(Destinations.HOME)
+                    }
+                },
+                onManualEntry = {
+                    navController.navigate(Destinations.editNew()) {
+                        popUpTo(Destinations.HOME)
+                    }
+                },
+                onBack = { navController.popBackStack() },
+            )
         }
-    }
-}
 
-@Composable
-private fun PlaceholderScreen(label: String) {
-    Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(label)
+        composable(
+            route = Destinations.EDIT,
+            arguments = listOf(
+                navArgument("cardId") {
+                    type = NavType.LongType
+                    defaultValue = -1L
+                },
+                navArgument("value") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+                navArgument("format") {
+                    type = NavType.StringType
+                    nullable = true
+                    defaultValue = null
+                },
+            ),
+        ) { entry ->
+            val args = entry.arguments
+            val cardId = args?.getLong("cardId")?.takeIf { it >= 0 }
+            EditCardScreen(
+                cardId = cardId,
+                scannedValue = args?.getString("value"),
+                scannedFormat = args?.getString("format"),
+                onDone = { navController.popBackStack() },
+                onDeleted = {
+                    navController.popBackStack(Destinations.HOME, inclusive = false)
+                },
+            )
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.monselio.fidcards
 
 import android.content.Context
+import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.CardRepository
 import com.monselio.fidcards.data.FidCardsDatabase
 import com.monselio.fidcards.settings.SettingsRepository
@@ -16,4 +17,6 @@ class AppContainer(private val context: Context) {
     val cardRepository: CardRepository by lazy { CardRepository(database.cardDao()) }
 
     val settingsRepository: SettingsRepository by lazy { SettingsRepository(context) }
+
+    val brandCatalog: BrandCatalog by lazy { BrandCatalog(context) }
 }

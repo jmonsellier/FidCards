@@ -15,6 +15,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -57,6 +58,7 @@ import com.monselio.fidcards.data.BarcodeFormat
 fun CardDetailScreen(
     cardId: Long,
     onBack: () -> Unit,
+    onEdit: () -> Unit,
     viewModel: CardDetailViewModel = viewModel(
         key = "card-$cardId",
         factory = CardDetailViewModel.factory(cardId),
@@ -110,6 +112,14 @@ fun CardDetailScreen(
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(R.string.detail_back),
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = onEdit) {
+                        Icon(
+                            Icons.Default.Edit,
+                            contentDescription = stringResource(R.string.detail_edit),
                         )
                     }
                 },
