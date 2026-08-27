@@ -1,6 +1,11 @@
 package com.monselio.fidcards.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,8 +19,20 @@ import com.monselio.fidcards.ui.scan.ScanScreen
 import com.monselio.fidcards.ui.settings.SettingsScreen
 
 @Composable
-fun FidCardsApp() {
+fun FidCardsApp(startCardId: Long? = null) {
     val navController = rememberNavController()
+
+    // Navigation initiale d'un raccourci, consommée une seule fois (survit à la
+    // recréation via rememberSaveable).
+    var startConsumed by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        if (!startConsumed) {
+            startConsumed = true
+            if (startCardId != null) {
+                navController.navigate(Destinations.cardDetail(startCardId))
+            }
+        }
+    }
 
     NavHost(
         navController = navController,

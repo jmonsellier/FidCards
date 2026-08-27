@@ -39,6 +39,7 @@ fun CardTile(
     logoOnDark: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isPhoto: Boolean = false,
 ) {
     Surface(
         onClick = onClick,
@@ -54,27 +55,37 @@ fun CardTile(
                     .aspectRatio(1.586f),
                 contentAlignment = Alignment.Center,
             ) {
-                if (logoModel != null) {
-                    // Cartouche du logo : blanc ou sombre selon le champ `background`
-                    // de l'enseigne, jamais selon le thème (un logo noir disparaîtrait
-                    // en thème sombre).
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(if (logoOnDark) Color(0xFF20242B) else Color.White),
-                        contentAlignment = Alignment.Center,
-                    ) {
+                when {
+                    logoModel != null && isPhoto -> {
+                        // Photo recto : la carte elle-même, plein cadre.
                         AsyncImage(
                             model = logoModel,
                             contentDescription = card.name,
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 20.dp, vertical = 16.dp),
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize(),
                         )
                     }
-                } else {
-                    InitialsSwatch(card)
+                    logoModel != null -> {
+                        // Cartouche du logo : blanc ou sombre selon le champ `background`
+                        // de l'enseigne, jamais selon le thème (un logo noir disparaîtrait
+                        // en thème sombre).
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(if (logoOnDark) Color(0xFF20242B) else Color.White),
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            AsyncImage(
+                                model = logoModel,
+                                contentDescription = card.name,
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(horizontal = 20.dp, vertical = 16.dp),
+                            )
+                        }
+                    }
+                    else -> InitialsSwatch(card)
                 }
             }
             Text(

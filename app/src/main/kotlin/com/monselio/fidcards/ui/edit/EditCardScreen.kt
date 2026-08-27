@@ -161,7 +161,24 @@ fun EditCardScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
-            LogoPicker(state = state, viewModel = viewModel)
+            ImagePickRow(
+                label = stringResource(R.string.edit_logo_label),
+                path = state.logoPath,
+                onPick = { viewModel.onImagePicked(CardImageKind.LOGO, it) },
+                onRemove = { viewModel.removeImage(CardImageKind.LOGO) },
+            )
+            ImagePickRow(
+                label = stringResource(R.string.edit_front_label),
+                path = state.frontPath,
+                onPick = { viewModel.onImagePicked(CardImageKind.FRONT, it) },
+                onRemove = { viewModel.removeImage(CardImageKind.FRONT) },
+            )
+            ImagePickRow(
+                label = stringResource(R.string.edit_back_label),
+                path = state.backPath,
+                onPick = { viewModel.onImagePicked(CardImageKind.BACK, it) },
+                onRemove = { viewModel.removeImage(CardImageKind.BACK) },
+            )
 
             if (state.brand == null && state.logoPath == null) {
                 ColorPicker(
@@ -277,32 +294,37 @@ private fun FormatField(current: BarcodeFormat, onSelect: (BarcodeFormat) -> Uni
 }
 
 /**
- * Logo choisi depuis la galerie via le Photo Picker — donc sans permission de
- * stockage (§7). Prioritaire sur le logo du catalogue et sur la pastille.
+ * Choix d'une image (logo, recto, verso) via le Photo Picker — donc sans
+ * permission de stockage (§7).
  */
 @Composable
-private fun LogoPicker(state: EditUiState, viewModel: EditCardViewModel) {
+private fun ImagePickRow(
+    label: String,
+    path: String?,
+    onPick: (android.net.Uri) -> Unit,
+    onRemove: () -> Unit,
+) {
     val pickerLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.PickVisualMedia(),
-    ) { uri -> uri?.let(viewModel::onLogoPicked) }
+    ) { uri -> uri?.let(onPick) }
 
     Column {
         Text(
-            text = stringResource(R.string.edit_logo_label),
+            text = label,
             style = MaterialTheme.typography.labelLarge,
         )
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(top = 4.dp),
         ) {
-            if (state.logoPath != null) {
+            if (path != null) {
                 Surface(
                     shape = MaterialTheme.shapes.medium,
                     color = Color.White,
                     modifier = Modifier.size(64.dp),
                 ) {
                     AsyncImage(
-                        model = File(state.logoPath),
+                        model = File(path),
                         contentDescription = null,
                         contentScale = ContentScale.Fit,
                         modifier = Modifier.padding(6.dp),
@@ -318,8 +340,8 @@ private fun LogoPicker(state: EditUiState, viewModel: EditCardViewModel) {
             ) {
                 Text(stringResource(R.string.edit_logo_pick))
             }
-            if (state.logoPath != null) {
-                TextButton(onClick = viewModel::removeLogo) {
+            if (path != null) {
+                TextButton(onClick = onRemove) {
                     Text(stringResource(R.string.edit_logo_remove))
                 }
             }

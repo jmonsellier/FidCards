@@ -3,7 +3,9 @@ package com.monselio.fidcards.ui.detail
 import android.content.pm.ActivityInfo
 import android.view.WindowManager
 import androidx.activity.compose.LocalActivity
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -27,12 +29,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
@@ -43,9 +49,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil3.compose.AsyncImage
 import com.monselio.fidcards.R
 import com.monselio.fidcards.barcode.generateBarcodeBitmap
 import com.monselio.fidcards.data.BarcodeFormat
+import java.io.File
 
 /**
  * Le cœur de l'app (docs/PROJET.md §5.2) : luminosité à 100 %, écran maintenu
@@ -127,6 +135,8 @@ fun CardDetailScreen(
         },
     ) { innerPadding ->
         val current = card ?: return@Scaffold
+        var showBack by rememberSaveable { mutableStateOf(false) }
+        val hasBack = current.backImagePath != null
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -140,23 +150,50 @@ fun CardDetailScreen(
             Surface(
                 shape = MaterialTheme.shapes.extraLarge,
                 color = Color.White,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(
+                        if (hasBack) Modifier.clickable { showBack = !showBack } else Modifier,
+                    ),
             ) {
-                Column(
-                    modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    BarcodeImage(
-                        value = current.barcodeValue,
-                        format = current.barcodeFormat,
-                    )
-                    NumberText(
-                        value = current.numberToDisplay,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 20.dp),
-                    )
+                Crossfade(targetState = showBack && hasBack, label = "recto-verso") { back ->
+                    if (back) {
+                        AsyncImage(
+                            model = File(current.backImagePath.orEmpty()),
+                            contentDescription = stringResource(R.string.detail_back_photo),
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                        )
+                    } else {
+                        Column(
+                            modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            BarcodeImage(
+                                value = current.barcodeValue,
+                                format = current.barcodeFormat,
+                            )
+                            NumberText(
+                                value = current.numberToDisplay,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 20.dp),
+                            )
+                        }
+                    }
                 }
+            }
+            if (hasBack) {
+                Text(
+                    text = stringResource(
+                        if (showBack) R.string.detail_show_front else R.string.detail_show_back,
+                    ),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(top = 12.dp),
+                )
             }
         }
     }

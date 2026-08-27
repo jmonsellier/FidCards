@@ -19,6 +19,9 @@
     <string name="detail_back">Retour</string>
     <string name="detail_edit">Modifier la carte</string>
     <string name="detail_generation_error">Impossible de générer le code. Présentez le numéro ci-dessous en caisse.</string>
+    <string name="detail_back_photo">Verso de la carte</string>
+    <string name="detail_show_back">Touchez la carte pour voir le verso.</string>
+    <string name="detail_show_front">Touchez la carte pour revenir au code.</string>
 
     <!-- Scan -->
     <string name="scan_title">Scanner une carte</string>
@@ -40,6 +43,8 @@
     <string name="edit_display_value_label">Numéro imprimé (si différent)</string>
     <string name="edit_display_value_help">À renseigner uniquement si le numéro imprimé sur la carte diffère du contenu encodé.</string>
     <string name="edit_logo_label">Logo</string>
+    <string name="edit_front_label">Photo recto</string>
+    <string name="edit_back_label">Photo verso</string>
     <string name="edit_logo_pick">Choisir une image</string>
     <string name="edit_logo_remove">Retirer</string>
     <string name="edit_color_label">Couleur de la vignette</string>

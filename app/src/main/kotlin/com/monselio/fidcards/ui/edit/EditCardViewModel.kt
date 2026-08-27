@@ -20,6 +20,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+enum class CardImageKind { LOGO, FRONT, BACK }
+
 data class EditUiState(
     val loaded: Boolean = false,
     val isNew: Boolean = true,
@@ -33,6 +35,8 @@ data class EditUiState(
     val colorArgb: Int? = null,
     /** Logo choisi à la main (fichier local), prioritaire sur celui du catalogue. */
     val logoPath: String? = null,
+    val frontPath: String? = null,
+    val backPath: String? = null,
     val suggestions: List<Brand> = emptyList(),
     val nameError: Boolean = false,
     /** La valeur ne s'encode pas dans le format choisi (checksum, caractères, longueur). */
@@ -51,8 +55,8 @@ class EditCardViewModel(
 ) : ViewModel() {
 
     /** Fichiers importés pendant l'édition, à purger s'ils ne sont pas enregistrés. */
-    private val pickedLogos = mutableListOf<String>()
-    private var savedLogoPath: String? = null
+    private val pickedImages = mutableListOf<String>()
+    private var savedImagePaths: Set<String> = emptySet()
 
     private val _uiState = MutableStateFlow(
         EditUiState(
@@ -90,6 +94,8 @@ class EditCardViewModel(
                             groupSiblings = siblings,
                             colorArgb = card.colorArgb,
                             logoPath = card.logoPath,
+                            frontPath = card.frontImagePath,
+                            backPath = card.backImagePath,
                         )
                     }
                 }
@@ -148,16 +154,28 @@ class EditCardViewModel(
         _uiState.update { it.copy(colorArgb = argb) }
     }
 
-    fun onLogoPicked(uri: android.net.Uri) {
+    fun onImagePicked(kind: CardImageKind, uri: android.net.Uri) {
         viewModelScope.launch(Dispatchers.IO) {
             val path = imageStore.import(uri) ?: return@launch
-            pickedLogos += path
-            _uiState.update { it.copy(logoPath = path) }
+            pickedImages += path
+            _uiState.update {
+                when (kind) {
+                    CardImageKind.LOGO -> it.copy(logoPath = path)
+                    CardImageKind.FRONT -> it.copy(frontPath = path)
+                    CardImageKind.BACK -> it.copy(backPath = path)
+                }
+            }
         }
     }
 
-    fun removeLogo() {
-        _uiState.update { it.copy(logoPath = null) }
+    fun removeImage(kind: CardImageKind) {
+        _uiState.update {
+            when (kind) {
+                CardImageKind.LOGO -> it.copy(logoPath = null)
+                CardImageKind.FRONT -> it.copy(frontPath = null)
+                CardImageKind.BACK -> it.copy(backPath = null)
+            }
+        }
     }
 
     fun save() {
@@ -183,13 +201,18 @@ class EditCardViewModel(
                         brandId = state.brand?.id,
                         colorArgb = state.colorArgb,
                         logoPath = state.logoPath,
+                        frontImagePath = state.frontPath,
+                        backImagePath = state.backPath,
                         createdAt = System.currentTimeMillis(),
                     ),
                 )
             } else {
-                if (existing.logoPath != state.logoPath) {
-                    imageStore.delete(existing.logoPath)
-                }
+                // Les images remplacées ou retirées sont supprimées du disque.
+                listOf(
+                    existing.logoPath to state.logoPath,
+                    existing.frontImagePath to state.frontPath,
+                    existing.backImagePath to state.backPath,
+                ).forEach { (old, new) -> if (old != new) imageStore.delete(old) }
                 repository.update(
                     existing.copy(
                         name = name,
@@ -199,10 +222,12 @@ class EditCardViewModel(
                         brandId = state.brand?.id,
                         colorArgb = state.colorArgb,
                         logoPath = state.logoPath,
+                        frontImagePath = state.frontPath,
+                        backImagePath = state.backPath,
                     ),
                 )
             }
-            savedLogoPath = state.logoPath
+            savedImagePaths = setOfNotNull(state.logoPath, state.frontPath, state.backPath)
             _uiState.update { it.copy(saved = true) }
         }
     }
@@ -219,8 +244,8 @@ class EditCardViewModel(
     }
 
     override fun onCleared() {
-        // Purge des logos importés puis abandonnés (édition annulée ou remplacés).
-        pickedLogos.filter { it != savedLogoPath }.forEach(imageStore::delete)
+        // Purge des images importées puis abandonnées (édition annulée ou remplacées).
+        pickedImages.filterNot { it in savedImagePaths }.forEach(imageStore::delete)
     }
 
     companion object {
