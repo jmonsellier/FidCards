@@ -52,11 +52,31 @@ Prérequis : JDK 17, SDK Android (compileSdk 37.1).
    `app/build.gradle.kts`, puis :
 
    ```bash
-   ./gradlew assembleRelease
+   ./gradlew assembleRelease bundleRelease
    git tag v1.0.0 && git push --tags
    gh release create v1.0.0 app/build/outputs/apk/release/app-release.apk \
      --title "FidCards 1.0.0" --notes "…"
    ```
+
+### Canal retenu : tests internes du Play Store
+
+Plus simple qu'Obtainium pour le foyer : installation et mises à jour par le
+Play Store, sans token. Dans la [Play Console](https://play.google.com/console) :
+
+1. Créer l'app (FidCards, application, gratuite) ; déclarations triviales —
+   aucune donnée collectée, aucune permission sensible (`CAMERA` seule) ;
+2. accepter **Play App Signing** : la clé locale devient une simple clé
+   d'upload, remplaçable auprès de Google en cas de perte ;
+3. Tests internes → créer une liste de testeurs avec les adresses Gmail du
+   foyer → téléverser `app/build/outputs/bundle/release/app-release.aab` ;
+4. partager le lien d'activation aux testeurs ; chaque nouvelle version est
+   un simple upload d'AAB sur la même piste (versionCode incrémenté).
+
+La piste interne reste limitée à des testeurs nommés : la logique « cercle
+familial, pas de redistribution publique » des logos est préservée. **Un seul
+canal par téléphone** : l'APK GitHub (clé Monselio) et le build Play (clé
+Google) ont des signatures différentes — passer de l'un à l'autre impose une
+désinstallation, donc un export/import ZIP.
 
 ## Installation dans le foyer (Obtainium)
 
