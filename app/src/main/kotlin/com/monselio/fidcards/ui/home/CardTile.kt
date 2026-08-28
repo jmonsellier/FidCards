@@ -47,6 +47,7 @@ fun CardTile(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isPhoto: Boolean = false,
+    brandColorArgb: Int? = null,
 ) {
     Surface(
         onClick = onClick,
@@ -69,23 +70,27 @@ fun CardTile(
                         modifier = Modifier.fillMaxSize(),
                     )
                 }
-                logoModel != null -> LogoFace(card, logoModel, logoOnDark)
-                else -> InitialsSwatch(card)
+                logoModel != null -> LogoFace(card, logoModel, logoOnDark, brandColorArgb)
+                else -> InitialsSwatch(card, brandColorArgb)
             }
         }
     }
 }
 
 @Composable
-private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean) {
-    // Fond de la tuile, décidé au chargement du logo :
-    // 1. fichier à fond opaque uniforme → la tuile reprend ce fond (le logo
-    //    « déborde ») ;
-    // 2. fond transparent → pastel dérivé de la teinte dominante du logo
-    //    (assombri pour les logos exigeant un fond sombre, §6.3.1) ;
-    // 3. logo monochrome ou illisible → cartouche neutre clair/sombre,
-    //    indépendant du thème — un logo noir disparaîtrait en thème sombre.
-    var tileColor by remember(logoModel) { mutableStateOf<Color?>(null) }
+private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean, brandColorArgb: Int?) {
+    // Fond de la tuile :
+    // 1. pastel de la couleur primaire officielle de l'enseigne (catalogue),
+    //    appliqué immédiatement — assombri pour les logos exigeant un fond
+    //    sombre (§6.3.1) ;
+    // 2. au chargement du logo : un fichier à fond opaque uniforme impose son
+    //    fond (le logo « déborde », un pastel derrière montrerait un rectangle) ;
+    // 3. sans couleur au catalogue : pastel dérivé de la teinte dominante des
+    //    pixels, ou cartouche neutre si le logo est monochrome.
+    val brandPastel = remember(brandColorArgb, logoOnDark) {
+        brandColorArgb?.let { pastelOf(it, logoOnDark) }
+    }
+    var tileColor by remember(logoModel) { mutableStateOf(brandPastel) }
     val fallback = if (logoOnDark) Color(0xFF20242B) else Color.White
 
     Box(
@@ -103,10 +108,15 @@ private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean) {
             contentDescription = card.name,
             contentScale = ContentScale.Fit,
             onSuccess = { state ->
-                tileColor = runCatching {
+                runCatching {
                     val bitmap = state.result.image.toBitmap()
-                    edgeBackgroundColor(bitmap) ?: dominantPastel(bitmap, logoOnDark)
-                }.getOrNull()
+                    val edge = edgeBackgroundColor(bitmap)
+                    tileColor = when {
+                        edge != null -> edge
+                        brandPastel != null -> brandPastel
+                        else -> dominantPastel(bitmap, logoOnDark)
+                    }
+                }
             },
             modifier = Modifier
                 .fillMaxSize()
@@ -116,8 +126,12 @@ private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean) {
 }
 
 @Composable
-private fun InitialsSwatch(card: Card) {
-    val color = card.colorArgb?.let { Color(it) } ?: colorFromName(card.name)
+private fun InitialsSwatch(card: Card, brandColorArgb: Int? = null) {
+    // Priorité : couleur choisie par l'utilisateur, couleur officielle de
+    // l'enseigne, couleur dérivée du nom.
+    val color = card.colorArgb?.let { Color(it) }
+        ?: brandColorArgb?.let { Color(it) }
+        ?: colorFromName(card.name)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -249,9 +263,31 @@ internal fun dominantPastel(bitmap: Bitmap, dark: Boolean): Color? {
     if (weight[best] <= 0f) return null
     val hue = hueSum[best] / weight[best]
     val sat = satSum[best] / weight[best]
-    return if (dark) {
-        Color.hsl(hue, (sat * 0.5f).coerceIn(0.2f, 0.5f), 0.22f)
-    } else {
-        Color.hsl(hue, (sat * 0.55f).coerceIn(0.15f, 0.45f), 0.90f)
+    return pastelHsl(hue, sat, dark)
+}
+
+/** Pastel d'une couleur primaire d'enseigne : même teinte, très éclaircie. */
+internal fun pastelOf(argb: Int, dark: Boolean): Color {
+    val r = ((argb shr 16) and 0xFF) / 255f
+    val g = ((argb shr 8) and 0xFF) / 255f
+    val b = (argb and 0xFF) / 255f
+    val max = maxOf(r, g, b)
+    val min = minOf(r, g, b)
+    val delta = max - min
+    if (delta < 1e-5f) return if (dark) Color(0xFF20242B) else Color(0xFFEEEEEE)
+    val lightness = (max + min) / 2f
+    val sat = delta / (1f - abs(2f * lightness - 1f)).coerceAtLeast(1e-5f)
+    var hue = when (max) {
+        r -> 60f * (((g - b) / delta) % 6f)
+        g -> 60f * ((b - r) / delta + 2f)
+        else -> 60f * ((r - g) / delta + 4f)
     }
+    if (hue < 0f) hue += 360f
+    return pastelHsl(hue, sat, dark)
+}
+
+private fun pastelHsl(hue: Float, sat: Float, dark: Boolean): Color = if (dark) {
+    Color.hsl(hue, (sat * 0.5f).coerceIn(0.2f, 0.5f), 0.22f)
+} else {
+    Color.hsl(hue, (sat * 0.55f).coerceIn(0.15f, 0.45f), 0.90f)
 }

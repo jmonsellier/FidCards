@@ -19,6 +19,8 @@ data class Brand(
     val logo: String?,
     /** Pastille sur laquelle poser le logo : `light` ou `dark`, indépendant du thème (§6.3.1). */
     val backgroundDark: Boolean,
+    /** Couleur primaire officielle (seed_brands_3.csv), ARGB opaque, nulle si inconnue. */
+    val colorArgb: Int?,
 )
 
 class BrandCatalog(private val context: Context) {
@@ -59,6 +61,9 @@ class BrandCatalog(private val context: Context) {
                         cardGroup = o.optString("cardGroup").takeIf { it.isNotBlank() },
                         logo = o.optString("logo").takeIf { it.isNotBlank() },
                         backgroundDark = o.optString("background") == "dark",
+                        colorArgb = o.optString("color")
+                            .takeIf { Regex("^#[0-9a-fA-F]{6}$").matches(it) }
+                            ?.let { 0xFF000000.toInt() or it.substring(1).toInt(16) },
                     ),
                 )
             }

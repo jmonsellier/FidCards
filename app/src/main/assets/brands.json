@@ -12,7 +12,8 @@
     "h": 628,
     "validated": true,
     "background": "light",
-    "groupLead": true
+    "groupLead": true,
+    "color": "#0970E6"
   },
   {
     "id": "carrefourmarket",
@@ -27,7 +28,8 @@
     "h": 628,
     "validated": true,
     "background": "light",
-    "groupLogoFrom": "carrefour"
+    "groupLogoFrom": "carrefour",
+    "color": "#0970E6"
   },
   {
     "id": "carrefourcity",
@@ -42,7 +44,8 @@
     "h": 280,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "carrefour"
+    "groupLogoFrom": "carrefour",
+    "color": "#0970E6"
   },
   {
     "id": "eleclerc",
@@ -56,7 +59,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#0066CC"
   },
   {
     "id": "intermarche",
@@ -68,7 +72,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E2001A"
   },
   {
     "id": "netto",
@@ -82,7 +87,8 @@
     "background": "light",
     "w": null,
     "h": null,
-    "validated": true
+    "validated": true,
+    "color": "#EC6608"
   },
   {
     "id": "superu",
@@ -97,7 +103,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLead": true
+    "groupLead": true,
+    "color": "#AD5D21"
   },
   {
     "id": "hyperu",
@@ -112,7 +119,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "superu"
+    "groupLogoFrom": "superu",
+    "color": "#AD5D21"
   },
   {
     "id": "auchan",
@@ -127,7 +135,8 @@
     "h": null,
     "validated": true,
     "background": "light",
-    "groupLead": true
+    "groupLead": true,
+    "color": "#E0001A"
   },
   {
     "id": "geantcasino",
@@ -140,7 +149,8 @@
     "license": "unknown",
     "validated": true,
     "background": "light",
-    "groupLogoFrom": "casinoshop"
+    "groupLogoFrom": "casinoshop",
+    "color": "#01542A"
   },
   {
     "id": "casinosupermarche",
@@ -155,7 +165,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "casinoshop"
+    "groupLogoFrom": "casinoshop",
+    "color": "#E1002B"
   },
   {
     "id": "monoprix",
@@ -170,7 +181,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#E41F13"
   },
   {
     "id": "franprix",
@@ -184,7 +196,8 @@
     "w": 1200,
     "h": 630,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#EC6237"
   },
   {
     "id": "cora",
@@ -196,7 +209,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#0970E6"
   },
   {
     "id": "match",
@@ -210,7 +224,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#C8282D"
   },
   {
     "id": "aldi",
@@ -224,7 +239,8 @@
     "w": 1222,
     "h": 1280,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#202B78"
   },
   {
     "id": "lidl",
@@ -238,7 +254,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#0050AA"
   },
   {
     "id": "grandfrais",
@@ -250,7 +267,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#BDD642"
   },
   {
     "id": "biocoop",
@@ -262,7 +280,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#034EA2"
   },
   {
     "id": "naturalia",
@@ -274,7 +293,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#BD2B0B"
   },
   {
     "id": "lavieclaire",
@@ -288,7 +308,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#378473"
   },
   {
     "id": "picard",
@@ -302,7 +323,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#000BF7"
   },
   {
     "id": "thiriet",
@@ -314,7 +336,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#DA291C"
   },
   {
     "id": "sephora",
@@ -328,7 +351,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "marionnaud",
@@ -342,7 +366,8 @@
     "w": 960,
     "h": 238,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#7B1F6D"
   },
   {
     "id": "nocibe",
@@ -356,7 +381,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#BF3E35"
   },
   {
     "id": "yvesrocher",
@@ -370,7 +396,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#2F4098"
   },
   {
     "id": "thebodyshop",
@@ -384,7 +411,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#004236"
   },
   {
     "id": "loccitaneenprovence",
@@ -398,7 +426,8 @@
     "w": 2000,
     "h": 457,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FBF9F6"
   },
   {
     "id": "leroymerlin",
@@ -410,7 +439,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#7BB51C"
   },
   {
     "id": "castorama",
@@ -425,7 +455,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#FFDC00"
   },
   {
     "id": "bricomarche",
@@ -439,7 +470,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FE0000"
   },
   {
     "id": "bricodepot",
@@ -453,7 +485,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E30613"
   },
   {
     "id": "weldom",
@@ -467,7 +500,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#F25C19"
   },
   {
     "id": "gammvert",
@@ -479,7 +513,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#006C50"
   },
   {
     "id": "jardiland",
@@ -495,7 +530,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#D14800"
   },
   {
     "id": "truffaut",
@@ -507,7 +543,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#014E37"
   },
   {
     "id": "kiabi",
@@ -521,7 +558,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "zara",
@@ -533,7 +571,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#000000"
   },
   {
     "id": "hm",
@@ -547,7 +586,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#E50010"
   },
   {
     "id": "celio",
@@ -561,7 +601,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#010101"
   },
   {
     "id": "jules",
@@ -575,7 +616,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#006451"
   },
   {
     "id": "etam",
@@ -589,7 +631,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#343B6E"
   },
   {
     "id": "lahalle",
@@ -603,7 +646,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#010101"
   },
   {
     "id": "undiz",
@@ -617,7 +661,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#345492"
   },
   {
     "id": "promod",
@@ -632,7 +677,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "decathlon",
@@ -646,7 +692,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#3643BA"
   },
   {
     "id": "intersport",
@@ -660,7 +707,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#164194"
   },
   {
     "id": "gosport",
@@ -674,7 +722,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#B1BB1E"
   },
   {
     "id": "courir",
@@ -689,7 +738,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#00629B"
   },
   {
     "id": "fnac",
@@ -701,7 +751,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#F5B027"
   },
   {
     "id": "cultura",
@@ -713,7 +764,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FFFFFE"
   },
   {
     "id": "cdiscount",
@@ -727,7 +779,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#FD5272"
   },
   {
     "id": "boulanger",
@@ -742,7 +795,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#F1650A"
   },
   {
     "id": "darty",
@@ -756,7 +810,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#DE271D"
   },
   {
     "id": "electrodepot",
@@ -768,7 +823,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#05171D"
   },
   {
     "id": "micromania",
@@ -782,7 +838,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#52AE32"
   },
   {
     "id": "totalenergies",
@@ -794,7 +851,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#0071FF"
   },
   {
     "id": "esso",
@@ -810,7 +868,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#E2733A"
   },
   {
     "id": "bp",
@@ -824,7 +883,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#009900"
   },
   {
     "id": "avia",
@@ -836,7 +896,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#87A6D4"
   },
   {
     "id": "mcdonalds",
@@ -848,7 +909,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FFCC00"
   },
   {
     "id": "burgerking",
@@ -862,7 +924,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#ABA49A"
   },
   {
     "id": "kfc",
@@ -874,7 +937,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E4002B"
   },
   {
     "id": "quick",
@@ -886,7 +950,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#D6964A"
   },
   {
     "id": "subway",
@@ -900,7 +965,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#FBBB00"
   },
   {
     "id": "dominospizza",
@@ -914,7 +980,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#0077AA"
   },
   {
     "id": "starbucks",
@@ -926,7 +993,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#006241"
   },
   {
     "id": "paul",
@@ -938,7 +1006,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#3552D6"
   },
   {
     "id": "columbuscafe",
@@ -952,7 +1021,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#FFAD00"
   },
   {
     "id": "krys",
@@ -966,7 +1036,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FE645C"
   },
   {
     "id": "alainafflelou",
@@ -980,7 +1051,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#C3A269"
   },
   {
     "id": "optic2000",
@@ -994,7 +1066,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#0828F2"
   },
   {
     "id": "grandoptical",
@@ -1010,7 +1083,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#C0A475"
   },
   {
     "id": "maxizoo",
@@ -1024,7 +1098,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#EE2F24"
   },
   {
     "id": "animalis",
@@ -1038,7 +1113,8 @@
     "w": 950,
     "h": 200,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E2000D"
   },
   {
     "id": "ikea",
@@ -1052,7 +1128,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#FFDB00"
   },
   {
     "id": "but",
@@ -1064,7 +1141,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E3001B"
   },
   {
     "id": "conforama",
@@ -1076,7 +1154,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#E30613"
   },
   {
     "id": "maisonsdumonde",
@@ -1090,7 +1169,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#D6403F"
   },
   {
     "id": "joueclub",
@@ -1104,7 +1184,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#EC1117"
   },
   {
     "id": "kingjouet",
@@ -1119,7 +1200,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#004443"
   },
   {
     "id": "bebe9",
@@ -1133,7 +1215,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#9B907C"
   },
   {
     "id": "aubert",
@@ -1147,7 +1230,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E9514F"
   },
   {
     "id": "gibertjoseph",
@@ -1161,7 +1245,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#194285"
   },
   {
     "id": "decitre",
@@ -1175,7 +1260,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#D18E54"
   },
   {
     "id": "norauto",
@@ -1189,7 +1275,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#002B6F"
   },
   {
     "id": "feuvert",
@@ -1203,7 +1290,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#1A3B28"
   },
   {
     "id": "speedy",
@@ -1217,7 +1305,8 @@
     "w": 172,
     "h": 150,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#00ACED"
   },
   {
     "id": "midas",
@@ -1231,7 +1320,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#FFD500"
   },
   {
     "id": "points",
@@ -1245,7 +1335,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#33487F"
   },
   {
     "id": "roady",
@@ -1261,7 +1352,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#D7242C"
   },
   {
     "id": "biocbon",
@@ -1275,7 +1367,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#006133"
   },
   {
     "id": "beautysuccess",
@@ -1287,7 +1380,8 @@
     "source": "site:og:image",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#EE3124"
   },
   {
     "id": "parashop",
@@ -1301,7 +1395,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#ECAD39"
   },
   {
     "id": "douglas",
@@ -1315,7 +1410,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#BF3E35"
   },
   {
     "id": "kikomilano",
@@ -1330,7 +1426,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#252B2E"
   },
   {
     "id": "mrbricolage",
@@ -1344,7 +1441,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#EB0029"
   },
   {
     "id": "botanic",
@@ -1356,7 +1454,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#00634D"
   },
   {
     "id": "pointp",
@@ -1370,7 +1469,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#599AD7"
   },
   {
     "id": "pimkie",
@@ -1386,7 +1486,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#1D1D1B"
   },
   {
     "id": "bershka",
@@ -1400,7 +1501,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "stradivarius",
@@ -1414,7 +1516,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "uniqlo",
@@ -1426,7 +1529,8 @@
     "source": "simple-icons",
     "license": "CC0-1.0",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FF0000"
   },
   {
     "id": "primark",
@@ -1440,7 +1544,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#00A0D5"
   },
   {
     "id": "jennyfer",
@@ -1454,7 +1559,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "okaidi",
@@ -1468,7 +1574,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "orchestra",
@@ -1482,7 +1589,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#D81E2E"
   },
   {
     "id": "eram",
@@ -1494,7 +1602,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#ABA30C"
   },
   {
     "id": "bessonchaussures",
@@ -1508,7 +1617,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E7474B"
   },
   {
     "id": "footlocker",
@@ -1524,7 +1634,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#0E1111"
   },
   {
     "id": "sport2000",
@@ -1538,7 +1649,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#D82026"
   },
   {
     "id": "espaceculturelleclerc",
@@ -1553,7 +1665,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#0066CC"
   },
   {
     "id": "shell",
@@ -1567,7 +1680,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#D6272B"
   },
   {
     "id": "pizzahut",
@@ -1581,7 +1695,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#D63736"
   },
   {
     "id": "otacos",
@@ -1596,7 +1711,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#EE7B30"
   },
   {
     "id": "leondebruxelles",
@@ -1610,7 +1726,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#1E4A57"
   },
   {
     "id": "hippopotamus",
@@ -1622,7 +1739,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#8D231B"
   },
   {
     "id": "buffalogrill",
@@ -1634,7 +1752,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#A7241C"
   },
   {
     "id": "courtepaille",
@@ -1650,7 +1769,8 @@
     "rejected": "notlogo",
     "exhausted": true,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#C52C32"
   },
   {
     "id": "briochedoree",
@@ -1662,7 +1782,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#C72E26"
   },
   {
     "id": "lamiecaline",
@@ -1676,7 +1797,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#F8D460"
   },
   {
     "id": "opticalcenter",
@@ -1688,7 +1810,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#C93A2E"
   },
   {
     "id": "generaledoptique",
@@ -1702,7 +1825,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#BB4F07"
   },
   {
     "id": "lissac",
@@ -1714,7 +1838,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E4364C"
   },
   {
     "id": "alinea",
@@ -1728,7 +1853,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#2B2B2B"
   },
   {
     "id": "habitat",
@@ -1743,7 +1869,8 @@
     "h": null,
     "rejected": "notlogo",
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#000000"
   },
   {
     "id": "lagranderecre",
@@ -1757,7 +1884,8 @@
     "w": 746,
     "h": 504,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#222E50"
   },
   {
     "id": "maxitoys",
@@ -1767,7 +1895,8 @@
     "cardGroup": null,
     "logo": null,
     "source": null,
-    "license": null
+    "license": null,
+    "color": "#CC5200"
   },
   {
     "id": "autourdebebe",
@@ -1781,7 +1910,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#DFB8CC"
   },
   {
     "id": "natalys",
@@ -1795,7 +1925,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#2C2C2C"
   },
   {
     "id": "bureauvallee",
@@ -1807,7 +1938,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#0D182A"
   },
   {
     "id": "furetdunord",
@@ -1821,7 +1953,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#F6CE5A"
   },
   {
     "id": "metro",
@@ -1835,7 +1968,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#FFE500"
   },
   {
     "id": "relay",
@@ -1849,7 +1983,8 @@
     "w": 512,
     "h": 512,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#CD1E46"
   },
   {
     "id": "ugc",
@@ -1863,7 +1998,8 @@
     "w": 590,
     "h": 396,
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#00ADFF"
   },
   {
     "id": "pathegaumont",
@@ -1877,7 +2013,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#1E8D7A"
   },
   {
     "id": "cgrcinemas",
@@ -1891,7 +2028,8 @@
     "w": 192,
     "h": 192,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#E1061B"
   },
   {
     "id": "nespresso",
@@ -1905,7 +2043,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#987002"
   },
   {
     "id": "uexpress",
@@ -1920,7 +2059,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "superu"
+    "groupLogoFrom": "superu",
+    "color": "#AD5D21"
   },
   {
     "id": "utile",
@@ -1935,7 +2075,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "superu"
+    "groupLogoFrom": "superu",
+    "color": "#AD5D21"
   },
   {
     "id": "marcheu",
@@ -1950,7 +2091,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "superu"
+    "groupLogoFrom": "superu",
+    "color": "#AD5D21"
   },
   {
     "id": "auchansupermarche",
@@ -1963,7 +2105,8 @@
     "license": "unknown",
     "validated": true,
     "background": "light",
-    "groupLogoFrom": "auchan"
+    "groupLogoFrom": "auchan",
+    "color": "#E0001A"
   },
   {
     "id": "carrefourexpress",
@@ -1978,7 +2121,8 @@
     "h": 628,
     "validated": true,
     "background": "light",
-    "groupLogoFrom": "carrefour"
+    "groupLogoFrom": "carrefour",
+    "color": "#0970E6"
   },
   {
     "id": "carrefourcontact",
@@ -1993,7 +2137,8 @@
     "h": 628,
     "validated": true,
     "background": "light",
-    "groupLogoFrom": "carrefour"
+    "groupLogoFrom": "carrefour",
+    "color": "#0970E6"
   },
   {
     "id": "casinoshop",
@@ -2008,7 +2153,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLead": true
+    "groupLead": true,
+    "color": "#E1002B"
   },
   {
     "id": "casinoshopping",
@@ -2023,7 +2169,8 @@
     "h": null,
     "background": "light",
     "validated": true,
-    "groupLogoFrom": "casinoshop"
+    "groupLogoFrom": "casinoshop",
+    "color": "#E1002B"
   },
   {
     "id": "ange",
@@ -2037,7 +2184,8 @@
     "w": 450,
     "h": 396,
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#CCD444"
   },
   {
     "id": "marieblachere",
@@ -2049,7 +2197,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#63220B"
   },
   {
     "id": "feuillette",
@@ -2063,7 +2212,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#B1A174"
   },
   {
     "id": "mariette",
@@ -2078,7 +2228,8 @@
     "validated": true,
     "w": null,
     "h": null,
-    "background": "light"
+    "background": "light",
+    "color": "#0F1C87"
   },
   {
     "id": "lapanetiere",
@@ -2088,7 +2239,8 @@
     "cardGroup": null,
     "logo": null,
     "source": null,
-    "license": null
+    "license": null,
+    "color": "#B32629"
   },
   {
     "id": "sophielebreuilly",
@@ -2098,7 +2250,8 @@
     "cardGroup": null,
     "logo": null,
     "source": null,
-    "license": null
+    "license": null,
+    "color": "#E73C51"
   },
   {
     "id": "boulangerielouise",
@@ -2112,7 +2265,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#1A1310"
   },
   {
     "id": "basicfit",
@@ -2126,7 +2280,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#FE7000"
   },
   {
     "id": "fitnesspark",
@@ -2140,7 +2295,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#F9D849"
   },
   {
     "id": "keepcool",
@@ -2154,7 +2310,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#40654E"
   },
   {
     "id": "neoness",
@@ -2168,7 +2325,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#63181C"
   },
   {
     "id": "lorangebleue",
@@ -2183,7 +2341,8 @@
     "h": null,
     "sourceUrl": "/Users/jerome/Projects/FidCards/brands/missing/lorangebleue/logo.png",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#100F3B"
   },
   {
     "id": "saintalgue",
@@ -2197,7 +2356,8 @@
     "w": 640,
     "h": 208,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#873128"
   },
   {
     "id": "longlerie",
@@ -2209,7 +2369,8 @@
     "source": null,
     "license": null,
     "w": null,
-    "h": null
+    "h": null,
+    "color": "#DFBDAE"
   },
   {
     "id": "jeanlouisdavid",
@@ -2221,7 +2382,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#000000"
   },
   {
     "id": "franckprovost",
@@ -2235,7 +2397,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#000000"
   },
   {
     "id": "dessange",
@@ -2249,7 +2412,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#000000"
   },
   {
     "id": "jeffdebruges",
@@ -2263,7 +2427,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#2A1A0F"
   },
   {
     "id": "leonidas",
@@ -2277,7 +2442,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#EDBF00"
   },
   {
     "id": "deneuville",
@@ -2291,7 +2457,8 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#D00063"
   },
   {
     "id": "lacuregourmande",
@@ -2303,7 +2470,8 @@
     "source": "site:header-img",
     "license": "unknown",
     "validated": true,
-    "background": "light"
+    "background": "light",
+    "color": "#795E29"
   },
   {
     "id": "godiva",
@@ -2315,7 +2483,8 @@
     "source": "site:body-img",
     "license": "unknown",
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#D5B476"
   },
   {
     "id": "haagendazs",
@@ -2329,7 +2498,8 @@
     "w": null,
     "h": null,
     "validated": true,
-    "background": "dark"
+    "background": "dark",
+    "color": "#581125"
   },
   {
     "id": "amorino",
@@ -2343,6 +2513,7 @@
     "w": null,
     "h": null,
     "background": "light",
-    "validated": true
+    "validated": true,
+    "color": "#C97F3B"
   }
 ]

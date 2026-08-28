@@ -140,6 +140,7 @@ private fun CardGrid(cards: List<HomeCard>, onCardClick: (Long) -> Unit) {
                 logoOnDark = item.logoOnDark,
                 onClick = { onCardClick(item.card.id) },
                 isPhoto = item.isPhoto,
+                brandColorArgb = item.brandColorArgb,
             )
         }
     }

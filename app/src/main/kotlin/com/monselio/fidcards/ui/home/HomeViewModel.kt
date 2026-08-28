@@ -33,6 +33,8 @@ data class HomeCard(
     val logoOnDark: Boolean,
     /** Photo recto en repli (§5.1) : plein cadre, pas de cartouche. */
     val isPhoto: Boolean = false,
+    /** Couleur primaire officielle de l'enseigne, si connue du catalogue. */
+    val brandColorArgb: Int? = null,
 )
 
 data class HomeUiState(
@@ -70,17 +72,22 @@ class HomeViewModel(
 
     /** Priorité de la vignette (§5.1) : logo, sinon photo recto, sinon pastille. */
     private fun toHomeCard(card: Card): HomeCard {
-        card.logoPath?.let { path ->
-            return HomeCard(card, File(path), logoOnDark = false)
-        }
         val brand = catalog.byId(card.brandId)
+        card.logoPath?.let { path ->
+            return HomeCard(card, File(path), logoOnDark = false, brandColorArgb = brand?.colorArgb)
+        }
         catalog.logoAssetUri(brand)?.let { uri ->
-            return HomeCard(card, uri, logoOnDark = brand?.backgroundDark == true)
+            return HomeCard(
+                card = card,
+                logoModel = uri,
+                logoOnDark = brand?.backgroundDark == true,
+                brandColorArgb = brand?.colorArgb,
+            )
         }
         card.frontImagePath?.let { path ->
             return HomeCard(card, File(path), logoOnDark = false, isPhoto = true)
         }
-        return HomeCard(card, logoModel = null, logoOnDark = false)
+        return HomeCard(card, logoModel = null, logoOnDark = false, brandColorArgb = brand?.colorArgb)
     }
 
     private fun filter(cards: List<Card>, q: String): List<Card> {
