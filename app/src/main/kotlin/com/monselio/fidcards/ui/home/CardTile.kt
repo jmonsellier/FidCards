@@ -49,31 +49,44 @@ fun CardTile(
     isPhoto: Boolean = false,
     brandColorArgb: Int? = null,
 ) {
-    Surface(
-        onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
-        shape = MaterialTheme.shapes.large,
-        color = MaterialTheme.colorScheme.surfaceVariant,
-        tonalElevation = 1.dp,
-    ) {
-        Box(
-            modifier = Modifier.aspectRatio(1.586f),
-            contentAlignment = Alignment.Center,
+    Column(modifier = modifier.fillMaxWidth()) {
+        Surface(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth(),
+            shape = MaterialTheme.shapes.large,
+            color = MaterialTheme.colorScheme.surfaceVariant,
+            tonalElevation = 1.dp,
         ) {
-            when {
-                logoModel != null && isPhoto -> {
-                    // Photo recto : la carte elle-même, plein cadre.
-                    AsyncImage(
-                        model = logoModel,
-                        contentDescription = card.name,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize(),
-                    )
+            Box(
+                modifier = Modifier.aspectRatio(1.586f),
+                contentAlignment = Alignment.Center,
+            ) {
+                when {
+                    logoModel != null && isPhoto -> {
+                        // Photo recto : la carte elle-même, plein cadre.
+                        AsyncImage(
+                            model = logoModel,
+                            contentDescription = card.name,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize(),
+                        )
+                    }
+                    logoModel != null -> LogoFace(card, logoModel, logoOnDark, brandColorArgb)
+                    else -> InitialsSwatch(card, brandColorArgb)
                 }
-                logoModel != null -> LogoFace(card, logoModel, logoOnDark, brandColorArgb)
-                else -> InitialsSwatch(card, brandColorArgb)
             }
         }
+        Text(
+            text = card.name,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 6.dp),
+        )
     }
 }
 
@@ -120,7 +133,7 @@ private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean, brandColor
             },
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 20.dp, vertical = 14.dp),
+                .padding(horizontal = 12.dp, vertical = 9.dp),
         )
     }
 }
@@ -128,7 +141,7 @@ private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean, brandColor
 @Composable
 private fun InitialsSwatch(card: Card, brandColorArgb: Int? = null) {
     // Priorité : couleur choisie par l'utilisateur, couleur officielle de
-    // l'enseigne, couleur dérivée du nom.
+    // l'enseigne, couleur dérivée du nom. Le nom, lui, est sous la tuile.
     val color = card.colorArgb?.let { Color(it) }
         ?: brandColorArgb?.let { Color(it) }
         ?: colorFromName(card.name)
@@ -138,26 +151,13 @@ private fun InitialsSwatch(card: Card, brandColorArgb: Int? = null) {
             .background(color),
         contentAlignment = Alignment.Center,
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = initialsOf(card.name),
-                color = Color.White,
-                fontSize = 34.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 2.sp,
-            )
-            Text(
-                text = card.name,
-                color = Color.White.copy(alpha = 0.9f),
-                style = MaterialTheme.typography.labelMedium,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 12.dp, end = 12.dp, top = 2.dp),
-            )
-        }
+        Text(
+            text = initialsOf(card.name),
+            color = Color.White,
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            letterSpacing = 2.sp,
+        )
     }
 }
 
