@@ -30,8 +30,6 @@ data class EditUiState(
     val displayValue: String = "",
     val format: BarcodeFormat = BarcodeFormat.EAN_13,
     val brand: Brand? = null,
-    /** Enseignes partageant la même carte, à signaler pour éviter les doublons (§6.4). */
-    val groupSiblings: List<Brand> = emptyList(),
     val colorArgb: Int? = null,
     /** Logo choisi à la main (fichier local), prioritaire sur celui du catalogue. */
     val logoPath: String? = null,
@@ -78,10 +76,7 @@ class EditCardViewModel(
                     _uiState.update { it.copy(loaded = true) }
                 } else {
                     editedCard = card
-                    val (brand, siblings) = withContext(Dispatchers.IO) {
-                        val b = catalog.byId(card.brandId)
-                        b to b?.let(catalog::groupSiblings).orEmpty()
-                    }
+                    val brand = withContext(Dispatchers.IO) { catalog.byId(card.brandId) }
                     _uiState.update {
                         it.copy(
                             loaded = true,
@@ -91,7 +86,6 @@ class EditCardViewModel(
                             displayValue = card.displayValue.orEmpty(),
                             format = card.barcodeFormat,
                             brand = brand,
-                            groupSiblings = siblings,
                             colorArgb = card.colorArgb,
                             logoPath = card.logoPath,
                             frontPath = card.frontImagePath,
@@ -110,7 +104,6 @@ class EditCardViewModel(
                 nameError = false,
                 // Modifier le nom à la main détache l'enseigne sélectionnée.
                 brand = state.brand?.takeIf { it.name == value },
-                groupSiblings = if (state.brand?.name == value) state.groupSiblings else emptyList(),
             )
         }
         viewModelScope.launch(Dispatchers.IO) {
@@ -124,17 +117,13 @@ class EditCardViewModel(
     }
 
     fun selectBrand(brand: Brand) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val siblings = catalog.groupSiblings(brand)
-            _uiState.update {
-                it.copy(
-                    name = brand.name,
-                    brand = brand,
-                    groupSiblings = siblings,
-                    suggestions = emptyList(),
-                    nameError = false,
-                )
-            }
+        _uiState.update {
+            it.copy(
+                name = brand.name,
+                brand = brand,
+                suggestions = emptyList(),
+                nameError = false,
+            )
         }
     }
 

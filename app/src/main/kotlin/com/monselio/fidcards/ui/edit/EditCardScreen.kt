@@ -118,24 +118,6 @@ fun EditCardScreen(
         ) {
             NameField(state, viewModel)
 
-            if (state.groupSiblings.isNotEmpty()) {
-                Surface(
-                    shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.secondaryContainer,
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text(
-                        text = stringResource(
-                            R.string.edit_group_info,
-                            state.brand?.cardGroup.orEmpty(),
-                            state.groupSiblings.joinToString { it.name },
-                        ),
-                        style = MaterialTheme.typography.bodySmall,
-                        modifier = Modifier.padding(12.dp),
-                    )
-                }
-            }
-
             OutlinedTextField(
                 value = state.barcodeValue,
                 onValueChange = viewModel::onValueChange,
@@ -250,11 +232,7 @@ private fun NameField(state: EditUiState, viewModel: EditCardViewModel) {
                     state.suggestions.forEach { brand ->
                         ListItem(
                             headlineContent = { Text(brand.name) },
-                            supportingContent = {
-                                val detail = listOfNotNull(brand.sector, brand.cardGroup)
-                                    .joinToString(" · ")
-                                if (detail.isNotEmpty()) Text(detail)
-                            },
+                            supportingContent = { brand.sector?.let { Text(it) } },
                             modifier = Modifier.clickable { viewModel.selectBrand(brand) },
                         )
                     }

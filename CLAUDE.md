@@ -13,7 +13,11 @@
 - **Vérification obligatoire** avant de déclarer une tâche terminée :
   `./gradlew compileDebugKotlin` (type-check) puis `./gradlew :app:lintDebug` (lint).
   Les tests JVM : `./gradlew test`. Les tests instrumentés exigent un émulateur :
-  `./gradlew connectedDebugAndroidTest`.
+  `ANDROID_SERIAL=emulator-5554 ./gradlew connectedDebugAndroidTest`.
+- **⚠ JAMAIS de `connectedDebugAndroidTest` sans `ANDROID_SERIAL=emulator-5554`.**
+  La tâche s'exécute sur TOUS les appareils adb puis DÉSINSTALLE l'app : lancée
+  avec le téléphone de Jérôme branché, elle efface ses cartes (c'est arrivé le
+  2026-08-28). Même prudence pour toute commande adb : toujours cibler avec `-s`.
 - **JDK : ne rien changer.** `JAVA_HOME` pointe sur le JDK 17, la toolchain Gradle fixe le
   bytecode. Ne pas basculer sur un JDK plus récent (docs/PROJET.md §10.1).
 - **Code-barres** : lecture via `zxing-cpp` (caméra), génération via `com.google.zxing:core`

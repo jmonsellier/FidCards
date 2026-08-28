@@ -13,8 +13,6 @@ data class Brand(
     val name: String,
     val sector: String?,
     val website: String?,
-    /** Regroupement de cartes : cinq enseignes Carrefour, une seule carte (§6.4). */
-    val cardGroup: String?,
     /** Nom de fichier dans assets/brands/, nul si l'enseigne n'a pas de logo. */
     val logo: String?,
     /** Pastille sur laquelle poser le logo : `light` ou `dark`, indépendant du thème (§6.3.1). */
@@ -56,10 +54,9 @@ class BrandCatalog(private val context: Context) {
                     Brand(
                         id = o.getString("id"),
                         name = o.getString("name"),
-                        sector = o.optString("sector").takeIf { it.isNotBlank() },
-                        website = o.optString("website").takeIf { it.isNotBlank() },
-                        cardGroup = o.optString("cardGroup").takeIf { it.isNotBlank() },
-                        logo = o.optString("logo").takeIf { it.isNotBlank() },
+                        sector = o.cleanString("sector"),
+                        website = o.cleanString("website"),
+                        logo = o.cleanString("logo"),
                         backgroundDark = o.optString("background") == "dark",
                         colorArgb = o.optString("color")
                             .takeIf { Regex("^#[0-9a-fA-F]{6}$").matches(it) }
@@ -70,19 +67,23 @@ class BrandCatalog(private val context: Context) {
         }
     }
 
+    /** optString d'org.json rend la CHAÎNE « null » pour un null JSON. */
+    private fun org.json.JSONObject.cleanString(key: String): String? =
+        if (isNull(key)) null else optString(key).takeIf { it.isNotBlank() && it != "null" }
+
     fun byId(id: String?): Brand? = id?.let { byId[it] }
 
-    /** Autocomplétion insensible à la casse et aux accents, préfixes d'abord. */
+    /**
+     * Autocomplétion insensible à la casse et aux accents, préfixes d'abord.
+     * Les cartes communes sont simplifiées à la source : une seule entrée
+     * « Carrefour » au catalogue, pas de notion de groupe dans l'app (§6.4).
+     */
     fun search(query: String, limit: Int = 8): List<Brand> {
         val needle = query.searchNormalized()
         if (needle.isEmpty()) return emptyList()
-        val matches = brands.filter { needle in it.name.searchNormalized() }
-        return matches.sortedBy { !it.name.searchNormalized().startsWith(needle) }.take(limit)
-    }
-
-    /** Les autres enseignes qui partagent la même carte, pour l'afficher à l'ajout (§6.4). */
-    fun groupSiblings(brand: Brand): List<Brand> {
-        val group = brand.cardGroup ?: return emptyList()
-        return brands.filter { it.cardGroup == group && it.id != brand.id }
+        return brands
+            .filter { needle in it.name.searchNormalized() }
+            .sortedBy { !it.name.searchNormalized().startsWith(needle) }
+            .take(limit)
     }
 }
