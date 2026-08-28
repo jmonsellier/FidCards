@@ -15,7 +15,10 @@ Le chemin critique : **écran verrouillé → carte scannable en caisse.**
   pour l'autocomplétion ;
 - seule permission : `CAMERA` (repli complet en saisie manuelle) ;
 - sauvegarde par export/import ZIP — c'est **l'unique** chemin de migration entre
-  téléphones, Android Auto Backup étant désactivé ;
+  téléphones, Android Auto Backup étant désactivé — avec, en option, une
+  **sauvegarde automatique** qui réécrit l'archive à chaque modification vers un
+  emplacement choisi une fois (dossier local, Drive/Dropbox via leur sélecteur,
+  dossier Syncthing/Nextcloud…) : le cloud sans jamais donner le réseau à l'app ;
 - raccourcis d'écran d'accueil vers les cartes les plus utilisées.
 
 ## Construire

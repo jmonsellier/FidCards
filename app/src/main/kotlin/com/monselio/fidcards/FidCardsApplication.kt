@@ -33,6 +33,7 @@ class FidCardsApplication : Application(), SingletonImageLoader.Factory {
             seedIfEmpty()
         }
         keepShortcutsInSync()
+        container.autoBackup.start(applicationScope)
     }
 
     private fun keepShortcutsInSync() {

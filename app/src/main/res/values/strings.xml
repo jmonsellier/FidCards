@@ -70,6 +70,9 @@
     <string name="settings_export_desc">Archive ZIP avec les cartes et leurs images. C\'est l\'unique moyen de migrer vers un autre téléphone.</string>
     <string name="settings_import">Importer une sauvegarde</string>
     <string name="settings_import_desc">Restaure une archive ZIP exportée par FidCards.</string>
+    <string name="settings_auto_backup">Sauvegarde automatique</string>
+    <string name="settings_auto_backup_off">À chaque modification, l\'archive est réécrite au même emplacement — dossier local, Drive, Dropbox, dossier synchronisé…</string>
+    <string name="settings_auto_backup_on">Destination : %1$s</string>
     <string name="import_dialog_title">Importer la sauvegarde ?</string>
     <string name="import_dialog_text">« Fusionner » ajoute les cartes absentes (les doublons sont ignorés). « Remplacer » supprime d\'abord toutes les cartes actuelles.</string>
     <string name="import_merge">Fusionner</string>

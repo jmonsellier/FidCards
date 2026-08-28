@@ -1,6 +1,7 @@
 package com.monselio.fidcards
 
 import android.content.Context
+import com.monselio.fidcards.backup.AutoBackup
 import com.monselio.fidcards.backup.BackupManager
 import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.CardRepository
@@ -25,4 +26,8 @@ class AppContainer(private val context: Context) {
     val imageStore: ImageStore by lazy { ImageStore(context) }
 
     val backupManager: BackupManager by lazy { BackupManager(context, cardRepository, imageStore) }
+
+    val autoBackup: AutoBackup by lazy {
+        AutoBackup(context, settingsRepository, backupManager, cardRepository)
+    }
 }

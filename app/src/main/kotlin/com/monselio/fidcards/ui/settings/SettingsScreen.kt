@@ -35,6 +35,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.core.net.toUri
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -53,6 +54,7 @@ fun SettingsScreen(
 ) {
     val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
     val autoZoom by viewModel.autoZoom.collectAsStateWithLifecycle()
+    val autoBackupUri by viewModel.autoBackupUri.collectAsStateWithLifecycle()
     val lastResult by viewModel.lastResult.collectAsStateWithLifecycle()
     val pendingImport by viewModel.pendingImport.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -64,6 +66,10 @@ fun SettingsScreen(
     val importLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.OpenDocument(),
     ) { uri -> uri?.let(viewModel::onImportPicked) }
+
+    val autoBackupLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/zip"),
+    ) { uri -> uri?.let(viewModel::enableAutoBackup) }
 
     val messages = backupMessages()
     LaunchedEffect(lastResult) {
@@ -150,6 +156,31 @@ fun SettingsScreen(
                 modifier = Modifier.clickable {
                     importLauncher.launch(
                         arrayOf("application/zip", "application/x-zip-compressed", "application/octet-stream"),
+                    )
+                },
+            )
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_auto_backup)) },
+                supportingContent = {
+                    Text(
+                        autoBackupUri?.let { stored ->
+                            stringResource(
+                                R.string.settings_auto_backup_on,
+                                stored.toUri().lastPathSegment ?: stored,
+                            )
+                        } ?: stringResource(R.string.settings_auto_backup_off),
+                    )
+                },
+                trailingContent = {
+                    Switch(
+                        checked = autoBackupUri != null,
+                        onCheckedChange = { enabled ->
+                            if (enabled) {
+                                autoBackupLauncher.launch("fidcards-auto.zip")
+                            } else {
+                                viewModel.disableAutoBackup()
+                            }
+                        },
                     )
                 },
             )

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.monselio.fidcards.FidCardsApplication
+import com.monselio.fidcards.backup.AutoBackup
 import com.monselio.fidcards.backup.BackupManager
 import com.monselio.fidcards.backup.BackupResult
 import com.monselio.fidcards.backup.ImportMode
@@ -20,8 +21,21 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val backupManager: BackupManager,
+    private val autoBackup: AutoBackup,
     private val settings: SettingsRepository,
 ) : ViewModel() {
+
+    /** Destination de la sauvegarde automatique, nulle si désactivée. */
+    val autoBackupUri: StateFlow<String?> = settings.autoBackupUri
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    fun enableAutoBackup(uri: android.net.Uri) {
+        viewModelScope.launch { _lastResult.value = autoBackup.enable(uri) }
+    }
+
+    fun disableAutoBackup() {
+        viewModelScope.launch { autoBackup.disable() }
+    }
 
     val themeMode: StateFlow<ThemeMode> = settings.themeMode
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ThemeMode.SYSTEM)
@@ -71,7 +85,11 @@ class SettingsViewModel(
         val Factory = viewModelFactory {
             initializer {
                 val app = this[APPLICATION_KEY] as FidCardsApplication
-                SettingsViewModel(app.container.backupManager, app.container.settingsRepository)
+                SettingsViewModel(
+                    app.container.backupManager,
+                    app.container.autoBackup,
+                    app.container.settingsRepository,
+                )
             }
         }
     }

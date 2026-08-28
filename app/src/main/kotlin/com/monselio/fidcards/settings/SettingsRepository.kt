@@ -21,6 +21,7 @@ class SettingsRepository(private val context: Context) {
     private val sortModeKey = stringPreferencesKey("sort_mode")
     private val themeModeKey = stringPreferencesKey("theme_mode")
     private val autoZoomKey = booleanPreferencesKey("auto_zoom")
+    private val autoBackupUriKey = stringPreferencesKey("auto_backup_uri")
 
     val sortMode: Flow<SortMode> = context.dataStore.data.map { prefs ->
         prefs[sortModeKey]?.let { runCatching { SortMode.valueOf(it) }.getOrNull() }
@@ -35,12 +36,21 @@ class SettingsRepository(private val context: Context) {
     /** Ouvrir directement le code agrandi à l'ouverture d'une carte. */
     val autoZoom: Flow<Boolean> = context.dataStore.data.map { it[autoZoomKey] ?: false }
 
+    /** Destination SAF de la sauvegarde automatique, nulle si désactivée. */
+    val autoBackupUri: Flow<String?> = context.dataStore.data.map { it[autoBackupUriKey] }
+
     suspend fun setSortMode(mode: SortMode) {
         context.dataStore.edit { it[sortModeKey] = mode.name }
     }
 
     suspend fun setAutoZoom(enabled: Boolean) {
         context.dataStore.edit { it[autoZoomKey] = enabled }
+    }
+
+    suspend fun setAutoBackupUri(uri: String?) {
+        context.dataStore.edit {
+            if (uri == null) it.remove(autoBackupUriKey) else it[autoBackupUriKey] = uri
+        }
     }
 
     suspend fun setThemeMode(mode: ThemeMode) {
