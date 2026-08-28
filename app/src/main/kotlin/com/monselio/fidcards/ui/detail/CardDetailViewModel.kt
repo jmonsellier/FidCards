@@ -10,6 +10,7 @@ import com.monselio.fidcards.brands.Brand
 import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.data.CardRepository
+import com.monselio.fidcards.settings.SettingsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,8 +22,14 @@ import kotlinx.coroutines.launch
 class CardDetailViewModel(
     repository: CardRepository,
     catalog: BrandCatalog,
+    settings: SettingsRepository,
     cardId: Long,
 ) : ViewModel() {
+
+    /** Réglage « agrandissement automatique » ; null tant qu'il n'est pas lu. */
+    val autoZoom: StateFlow<Boolean?> = settings.autoZoom
+        .map { it }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     val card: StateFlow<Card?> = repository.observeById(cardId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
@@ -52,6 +59,7 @@ class CardDetailViewModel(
                 CardDetailViewModel(
                     repository = app.container.cardRepository,
                     catalog = app.container.brandCatalog,
+                    settings = app.container.settingsRepository,
                     cardId = cardId,
                 )
             }

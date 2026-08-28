@@ -26,6 +26,9 @@ class SettingsViewModel(
     val themeMode: StateFlow<ThemeMode> = settings.themeMode
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), ThemeMode.SYSTEM)
 
+    val autoZoom: StateFlow<Boolean> = settings.autoZoom
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+
     /** Dernier résultat d'export/import, consommé par l'écran pour la snackbar. */
     private val _lastResult = MutableStateFlow<BackupResult?>(null)
     val lastResult: StateFlow<BackupResult?> = _lastResult
@@ -36,6 +39,10 @@ class SettingsViewModel(
 
     fun setThemeMode(mode: ThemeMode) {
         viewModelScope.launch { settings.setThemeMode(mode) }
+    }
+
+    fun setAutoZoom(enabled: Boolean) {
+        viewModelScope.launch { settings.setAutoZoom(enabled) }
     }
 
     fun export(uri: Uri) {

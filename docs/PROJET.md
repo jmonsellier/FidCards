@@ -18,6 +18,7 @@ tag et la release signée (voir README).
 | Gradle / plugin Kotlin | — | Gradle 9.7.1 (AGP 9.3.2 refuse 9.3.1) ; AGP 9 intègre Kotlin : `org.jetbrains.kotlin.android` interdit |
 | UPC-E scanné | tel quel | zxing-cpp rapporte le texte étendu EAN-13 : recompression vers la forme courte à 8 chiffres au scan (`UpcE`), verrouillée par test instrumenté |
 | Poids des logos | < 1 Mo | 1,6 Mo d'assets (SVG minifiés, rasters 512 px → WebP) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
+| Plein écran (§5.2) | bascule paysage forcée pour les formats 1D | Demande utilisateur (2026-08-28) : écran carte en portrait aux couleurs de l'enseigne, code sur cartouche blanc ; un toucher agrandit le code (ouverture directe possible via un réglage), les formats linéaires pivotant de 90° dans l'image (rotation bitmap sans perte) — lu téléphone tourné : nom en haut, numéro sous le code, croix de fermeture en haut à droite |
 | Vignette d'accueil (§5.1) | logo + nom sous la vignette | Demande utilisateur (2026-08-28) : face de carte seule, sans bandeau de nom. Fond : **pastel de la couleur primaire officielle** (`color` dans brands.json, importée de seed_brands_3.csv via tools/apply-primary-colors.mjs), un fond opaque uniforme du fichier logo restant prioritaire ; à défaut, pastel de la teinte dominante des pixels, ou cartouche neutre. La pastille des cartes sans logo garde le nom, à l'intérieur, et prend la couleur officielle quand l'enseigne est au catalogue |
 
 ---

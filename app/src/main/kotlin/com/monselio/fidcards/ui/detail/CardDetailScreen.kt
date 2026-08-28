@@ -6,8 +6,6 @@ import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -22,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -32,6 +31,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -110,6 +110,18 @@ fun CardDetailScreen(
     var zoomed by rememberSaveable { mutableStateOf(false) }
     var showBack by rememberSaveable { mutableStateOf(false) }
     BackHandler(enabled = zoomed) { zoomed = false }
+
+    // Réglage « agrandissement automatique », appliqué une seule fois à
+    // l'ouverture — refermer l'agrandi ne doit pas le rouvrir.
+    val autoZoom by viewModel.autoZoom.collectAsStateWithLifecycle()
+    var autoZoomApplied by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(autoZoom) {
+        val enabled = autoZoom ?: return@LaunchedEffect
+        if (!autoZoomApplied) {
+            autoZoomApplied = true
+            if (enabled) zoomed = true
+        }
+    }
 
     Scaffold { innerPadding ->
         val current = card ?: return@Scaffold
@@ -249,87 +261,118 @@ fun CardDetailScreen(
  * Code agrandi au maximum, en portrait : un format linéaire pivote de 90° (le
  * bitmap est tourné pixel à pixel, rotation sans perte) pour courir le long de
  * la hauteur de l'écran, numéro pivoté avec lui — l'ensemble se lit téléphone
- * tourné, comme en paysage. Un toucher n'importe où referme.
+ * tourné, comme en paysage. Retour par le bouton ou le geste système
+ * uniquement : pas de fermeture au toucher, l'écran se tend au caissier.
  */
 @Composable
 private fun ZoomedBarcode(card: Card, onDismiss: () -> Unit, modifier: Modifier = Modifier) {
     BoxWithConstraints(
-        modifier = modifier
-            .background(Color.White)
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-                onClick = onDismiss,
-            ),
-        contentAlignment = Alignment.Center,
+        modifier = modifier.background(Color.White),
     ) {
         val density = LocalDensity.current
         val maxWidthPx = constraints.maxWidth
         val maxHeightPx = constraints.maxHeight
-        val marginPx = with(density) { 24.dp.roundToPx() }
         val wide = card.barcodeFormat.wide
-        // Bande latérale réservée au numéro pivoté, pour les formats linéaires.
-        val numberStripPx = with(density) { 56.dp.roundToPx() }
 
         val bitmap = remember(card.barcodeValue, card.barcodeFormat, maxWidthPx, maxHeightPx) {
             if (wide) {
+                // Lu téléphone tourné : longueur ~82 % de la hauteur, barres ~45 %
+                // de la largeur — grand sans être envahissant.
                 generateBarcodeBitmap(
                     value = card.barcodeValue,
                     format = card.barcodeFormat,
-                    maxWidthPx = maxHeightPx - marginPx,
-                    barHeightPx = maxWidthPx - marginPx - numberStripPx,
+                    maxWidthPx = (maxHeightPx * 82) / 100,
+                    barHeightPx = (maxWidthPx * 45) / 100,
                 )?.rotatedQuarter()
             } else {
-                val reservedForNumberPx = with(density) { 72.dp.roundToPx() }
-                val side = minOf(maxWidthPx, maxHeightPx - reservedForNumberPx) - marginPx
+                val side = (minOf(maxWidthPx, maxHeightPx) * 72) / 100
                 generateBarcodeBitmap(card.barcodeValue, card.barcodeFormat, side, side)
             }
         }
 
-        if (bitmap == null) {
-            Text(
-                text = stringResource(R.string.detail_generation_error),
-                color = Color.Black,
-                textAlign = TextAlign.Center,
-            )
-            return@BoxWithConstraints
+        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            if (bitmap == null) {
+                Text(
+                    text = stringResource(R.string.detail_generation_error),
+                    color = Color.Black,
+                    textAlign = TextAlign.Center,
+                )
+            } else {
+                val widthDp = with(density) { bitmap.width.toDp() }
+                val heightDp = with(density) { bitmap.height.toDp() }
+                if (wide) {
+                    // Vu en paysage (téléphone tourné vers la gauche) : nom en
+                    // haut, code au centre, numéro en dessous. En portrait, le
+                    // haut paysage est à droite, le bas à gauche.
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        NumberText(
+                            value = card.numberToDisplay,
+                            modifier = Modifier
+                                .rotateClockwise()
+                                .padding(top = 6.dp),
+                        )
+                        Image(
+                            bitmap = bitmap.asImageBitmap(),
+                            contentDescription = null,
+                            filterQuality = FilterQuality.None,
+                            modifier = Modifier.size(widthDp, heightDp),
+                        )
+                        ZoomTitle(
+                            name = card.name,
+                            modifier = Modifier
+                                .rotateClockwise()
+                                .padding(top = 10.dp),
+                        )
+                    }
+                } else {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        ZoomTitle(name = card.name, modifier = Modifier.padding(bottom = 16.dp))
+                        Image(
+                            bitmap = bitmap.asImageBitmap(),
+                            contentDescription = null,
+                            filterQuality = FilterQuality.None,
+                            modifier = Modifier.size(widthDp, heightDp),
+                        )
+                        NumberText(
+                            value = card.numberToDisplay,
+                            modifier = Modifier.padding(top = 16.dp),
+                        )
+                    }
+                }
+            }
         }
 
-        val widthDp = with(density) { bitmap.width.toDp() }
-        val heightDp = with(density) { bitmap.height.toDp() }
-        if (wide) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Image(
-                    bitmap = bitmap.asImageBitmap(),
-                    contentDescription = null,
-                    filterQuality = FilterQuality.None,
-                    modifier = Modifier.size(widthDp, heightDp),
-                )
-                NumberText(
-                    value = card.numberToDisplay,
-                    modifier = Modifier
-                        .rotateClockwise()
-                        .padding(top = 8.dp),
-                )
-            }
-        } else {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Image(
-                    bitmap = bitmap.asImageBitmap(),
-                    contentDescription = null,
-                    filterQuality = FilterQuality.None,
-                    modifier = Modifier.size(widthDp, heightDp),
-                )
-                NumberText(
-                    value = card.numberToDisplay,
-                    modifier = Modifier.padding(top = 16.dp),
-                )
-            }
+        // Croix de fermeture « en haut à droite » du point de vue paysage :
+        // en bas à droite du portrait pour un format linéaire. Déclarée en
+        // dernier : toujours au-dessus du contenu.
+        IconButton(
+            onClick = onDismiss,
+            modifier = Modifier
+                .align(if (wide) Alignment.BottomEnd else Alignment.TopEnd)
+                .padding(8.dp),
+        ) {
+            Icon(
+                Icons.Default.Close,
+                contentDescription = stringResource(R.string.detail_back),
+                tint = Color.Black,
+            )
         }
     }
+}
+
+@Composable
+private fun ZoomTitle(name: String, modifier: Modifier = Modifier) {
+    Text(
+        text = name,
+        color = Color.Black.copy(alpha = 0.65f),
+        style = MaterialTheme.typography.titleMedium,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = modifier,
+    )
 }
 
 /**

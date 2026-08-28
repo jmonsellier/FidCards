@@ -63,6 +63,9 @@
     <string name="theme_system">Suivre le système</string>
     <string name="theme_light">Clair</string>
     <string name="theme_dark">Sombre</string>
+    <string name="settings_display">Affichage</string>
+    <string name="settings_auto_zoom">Agrandissement automatique</string>
+    <string name="settings_auto_zoom_desc">Ouvrir directement le code en grand à l\'ouverture d\'une carte.</string>
     <string name="settings_backup">Sauvegarde</string>
     <string name="settings_export">Exporter les cartes</string>
     <string name="settings_export_desc">Archive ZIP avec les cartes et leurs images. C\'est l\'unique moyen de migrer vers un autre téléphone.</string>

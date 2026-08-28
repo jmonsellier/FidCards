@@ -23,6 +23,7 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
@@ -51,6 +52,7 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory),
 ) {
     val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
+    val autoZoom by viewModel.autoZoom.collectAsStateWithLifecycle()
     val lastResult by viewModel.lastResult.collectAsStateWithLifecycle()
     val pendingImport by viewModel.pendingImport.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -116,6 +118,21 @@ fun SettingsScreen(
                     )
                 }
             }
+
+            HorizontalDivider(Modifier.padding(vertical = 8.dp))
+
+            SectionTitle(stringResource(R.string.settings_display))
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.settings_auto_zoom)) },
+                supportingContent = { Text(stringResource(R.string.settings_auto_zoom_desc)) },
+                trailingContent = {
+                    Switch(
+                        checked = autoZoom,
+                        onCheckedChange = viewModel::setAutoZoom,
+                    )
+                },
+                modifier = Modifier.clickable { viewModel.setAutoZoom(!autoZoom) },
+            )
 
             HorizontalDivider(Modifier.padding(vertical = 8.dp))
 
