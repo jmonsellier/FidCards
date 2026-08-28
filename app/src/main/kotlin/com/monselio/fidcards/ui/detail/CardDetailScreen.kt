@@ -1,31 +1,35 @@
 package com.monselio.fidcards.ui.detail
 
-import android.content.pm.ActivityInfo
 import android.view.WindowManager
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
@@ -38,13 +42,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -52,16 +60,20 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.monselio.fidcards.R
 import com.monselio.fidcards.barcode.generateBarcodeBitmap
+import com.monselio.fidcards.barcode.rotatedQuarter
 import com.monselio.fidcards.data.BarcodeFormat
+import com.monselio.fidcards.data.Card
+import com.monselio.fidcards.ui.home.colorFromName
 import java.io.File
 
 /**
- * Le cœur de l'app (docs/PROJET.md §5.2) : luminosité à 100 %, écran maintenu
- * allumé, paysage pour les formats larges, code régénéré depuis la valeur brute
- * (jamais depuis une photo), numéro en gros sous le code — le plan B des caisses
- * dont le lecteur laser ne lit pas un écran.
+ * Le cœur de l'app (docs/PROJET.md §5.2), revu façon carte de wallet (demande
+ * du 2026-08-28) : la carte s'affiche en portrait aux couleurs de l'enseigne,
+ * code sur cartouche blanc — jamais inversé (§14). Toucher le code l'agrandit
+ * au maximum, les formats linéaires pivotant de 90° pour occuper toute la
+ * hauteur de l'écran : la taille du paysage, sans bascule d'orientation.
+ * Luminosité forcée à 100 % puis restaurée, écran maintenu allumé.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardDetailScreen(
     cardId: Long,
@@ -73,6 +85,8 @@ fun CardDetailScreen(
     ),
 ) {
     val card by viewModel.card.collectAsStateWithLifecycle()
+    val brand by viewModel.brand.collectAsStateWithLifecycle()
+    val brandLogoUri by viewModel.brandLogoUri.collectAsStateWithLifecycle()
     val activity = LocalActivity.current
 
     DisposableEffect(activity) {
@@ -93,118 +107,260 @@ fun CardDetailScreen(
         }
     }
 
-    // Paysage imposé pour les seuls formats larges, même si la rotation système est
-    // verrouillée — comportement voulu (§14). Les formats carrés restent libres.
-    val wide = card?.barcodeFormat?.wide
-    DisposableEffect(wide, activity) {
-        if (wide == true) {
-            activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        }
-        onDispose {
-            activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
-        }
-    }
+    var zoomed by rememberSaveable { mutableStateOf(false) }
+    var showBack by rememberSaveable { mutableStateOf(false) }
+    BackHandler(enabled = zoomed) { zoomed = false }
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = card?.name.orEmpty(),
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.detail_back),
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = onEdit) {
-                        Icon(
-                            Icons.Default.Edit,
-                            contentDescription = stringResource(R.string.detail_edit),
-                        )
-                    }
-                },
-            )
-        },
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         val current = card ?: return@Scaffold
-        var showBack by rememberSaveable { mutableStateOf(false) }
-        val hasBack = current.backImagePath != null
+        if (zoomed) {
+            ZoomedBarcode(
+                card = current,
+                onDismiss = { zoomed = false },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+            )
+            return@Scaffold
+        }
+
+        val cardColor = brand?.colorArgb?.let(::Color)
+            ?: current.colorArgb?.let(::Color)
+            ?: colorFromName(current.name)
+        val onCardColor = if (cardColor.luminance() < 0.5f) Color.White else Color(0xFF1A1A1A)
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp, vertical = 8.dp),
-            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            // Cartouche blanc quel que soit le thème : un code inversé n'est pas lu (§14).
             Surface(
-                shape = MaterialTheme.shapes.extraLarge,
-                color = Color.White,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .then(
-                        if (hasBack) Modifier.clickable { showBack = !showBack } else Modifier,
-                    ),
+                shape = RoundedCornerShape(28.dp),
+                color = cardColor,
+                modifier = Modifier.fillMaxWidth(),
             ) {
-                Crossfade(targetState = showBack && hasBack, label = "recto-verso") { back ->
-                    if (back) {
-                        AsyncImage(
-                            model = File(current.backImagePath.orEmpty()),
-                            contentDescription = stringResource(R.string.detail_back_photo),
-                            contentScale = ContentScale.Fit,
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(onClick = onBack) {
+                            Icon(
+                                Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(R.string.detail_back),
+                                tint = onCardColor,
+                            )
+                        }
+                        Text(
+                            text = current.name,
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = onCardColor,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp),
+                                .weight(1f)
+                                .padding(start = 4.dp, end = 8.dp),
                         )
-                    } else {
-                        Column(
-                            modifier = Modifier.padding(vertical = 24.dp, horizontal = 16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                        ) {
-                            BarcodeImage(
-                                value = current.barcodeValue,
-                                format = current.barcodeFormat,
+                        brandLogoUri?.let { uri ->
+                            Surface(
+                                shape = RoundedCornerShape(12.dp),
+                                color = Color.White,
+                                modifier = Modifier.size(44.dp),
+                            ) {
+                                AsyncImage(
+                                    model = uri,
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Fit,
+                                    modifier = Modifier.padding(5.dp),
+                                )
+                            }
+                        }
+                        IconButton(onClick = onEdit) {
+                            Icon(
+                                Icons.Default.Edit,
+                                contentDescription = stringResource(R.string.detail_edit),
+                                tint = onCardColor,
                             )
-                            NumberText(
-                                value = current.numberToDisplay,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 20.dp),
-                            )
+                        }
+                    }
+
+                    // Cartouche blanc quel que soit le thème : un code inversé
+                    // n'est pas lu (§14). Un toucher l'agrandit.
+                    Surface(
+                        onClick = { if (!showBack) zoomed = true },
+                        shape = RoundedCornerShape(16.dp),
+                        color = Color.White,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 4.dp),
+                    ) {
+                        Crossfade(targetState = showBack, label = "recto-verso") { back ->
+                            if (back && current.backImagePath != null) {
+                                AsyncImage(
+                                    model = File(current.backImagePath.orEmpty()),
+                                    contentDescription = stringResource(R.string.detail_back_photo),
+                                    contentScale = ContentScale.Fit,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(10.dp),
+                                )
+                            } else {
+                                Column(
+                                    modifier = Modifier.padding(vertical = 18.dp, horizontal = 12.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                ) {
+                                    BarcodeImage(
+                                        value = current.barcodeValue,
+                                        format = current.barcodeFormat,
+                                    )
+                                    NumberText(
+                                        value = current.numberToDisplay,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(top = 14.dp),
+                                    )
+                                }
+                            }
                         }
                     }
                 }
             }
-            if (hasBack) {
-                Text(
-                    text = stringResource(
-                        if (showBack) R.string.detail_show_front else R.string.detail_show_back,
-                    ),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(top = 12.dp),
+
+            Text(
+                text = stringResource(R.string.detail_zoom_hint),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 10.dp),
+            )
+            if (current.backImagePath != null) {
+                TextButton(onClick = { showBack = !showBack }) {
+                    Text(
+                        stringResource(
+                            if (showBack) R.string.detail_show_front else R.string.detail_show_back,
+                        ),
+                    )
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Code agrandi au maximum, en portrait : un format linéaire pivote de 90° (le
+ * bitmap est tourné pixel à pixel, rotation sans perte) pour courir le long de
+ * la hauteur de l'écran, numéro pivoté avec lui — l'ensemble se lit téléphone
+ * tourné, comme en paysage. Un toucher n'importe où referme.
+ */
+@Composable
+private fun ZoomedBarcode(card: Card, onDismiss: () -> Unit, modifier: Modifier = Modifier) {
+    BoxWithConstraints(
+        modifier = modifier
+            .background(Color.White)
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = null,
+                onClick = onDismiss,
+            ),
+        contentAlignment = Alignment.Center,
+    ) {
+        val density = LocalDensity.current
+        val maxWidthPx = constraints.maxWidth
+        val maxHeightPx = constraints.maxHeight
+        val marginPx = with(density) { 24.dp.roundToPx() }
+        val wide = card.barcodeFormat.wide
+        // Bande latérale réservée au numéro pivoté, pour les formats linéaires.
+        val numberStripPx = with(density) { 56.dp.roundToPx() }
+
+        val bitmap = remember(card.barcodeValue, card.barcodeFormat, maxWidthPx, maxHeightPx) {
+            if (wide) {
+                generateBarcodeBitmap(
+                    value = card.barcodeValue,
+                    format = card.barcodeFormat,
+                    maxWidthPx = maxHeightPx - marginPx,
+                    barHeightPx = maxWidthPx - marginPx - numberStripPx,
+                )?.rotatedQuarter()
+            } else {
+                val reservedForNumberPx = with(density) { 72.dp.roundToPx() }
+                val side = minOf(maxWidthPx, maxHeightPx - reservedForNumberPx) - marginPx
+                generateBarcodeBitmap(card.barcodeValue, card.barcodeFormat, side, side)
+            }
+        }
+
+        if (bitmap == null) {
+            Text(
+                text = stringResource(R.string.detail_generation_error),
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+            )
+            return@BoxWithConstraints
+        }
+
+        val widthDp = with(density) { bitmap.width.toDp() }
+        val heightDp = with(density) { bitmap.height.toDp() }
+        if (wide) {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    filterQuality = FilterQuality.None,
+                    modifier = Modifier.size(widthDp, heightDp),
+                )
+                NumberText(
+                    value = card.numberToDisplay,
+                    modifier = Modifier
+                        .rotateClockwise()
+                        .padding(top = 8.dp),
+                )
+            }
+        } else {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    filterQuality = FilterQuality.None,
+                    modifier = Modifier.size(widthDp, heightDp),
+                )
+                NumberText(
+                    value = card.numberToDisplay,
+                    modifier = Modifier.padding(top = 16.dp),
                 )
             }
         }
     }
 }
 
+/**
+ * Pivote un composable de 90° en échangeant réellement ses dimensions mesurées,
+ * pour qu'il se place dans un Row comme une colonne verticale.
+ */
+private fun Modifier.rotateClockwise(): Modifier = this
+    .graphicsLayer(rotationZ = 90f)
+    .layout { measurable, constraints ->
+        val placeable = measurable.measure(
+            Constraints(
+                minWidth = constraints.minHeight,
+                maxWidth = constraints.maxHeight,
+                minHeight = constraints.minWidth,
+                maxHeight = constraints.maxWidth,
+            ),
+        )
+        layout(placeable.height, placeable.width) {
+            placeable.place(
+                x = -(placeable.width - placeable.height) / 2,
+                y = -(placeable.height - placeable.width) / 2,
+            )
+        }
+    }
+
 @Composable
 private fun BarcodeImage(value: String, format: BarcodeFormat, modifier: Modifier = Modifier) {
     BoxWithConstraints(modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
         val density = LocalDensity.current
         val maxWidthPx = constraints.maxWidth
-        val barHeightPx = with(density) { 130.dp.roundToPx() }
+        val barHeightPx = with(density) { 110.dp.roundToPx() }
         val bitmap = remember(value, format, maxWidthPx, barHeightPx) {
             generateBarcodeBitmap(value, format, maxWidthPx, barHeightPx)
         }
@@ -215,8 +371,7 @@ private fun BarcodeImage(value: String, format: BarcodeFormat, modifier: Modifie
                 textAlign = TextAlign.Center,
             )
         } else {
-            // Affiché à sa taille exacte en pixels : aucun ré-échantillonnage possible.
-            // FilterQuality.None garde le nearest neighbour même en cas d'arrondi dp.
+            // Affiché à sa taille exacte en pixels : aucun ré-échantillonnage.
             val widthDp = with(density) { bitmap.width.toDp() }
             val heightDp = with(density) { bitmap.height.toDp() }
             Image(
@@ -232,9 +387,9 @@ private fun BarcodeImage(value: String, format: BarcodeFormat, modifier: Modifie
 @Composable
 private fun NumberText(value: String, modifier: Modifier = Modifier) {
     val fontSize = when {
-        value.length <= 16 -> 30.sp
-        value.length <= 26 -> 24.sp
-        else -> 18.sp
+        value.length <= 16 -> 26.sp
+        value.length <= 26 -> 20.sp
+        else -> 16.sp
     }
     Text(
         text = value,

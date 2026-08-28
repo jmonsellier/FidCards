@@ -6,19 +6,37 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.monselio.fidcards.FidCardsApplication
+import com.monselio.fidcards.brands.Brand
+import com.monselio.fidcards.brands.BrandCatalog
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.data.CardRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CardDetailViewModel(
     repository: CardRepository,
+    catalog: BrandCatalog,
     cardId: Long,
 ) : ViewModel() {
 
     val card: StateFlow<Card?> = repository.observeById(cardId)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /** Enseigne du catalogue (couleur officielle, logo), nulle hors catalogue. */
+    val brand: StateFlow<Brand?> = card
+        .map { catalog.byId(it?.brandId) }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+
+    /** Uri d'asset du logo de l'enseigne, pour le coin de la carte. */
+    val brandLogoUri: StateFlow<String?> = brand
+        .map { catalog.logoAssetUri(it) }
+        .flowOn(Dispatchers.Default)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     init {
@@ -31,7 +49,11 @@ class CardDetailViewModel(
         fun factory(cardId: Long) = viewModelFactory {
             initializer {
                 val app = this[APPLICATION_KEY] as FidCardsApplication
-                CardDetailViewModel(app.container.cardRepository, cardId)
+                CardDetailViewModel(
+                    repository = app.container.cardRepository,
+                    catalog = app.container.brandCatalog,
+                    cardId = cardId,
+                )
             }
         }
     }

@@ -20,8 +20,9 @@
     <string name="detail_edit">Modifier la carte</string>
     <string name="detail_generation_error">Impossible de générer le code. Présentez le numéro ci-dessous en caisse.</string>
     <string name="detail_back_photo">Verso de la carte</string>
-    <string name="detail_show_back">Touchez la carte pour voir le verso.</string>
-    <string name="detail_show_front">Touchez la carte pour revenir au code.</string>
+    <string name="detail_zoom_hint">Touchez le code pour l\'agrandir.</string>
+    <string name="detail_show_back">Voir le verso</string>
+    <string name="detail_show_front">Voir le code</string>
 
     <!-- Scan -->
     <string name="scan_title">Scanner une carte</string>

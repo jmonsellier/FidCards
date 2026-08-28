@@ -1,7 +1,12 @@
 package com.monselio.fidcards.barcode
 
 import android.graphics.Bitmap
+import android.graphics.Matrix
 import com.monselio.fidcards.data.BarcodeFormat
+
+/** Rotation de 90° sans perte (pixel à pixel, aucun filtrage) pour l'agrandi portrait. */
+fun Bitmap.rotatedQuarter(): Bitmap =
+    Bitmap.createBitmap(this, 0, 0, width, height, Matrix().apply { postRotate(90f) }, false)
 
 /**
  * Enveloppe Android du rendu pur : renvoie null si la valeur est invalide pour le
