@@ -52,6 +52,17 @@ const PAGES = {
   leonidas:          'Leonidas (chocolaterie)',
   deneuville:        'De Neuville',
   amorino:           'Amorino',
+  // Lot du 2026-08-28 : enseignes des cartes réelles de Jérôme absentes du catalogue.
+  bizzbee:           'Bizzbee',
+  bricorama:         'Bricorama',
+  ca:                'C&A',
+  centrakor:         'Centrakor',
+  damart:            'Damart',
+  galerieslafayette: 'Galeries Lafayette',
+  laboucherie:       'La Boucherie (restaurant)',
+  lafoirfouille:     "La Foir'Fouille",
+  les3brasseurs:     'Les 3 Brasseurs',
+  topoffice:         'Top Office',
 }
 
 const api = async (host, params) => {

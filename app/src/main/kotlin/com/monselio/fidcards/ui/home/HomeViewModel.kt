@@ -72,7 +72,9 @@ class HomeViewModel(
 
     /** Priorité de la vignette (§5.1) : logo, sinon photo recto, sinon pastille. */
     private fun toHomeCard(card: Card): HomeCard {
-        val brand = catalog.byId(card.brandId)
+        // Repli par nom : une carte créée avant l'entrée de son enseigne au
+        // catalogue (brandId nul) récupère logo et couleur sans réédition.
+        val brand = catalog.byId(card.brandId) ?: catalog.byName(card.name)
         card.logoPath?.let { path ->
             return HomeCard(card, File(path), logoOnDark = false, brandColorArgb = brand?.colorArgb)
         }

@@ -31,4 +31,24 @@ class BrandCatalogTest {
         assertTrue(catalog.search("picard").any { it.name == "Picard" })
         assertTrue(catalog.search("leclerc").any { it.name == "E.Leclerc" })
     }
+
+    @Test
+    fun le_lot_des_cartes_de_jerome_est_au_catalogue() {
+        // Enseignes ajoutées le 2026-08-28 depuis ses cartes réelles.
+        for (name in listOf(
+            "Bizzbee", "Bricorama", "C&A", "Centrakor", "Damart", "Galeries Lafayette",
+            "La Boucherie", "La Coupole", "La Foir'Fouille", "Les 3 Brasseurs", "Top Office",
+        )) {
+            val brand = catalog.byName(name)
+            assertTrue("absent : $name", brand != null)
+            assertTrue("sans logo : $name", catalog.logoAssetUri(brand) != null)
+        }
+    }
+
+    @Test
+    fun le_repli_par_nom_est_insensible_a_la_casse_et_aux_accents() {
+        assertEquals("Centrakor", catalog.byName("centrakor")?.name)
+        assertEquals("La Foir'Fouille", catalog.byName("la foir fouille")?.name)
+        assertTrue(catalog.byName("enseigne inconnue") == null)
+    }
 }

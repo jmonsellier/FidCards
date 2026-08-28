@@ -34,9 +34,10 @@ class CardDetailViewModel(
     val card: StateFlow<Card?> = repository.observeById(cardId)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    /** Enseigne du catalogue (couleur officielle, logo), nulle hors catalogue. */
+    /** Enseigne du catalogue (couleur officielle, logo), nulle hors catalogue.
+     *  Repli par nom pour les cartes créées avant l'entrée de l'enseigne. */
     val brand: StateFlow<Brand?> = card
-        .map { catalog.byId(it?.brandId) }
+        .map { c -> catalog.byId(c?.brandId) ?: c?.let { catalog.byName(it.name) } }
         .flowOn(Dispatchers.Default)
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 

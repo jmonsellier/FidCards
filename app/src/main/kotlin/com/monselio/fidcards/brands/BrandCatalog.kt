@@ -73,6 +73,16 @@ class BrandCatalog(private val context: Context) {
 
     fun byId(id: String?): Brand? = id?.let { byId[it] }
 
+    private val byNormalizedName: Map<String, Brand> by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
+        brands.associateBy { it.name.searchNormalized() }
+    }
+
+    /**
+     * Correspondance exacte sur le nom normalisé : relie les cartes créées avant
+     * que leur enseigne n'entre au catalogue (aucun brandId en base).
+     */
+    fun byName(name: String): Brand? = byNormalizedName[name.searchNormalized()]
+
     /**
      * Autocomplétion insensible à la casse et aux accents, préfixes d'abord.
      * Les cartes communes sont simplifiées à la source : une seule entrée
