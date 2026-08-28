@@ -18,6 +18,7 @@ tag et la release signée (voir README).
 | Gradle / plugin Kotlin | — | Gradle 9.7.1 (AGP 9.3.2 refuse 9.3.1) ; AGP 9 intègre Kotlin : `org.jetbrains.kotlin.android` interdit |
 | UPC-E scanné | tel quel | zxing-cpp rapporte le texte étendu EAN-13 : recompression vers la forme courte à 8 chiffres au scan (`UpcE`), verrouillée par test instrumenté |
 | Poids des logos | < 1 Mo | 1,6 Mo d'assets (SVG minifiés, rasters 512 px → WebP) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
+| Vignette d'accueil (§5.1) | logo + nom sous la vignette | Demande utilisateur (2026-08-28) : face de carte seule, sans bandeau de nom. Fond : couleur de bord du logo si uniforme, sinon **pastel dérivé de sa teinte dominante** (assombri pour les 9 logos à fond sombre), cartouche neutre pour les logos monochromes. La pastille des cartes sans logo garde le nom, à l'intérieur |
 
 ---
 

@@ -1,5 +1,6 @@
 package com.monselio.fidcards.ui.home
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,16 +26,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.compose.LocalPlatformContext
+import coil3.request.ImageRequest
+import coil3.request.allowHardware
+import coil3.toBitmap
 import com.monselio.fidcards.data.Card
 import kotlin.math.abs
 
 /**
- * Vignette de la grille d'accueil : logo si disponible, sinon pastille de couleur
- * avec initiales — fréquente, donc soignée (docs/PROJET.md §5.1).
- *
- * [logoModel] : source d'image pour Coil (asset du catalogue ou fichier local), nulle
- * s'il n'y a pas de logo. [logoOnDark] : pastille sombre exigée par le logo (§6.3.1),
- * indépendamment du thème.
+ * Vignette de la grille d'accueil : uniquement la face de la carte, sans bandeau
+ * de texte. Logo si disponible (le fond de la tuile adopte la couleur de bord du
+ * logo quand elle est uniforme — il « déborde » alors sur toute la carte), sinon
+ * photo recto plein cadre, sinon pastille de couleur portant initiales et nom.
  */
 @Composable
 fun CardTile(
@@ -48,57 +55,63 @@ fun CardTile(
         color = MaterialTheme.colorScheme.surfaceVariant,
         tonalElevation = 1.dp,
     ) {
-        Column {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1.586f),
-                contentAlignment = Alignment.Center,
-            ) {
-                when {
-                    logoModel != null && isPhoto -> {
-                        // Photo recto : la carte elle-même, plein cadre.
-                        AsyncImage(
-                            model = logoModel,
-                            contentDescription = card.name,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize(),
-                        )
-                    }
-                    logoModel != null -> {
-                        // Cartouche du logo : blanc ou sombre selon le champ `background`
-                        // de l'enseigne, jamais selon le thème (un logo noir disparaîtrait
-                        // en thème sombre).
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .background(if (logoOnDark) Color(0xFF20242B) else Color.White),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            AsyncImage(
-                                model = logoModel,
-                                contentDescription = card.name,
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(horizontal = 20.dp, vertical = 16.dp),
-                            )
-                        }
-                    }
-                    else -> InitialsSwatch(card)
+        Box(
+            modifier = Modifier.aspectRatio(1.586f),
+            contentAlignment = Alignment.Center,
+        ) {
+            when {
+                logoModel != null && isPhoto -> {
+                    // Photo recto : la carte elle-même, plein cadre.
+                    AsyncImage(
+                        model = logoModel,
+                        contentDescription = card.name,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier.fillMaxSize(),
+                    )
                 }
+                logoModel != null -> LogoFace(card, logoModel, logoOnDark)
+                else -> InitialsSwatch(card)
             }
-            Text(
-                text = card.name,
-                style = MaterialTheme.typography.titleSmall,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 10.dp),
-            )
         }
+    }
+}
+
+@Composable
+private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean) {
+    // Fond de la tuile, décidé au chargement du logo :
+    // 1. fichier à fond opaque uniforme → la tuile reprend ce fond (le logo
+    //    « déborde ») ;
+    // 2. fond transparent → pastel dérivé de la teinte dominante du logo
+    //    (assombri pour les logos exigeant un fond sombre, §6.3.1) ;
+    // 3. logo monochrome ou illisible → cartouche neutre clair/sombre,
+    //    indépendant du thème — un logo noir disparaîtrait en thème sombre.
+    var tileColor by remember(logoModel) { mutableStateOf<Color?>(null) }
+    val fallback = if (logoOnDark) Color(0xFF20242B) else Color.White
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(tileColor ?: fallback),
+        contentAlignment = Alignment.Center,
+    ) {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalPlatformContext.current)
+                .data(logoModel)
+                // Bitmap logiciel : indispensable pour lire les pixels.
+                .allowHardware(false)
+                .build(),
+            contentDescription = card.name,
+            contentScale = ContentScale.Fit,
+            onSuccess = { state ->
+                tileColor = runCatching {
+                    val bitmap = state.result.image.toBitmap()
+                    edgeBackgroundColor(bitmap) ?: dominantPastel(bitmap, logoOnDark)
+                }.getOrNull()
+            },
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 20.dp, vertical = 14.dp),
+        )
     }
 }
 
@@ -111,13 +124,26 @@ private fun InitialsSwatch(card: Card) {
             .background(color),
         contentAlignment = Alignment.Center,
     ) {
-        Text(
-            text = initialsOf(card.name),
-            color = Color.White,
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Bold,
-            letterSpacing = 2.sp,
-        )
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                text = initialsOf(card.name),
+                color = Color.White,
+                fontSize = 34.sp,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 2.sp,
+            )
+            Text(
+                text = card.name,
+                color = Color.White.copy(alpha = 0.9f),
+                style = MaterialTheme.typography.labelMedium,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 12.dp, end = 12.dp, top = 2.dp),
+            )
+        }
     }
 }
 
@@ -134,4 +160,98 @@ internal fun initialsOf(name: String): String =
 internal fun colorFromName(name: String): Color {
     val hue = (abs(name.lowercase().hashCode()) % 360).toFloat()
     return Color.hsl(hue = hue, saturation = 0.45f, lightness = 0.45f)
+}
+
+/**
+ * Couleur de bord d'un logo : échantillonne le pourtour du bitmap ; renvoie la
+ * couleur moyenne si tous les échantillons sont opaques et quasi uniformes,
+ * null sinon (fond transparent ou hétérogène → cartouche par défaut). Par
+ * construction, cette couleur contraste avec l'intérieur du logo : c'est son
+ * propre fond.
+ */
+internal fun edgeBackgroundColor(bitmap: Bitmap): Color? {
+    val w = bitmap.width
+    val h = bitmap.height
+    if (w < 8 || h < 8) return null
+
+    val pixels = ArrayList<Int>(96)
+    val stepX = maxOf(1, w / 24)
+    val stepY = maxOf(1, h / 24)
+    for (x in 0 until w step stepX) {
+        pixels += bitmap.getPixel(x, 0)
+        pixels += bitmap.getPixel(x, h - 1)
+    }
+    for (y in 0 until h step stepY) {
+        pixels += bitmap.getPixel(0, y)
+        pixels += bitmap.getPixel(w - 1, y)
+    }
+
+    if (pixels.any { (it ushr 24) < 250 }) return null
+
+    val r = pixels.map { (it shr 16) and 0xFF }
+    val g = pixels.map { (it shr 8) and 0xFF }
+    val b = pixels.map { it and 0xFF }
+    val rAvg = r.average().toInt()
+    val gAvg = g.average().toInt()
+    val bAvg = b.average().toInt()
+    val uniform = pixels.indices.all {
+        abs(r[it] - rAvg) <= 14 && abs(g[it] - gAvg) <= 14 && abs(b[it] - bAvg) <= 14
+    }
+    if (!uniform) return null
+    return Color(rAvg, gAvg, bAvg)
+}
+
+/**
+ * Teinte dominante du logo → fond pastel de la tuile. Histogramme de teintes
+ * (36 seaux de 10°) sur les pixels opaques et saturés ; les gris, blancs et
+ * noirs sont ignorés. Null si le logo est monochrome : le cartouche neutre
+ * reste alors le meilleur fond.
+ */
+internal fun dominantPastel(bitmap: Bitmap, dark: Boolean): Color? {
+    val w = bitmap.width
+    val h = bitmap.height
+    if (w < 8 || h < 8) return null
+
+    val stepX = maxOf(1, w / 48)
+    val stepY = maxOf(1, h / 48)
+    val weight = FloatArray(36)
+    val hueSum = FloatArray(36)
+    val satSum = FloatArray(36)
+
+    for (y in 0 until h step stepY) {
+        for (x in 0 until w step stepX) {
+            val p = bitmap.getPixel(x, y)
+            if ((p ushr 24) < 200) continue
+            val r = ((p shr 16) and 0xFF) / 255f
+            val g = ((p shr 8) and 0xFF) / 255f
+            val b = (p and 0xFF) / 255f
+            val max = maxOf(r, g, b)
+            val min = minOf(r, g, b)
+            val delta = max - min
+            if (delta < 1e-5f) continue
+            val lightness = (max + min) / 2f
+            val sat = delta / (1f - abs(2f * lightness - 1f)).coerceAtLeast(1e-5f)
+            if (sat < 0.2f || lightness < 0.08f || lightness > 0.95f) continue
+            var hue = when (max) {
+                r -> 60f * (((g - b) / delta) % 6f)
+                g -> 60f * ((b - r) / delta + 2f)
+                else -> 60f * ((r - g) / delta + 4f)
+            }
+            if (hue < 0f) hue += 360f
+            val bucket = (hue / 10f).toInt().coerceIn(0, 35)
+            weight[bucket] += sat
+            hueSum[bucket] += hue * sat
+            satSum[bucket] += sat * sat
+        }
+    }
+
+    val best = weight.indices.maxBy { weight[it] }
+    if (weight[best] <= 0f) return null
+    val hue = hueSum[best] / weight[best]
+    val sat = satSum[best] / weight[best]
+    return if (dark) {
+        Color.hsl(hue, (sat * 0.5f).coerceIn(0.2f, 0.5f), 0.22f)
+    } else {
+        Color.hsl(hue, (sat * 0.55f).coerceIn(0.15f, 0.45f), 0.90f)
+    }
 }
