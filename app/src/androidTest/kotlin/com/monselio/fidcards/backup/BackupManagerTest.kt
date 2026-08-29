@@ -33,7 +33,7 @@ class BackupManagerTest {
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
         db = Room.inMemoryDatabaseBuilder(context, FidCardsDatabase::class.java).build()
-        repository = CardRepository(db.cardDao())
+        repository = CardRepository(db)
         manager = BackupManager(context, repository, com.monselio.fidcards.data.ImageStore(context))
         zipFile = File(context.cacheDir, "test-backup.zip")
     }

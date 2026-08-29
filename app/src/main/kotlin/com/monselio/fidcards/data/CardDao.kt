@@ -28,9 +28,15 @@ interface CardDao {
     @Insert
     suspend fun insert(card: Card): Long
 
+    @Insert
+    suspend fun insertAll(cards: List<Card>): List<Long>
+
     @Update
     suspend fun update(card: Card)
 
     @Delete
     suspend fun delete(card: Card)
+
+    @Query("DELETE FROM cards")
+    suspend fun deleteAll()
 }

@@ -28,6 +28,7 @@
     <string name="detail_generation_error">Impossible de générer le code. Présentez le numéro ci-dessous en caisse.</string>
     <string name="detail_back_photo">Verso de la carte</string>
     <string name="detail_zoom_hint">Touchez le code pour l\'agrandir.</string>
+    <string name="detail_card_missing">Cette carte n\'existe plus. Elle a été supprimée depuis ce raccourci.</string>
     <string name="detail_show_back">Voir le verso</string>
     <string name="detail_show_front">Voir le code</string>
 
@@ -37,6 +38,8 @@
     <string name="scan_manual_entry">Saisie manuelle</string>
     <string name="scan_permission_rationale">Sans accès à la caméra, le scan est impossible. Vous pouvez saisir la carte à la main, ou autoriser la caméra.</string>
     <string name="scan_retry_permission">Autoriser la caméra</string>
+    <string name="scan_permission_denied_forever">L\'accès à la caméra a été refusé définitivement : le système ne le redemandera plus. Autorisez-le dans les réglages de l\'application, ou saisissez la carte à la main.</string>
+    <string name="scan_open_settings">Ouvrir les réglages</string>
     <string name="scan_camera_unavailable">Aucune caméra utilisable sur cet appareil. Saisissez la carte à la main.</string>
 
     <!-- Ajout / édition -->
@@ -80,6 +83,7 @@
     <string name="settings_auto_backup">Sauvegarde automatique</string>
     <string name="settings_auto_backup_off">À chaque modification, l\'archive est réécrite au même emplacement — dossier local, Drive, Dropbox, dossier synchronisé…</string>
     <string name="settings_auto_backup_on">Destination : %1$s</string>
+    <string name="settings_auto_backup_failed">Destination : %1$s — dernière sauvegarde en échec, choisissez à nouveau l\'emplacement.</string>
     <string name="import_dialog_title">Importer la sauvegarde ?</string>
     <string name="import_dialog_text">« Fusionner » ajoute les cartes absentes (les doublons sont ignorés). « Remplacer » supprime d\'abord toutes les cartes actuelles.</string>
     <string name="import_merge">Fusionner</string>

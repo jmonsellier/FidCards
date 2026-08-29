@@ -1,7 +1,12 @@
 package com.monselio.fidcards.ui.scan
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.provider.Settings
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
@@ -42,7 +47,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.monselio.fidcards.R
 import com.monselio.fidcards.barcode.UpcE
@@ -64,23 +72,39 @@ fun ScanScreen(
     onBack: () -> Unit,
 ) {
     val context = LocalContext.current
-    var hasPermission by remember {
-        mutableStateOf(
-            ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) ==
-                PackageManager.PERMISSION_GRANTED,
-        )
-    }
+    val activity = LocalActivity.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    var hasPermission by remember { mutableStateOf(context.hasCameraPermission()) }
     var refused by remember { mutableStateOf(false) }
+    // « Ne plus demander » : le système renverra un refus immédiat, sans dialogue.
+    // Insister avec le même bouton ne produirait rien de visible.
+    var deniedForever by remember { mutableStateOf(false) }
     var cameraUnavailable by remember { mutableStateOf(false) }
     val permissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) { granted ->
         hasPermission = granted
         refused = !granted
+        deniedForever = !granted && activity != null &&
+            !ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.CAMERA)
     }
 
     LaunchedEffect(Unit) {
         if (!hasPermission) permissionLauncher.launch(Manifest.permission.CAMERA)
+    }
+
+    // Retour des réglages système : la permission a pu être accordée là-bas, et
+    // rien d'autre ne viendrait le dire à cet écran.
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME && !hasPermission && context.hasCameraPermission()) {
+                hasPermission = true
+                refused = false
+                deniedForever = false
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
     }
 
     Scaffold(
@@ -144,8 +168,11 @@ fun ScanScreen(
                 ) {
                     Text(
                         text = stringResource(
-                            if (cameraUnavailable) R.string.scan_camera_unavailable
-                            else R.string.scan_permission_rationale,
+                            when {
+                                cameraUnavailable -> R.string.scan_camera_unavailable
+                                deniedForever -> R.string.scan_permission_denied_forever
+                                else -> R.string.scan_permission_rationale
+                            },
                         ),
                         style = MaterialTheme.typography.bodyLarge,
                         textAlign = TextAlign.Center,
@@ -158,15 +185,42 @@ fun ScanScreen(
                     }
                     if (refused && !cameraUnavailable) {
                         OutlinedButton(
-                            onClick = { permissionLauncher.launch(Manifest.permission.CAMERA) },
+                            onClick = {
+                                if (deniedForever) {
+                                    context.openAppSettings()
+                                } else {
+                                    permissionLauncher.launch(Manifest.permission.CAMERA)
+                                }
+                            },
                             modifier = Modifier.padding(top = 8.dp),
                         ) {
-                            Text(stringResource(R.string.scan_retry_permission))
+                            Text(
+                                stringResource(
+                                    if (deniedForever) R.string.scan_open_settings
+                                    else R.string.scan_retry_permission,
+                                ),
+                            )
                         }
                     }
                 }
             }
         }
+    }
+}
+
+private fun Context.hasCameraPermission(): Boolean =
+    ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
+        PackageManager.PERMISSION_GRANTED
+
+/** Seul chemin de rattrapage après un refus définitif : la fiche de l'app. */
+private fun Context.openAppSettings() {
+    runCatching {
+        startActivity(
+            Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.fromParts("package", packageName, null),
+            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+        )
     }
 }
 

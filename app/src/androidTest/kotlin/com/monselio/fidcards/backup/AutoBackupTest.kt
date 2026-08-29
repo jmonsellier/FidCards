@@ -42,7 +42,7 @@ class AutoBackupTest {
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
         db = Room.inMemoryDatabaseBuilder(context, FidCardsDatabase::class.java).build()
-        repository = CardRepository(db.cardDao())
+        repository = CardRepository(db)
         settings = SettingsRepository(context)
         manager = BackupManager(context, repository, ImageStore(context))
         autoBackup = AutoBackup(context, settings, manager, repository, debounceMs = 150)
@@ -80,7 +80,7 @@ class AutoBackupTest {
         // L'archive relue contient bien les deux cartes.
         val restore = Room.inMemoryDatabaseBuilder(context, FidCardsDatabase::class.java).build()
         try {
-            val restoreRepo = CardRepository(restore.cardDao())
+            val restoreRepo = CardRepository(restore)
             val imported = BackupManager(context, restoreRepo, ImageStore(context))
                 .import(Uri.fromFile(target), ImportMode.MERGE)
             assertEquals(BackupResult.ImportOk(imported = 2, skipped = 0), imported)

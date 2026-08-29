@@ -22,6 +22,7 @@ class SettingsRepository(private val context: Context) {
     private val themeModeKey = stringPreferencesKey("theme_mode")
     private val autoZoomKey = booleanPreferencesKey("auto_zoom")
     private val autoBackupUriKey = stringPreferencesKey("auto_backup_uri")
+    private val autoBackupHealthyKey = booleanPreferencesKey("auto_backup_healthy")
 
     val sortMode: Flow<SortMode> = context.dataStore.data.map { prefs ->
         prefs[sortModeKey]?.let { runCatching { SortMode.valueOf(it) }.getOrNull() }
@@ -39,6 +40,15 @@ class SettingsRepository(private val context: Context) {
     /** Destination SAF de la sauvegarde automatique, nulle si désactivée. */
     val autoBackupUri: Flow<String?> = context.dataStore.data.map { it[autoBackupUriKey] }
 
+    /**
+     * Faux dès qu'une sauvegarde automatique échoue — destination révoquée,
+     * effacée ou pleine. Sans cet indicateur l'échec resterait invisible :
+     * l'export automatique n'a personne à qui rendre compte.
+     */
+    val autoBackupHealthy: Flow<Boolean> = context.dataStore.data.map {
+        it[autoBackupHealthyKey] ?: true
+    }
+
     suspend fun setSortMode(mode: SortMode) {
         context.dataStore.edit { it[sortModeKey] = mode.name }
     }
@@ -49,8 +59,17 @@ class SettingsRepository(private val context: Context) {
 
     suspend fun setAutoBackupUri(uri: String?) {
         context.dataStore.edit {
-            if (uri == null) it.remove(autoBackupUriKey) else it[autoBackupUriKey] = uri
+            if (uri == null) {
+                it.remove(autoBackupUriKey)
+                it.remove(autoBackupHealthyKey)
+            } else {
+                it[autoBackupUriKey] = uri
+            }
         }
+    }
+
+    suspend fun setAutoBackupHealthy(healthy: Boolean) {
+        context.dataStore.edit { it[autoBackupHealthyKey] = healthy }
     }
 
     suspend fun setThemeMode(mode: ThemeMode) {

@@ -17,7 +17,7 @@ class AppContainer(private val context: Context) {
 
     private val database: FidCardsDatabase by lazy { FidCardsDatabase.build(context) }
 
-    val cardRepository: CardRepository by lazy { CardRepository(database.cardDao()) }
+    val cardRepository: CardRepository by lazy { CardRepository(database) }
 
     val settingsRepository: SettingsRepository by lazy { SettingsRepository(context) }
 

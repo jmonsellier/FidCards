@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -168,7 +169,9 @@ private fun CircleButton(onClick: () -> Unit, content: @Composable () -> Unit) {
         color = MaterialTheme.colorScheme.surfaceVariant,
         contentColor = MaterialTheme.colorScheme.onSurface,
         border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-        modifier = Modifier.size(44.dp),
+        // 48 dp : cible tactile minimale, que Surface(onClick) n'impose pas
+        // d'elle-même contrairement à IconButton.
+        modifier = Modifier.size(48.dp),
     ) {
         Box(contentAlignment = Alignment.Center) { content() }
     }
@@ -232,7 +235,9 @@ private fun MetaRow(count: Int, sortMode: SortMode, onSelectSort: (SortMode) -> 
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(start = 8.dp, top = 4.dp, bottom = 4.dp),
+                    modifier = Modifier
+                        .heightIn(min = 48.dp)
+                        .padding(start = 8.dp),
                 ) {
                     Text(
                         text = stringResource(sortMode.shortLabelRes()),

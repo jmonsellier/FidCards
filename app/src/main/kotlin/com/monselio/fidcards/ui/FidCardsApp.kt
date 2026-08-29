@@ -2,10 +2,6 @@ package com.monselio.fidcards.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -17,19 +13,19 @@ import com.monselio.fidcards.ui.home.HomeScreen
 import com.monselio.fidcards.ui.navigation.Destinations
 import com.monselio.fidcards.ui.scan.ScanScreen
 import com.monselio.fidcards.ui.settings.SettingsScreen
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
-fun FidCardsApp(startCardId: Long? = null) {
+fun FidCardsApp(shortcutCardId: MutableStateFlow<Long?> = MutableStateFlow(null)) {
     val navController = rememberNavController()
 
-    // Navigation initiale d'un raccourci, consommée une seule fois (survit à la
-    // recréation via rememberSaveable).
-    var startConsumed by rememberSaveable { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        if (!startConsumed) {
-            startConsumed = true
-            if (startCardId != null) {
-                navController.navigate(Destinations.cardDetail(startCardId))
+    // Chaque raccourci ouvert — au lancement comme app déjà en tâche de fond —
+    // arrive ici, et n'est consommé qu'une fois pour ne pas empiler l'écran.
+    LaunchedEffect(navController) {
+        shortcutCardId.collect { id ->
+            if (id != null) {
+                shortcutCardId.value = null
+                navController.navigate(Destinations.cardDetail(id)) { launchSingleTop = true }
             }
         }
     }

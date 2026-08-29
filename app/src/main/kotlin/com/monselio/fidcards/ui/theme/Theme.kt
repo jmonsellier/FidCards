@@ -31,6 +31,18 @@ private val LightColorScheme = lightColorScheme(
     onSurfaceVariant = md_theme_light_onSurfaceVariant,
     outline = md_theme_light_outline,
     outlineVariant = md_theme_light_outlineVariant,
+    surfaceContainerLowest = md_theme_light_surfaceContainerLowest,
+    surfaceContainerLow = md_theme_light_surfaceContainerLow,
+    surfaceContainer = md_theme_light_surfaceContainer,
+    surfaceContainerHigh = md_theme_light_surfaceContainerHigh,
+    surfaceContainerHighest = md_theme_light_surfaceContainerHighest,
+    surfaceDim = md_theme_light_surfaceDim,
+    surfaceBright = md_theme_light_surfaceBright,
+    surfaceTint = md_theme_light_primary,
+    inverseSurface = md_theme_light_inverseSurface,
+    inverseOnSurface = md_theme_light_inverseOnSurface,
+    inversePrimary = md_theme_light_inversePrimary,
+    scrim = md_theme_light_scrim,
 )
 
 private val DarkColorScheme = darkColorScheme(
@@ -58,6 +70,18 @@ private val DarkColorScheme = darkColorScheme(
     onSurfaceVariant = md_theme_dark_onSurfaceVariant,
     outline = md_theme_dark_outline,
     outlineVariant = md_theme_dark_outlineVariant,
+    surfaceContainerLowest = md_theme_dark_surfaceContainerLowest,
+    surfaceContainerLow = md_theme_dark_surfaceContainerLow,
+    surfaceContainer = md_theme_dark_surfaceContainer,
+    surfaceContainerHigh = md_theme_dark_surfaceContainerHigh,
+    surfaceContainerHighest = md_theme_dark_surfaceContainerHighest,
+    surfaceDim = md_theme_dark_surfaceDim,
+    surfaceBright = md_theme_dark_surfaceBright,
+    surfaceTint = md_theme_dark_primary,
+    inverseSurface = md_theme_dark_inverseSurface,
+    inverseOnSurface = md_theme_dark_inverseOnSurface,
+    inversePrimary = md_theme_dark_inversePrimary,
+    scrim = md_theme_dark_scrim,
 )
 
 /**

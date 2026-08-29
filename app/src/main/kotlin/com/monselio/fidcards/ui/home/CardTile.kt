@@ -108,7 +108,10 @@ private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean, brandColor
     val brandPastel = remember(brandColorArgb, logoOnDark) {
         brandColorArgb?.let { pastelOf(it, logoOnDark) }
     }
-    var tileColor by remember(logoModel) { mutableStateOf(brandPastel) }
+    // Clé complète : la tuile est recyclée par la grille, et une carte qui change
+    // d'enseigne change de pastel — sur la seule clé du logo, l'ancienne couleur
+    // survivait au changement.
+    var tileColor by remember(logoModel, brandPastel) { mutableStateOf(brandPastel) }
     val fallback = if (logoOnDark) Color(0xFF20242B) else Color.White
 
     Box(
@@ -175,9 +178,13 @@ internal fun initialsOf(name: String): String =
         .joinToString("")
         .ifEmpty { "?" }
 
-/** Couleur stable dérivée du nom : teinte issue du hachage, tons maîtrisés. */
+/**
+ * Couleur stable dérivée du nom : teinte issue du hachage, tons maîtrisés.
+ * `mod` et non `abs(...) % ...` : abs(Int.MIN_VALUE) reste négatif, et une
+ * teinte négative fait lever Color.hsl.
+ */
 internal fun colorFromName(name: String): Color {
-    val hue = (abs(name.lowercase().hashCode()) % 360).toFloat()
+    val hue = name.lowercase().hashCode().mod(360).toFloat()
     return Color.hsl(hue = hue, saturation = 0.45f, lightness = 0.45f)
 }
 
@@ -193,16 +200,23 @@ internal fun edgeBackgroundColor(bitmap: Bitmap): Color? {
     val h = bitmap.height
     if (w < 8 || h < 8) return null
 
+    // Quatre lectures groupées plutôt qu'une centaine de getPixel : cette
+    // analyse tourne sur le thread principal, à l'arrivée de chaque logo.
+    val topRow = IntArray(w).also { bitmap.getPixels(it, 0, w, 0, 0, w, 1) }
+    val bottomRow = IntArray(w).also { bitmap.getPixels(it, 0, w, 0, h - 1, w, 1) }
+    val leftCol = IntArray(h).also { bitmap.getPixels(it, 0, 1, 0, 0, 1, h) }
+    val rightCol = IntArray(h).also { bitmap.getPixels(it, 0, 1, w - 1, 0, 1, h) }
+
     val pixels = ArrayList<Int>(96)
     val stepX = maxOf(1, w / 24)
     val stepY = maxOf(1, h / 24)
     for (x in 0 until w step stepX) {
-        pixels += bitmap.getPixel(x, 0)
-        pixels += bitmap.getPixel(x, h - 1)
+        pixels += topRow[x]
+        pixels += bottomRow[x]
     }
     for (y in 0 until h step stepY) {
-        pixels += bitmap.getPixel(0, y)
-        pixels += bitmap.getPixel(w - 1, y)
+        pixels += leftCol[y]
+        pixels += rightCol[y]
     }
 
     if (pixels.any { (it ushr 24) < 250 }) return null
@@ -237,9 +251,13 @@ internal fun dominantPastel(bitmap: Bitmap, dark: Boolean): Color? {
     val hueSum = FloatArray(36)
     val satSum = FloatArray(36)
 
+    // Une lecture par ligne échantillonnée, au lieu d'un getPixel par pixel :
+    // ~48 franchissements JNI contre ~2300 sur le thread principal.
+    val row = IntArray(w)
     for (y in 0 until h step stepY) {
+        bitmap.getPixels(row, 0, w, 0, y, w, 1)
         for (x in 0 until w step stepX) {
-            val p = bitmap.getPixel(x, y)
+            val p = row[x]
             if ((p ushr 24) < 200) continue
             val r = ((p shr 16) and 0xFF) / 255f
             val g = ((p shr 8) and 0xFF) / 255f
