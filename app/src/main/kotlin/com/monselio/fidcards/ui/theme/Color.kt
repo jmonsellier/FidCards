@@ -2,8 +2,9 @@ package com.monselio.fidcards.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Palette statique de repli pour les API 26-30, dérivée du seed #00696D.
-// À partir de l'API 31, les couleurs dynamiques Material You prennent le relais.
+// Palette de la refonte 2026 (maquettes validées le 2026-08-29, note de coffre
+// « FidCards — Refonte design 2026 ») : le cadre est neutre, la couleur vient
+// des cartes. Clair « Portefeuille » (fond chaud), sombre « Ardoise ».
 
 val md_theme_light_primary = Color(0xFF00696D)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
@@ -21,16 +22,17 @@ val md_theme_light_error = Color(0xFFBA1A1A)
 val md_theme_light_onError = Color(0xFFFFFFFF)
 val md_theme_light_errorContainer = Color(0xFFFFDAD6)
 val md_theme_light_onErrorContainer = Color(0xFF410002)
-val md_theme_light_background = Color(0xFFFAFDFC)
-val md_theme_light_onBackground = Color(0xFF191C1C)
-val md_theme_light_surface = Color(0xFFFAFDFC)
-val md_theme_light_onSurface = Color(0xFF191C1C)
-val md_theme_light_surfaceVariant = Color(0xFFDAE4E5)
-val md_theme_light_onSurfaceVariant = Color(0xFF3F4849)
-val md_theme_light_outline = Color(0xFF6F797A)
+val md_theme_light_background = Color(0xFFF7F5F2)
+val md_theme_light_onBackground = Color(0xFF1F1E1B)
+val md_theme_light_surface = Color(0xFFFFFFFF)
+val md_theme_light_onSurface = Color(0xFF1F1E1B)
+val md_theme_light_surfaceVariant = Color(0xFFFFFFFF)
+val md_theme_light_onSurfaceVariant = Color(0xFF6F6B64)
+val md_theme_light_outline = Color(0xFFA8A399)
+val md_theme_light_outlineVariant = Color(0xFFEAE7E1)
 
-val md_theme_dark_primary = Color(0xFF80D4D9)
-val md_theme_dark_onPrimary = Color(0xFF003739)
+val md_theme_dark_primary = Color(0xFF8ADEE2)
+val md_theme_dark_onPrimary = Color(0xFF00363A)
 val md_theme_dark_primaryContainer = Color(0xFF004F52)
 val md_theme_dark_onPrimaryContainer = Color(0xFF9CF1F5)
 val md_theme_dark_secondary = Color(0xFFB1CBCD)
@@ -45,10 +47,11 @@ val md_theme_dark_error = Color(0xFFFFB4AB)
 val md_theme_dark_onError = Color(0xFF690005)
 val md_theme_dark_errorContainer = Color(0xFF93000A)
 val md_theme_dark_onErrorContainer = Color(0xFFFFDAD6)
-val md_theme_dark_background = Color(0xFF191C1C)
-val md_theme_dark_onBackground = Color(0xFFE0E3E2)
-val md_theme_dark_surface = Color(0xFF191C1C)
-val md_theme_dark_onSurface = Color(0xFFE0E3E2)
-val md_theme_dark_surfaceVariant = Color(0xFF3F4849)
-val md_theme_dark_onSurfaceVariant = Color(0xFFBEC8C9)
-val md_theme_dark_outline = Color(0xFF889392)
+val md_theme_dark_background = Color(0xFF141719)
+val md_theme_dark_onBackground = Color(0xFFECEAE5)
+val md_theme_dark_surface = Color(0xFF141719)
+val md_theme_dark_onSurface = Color(0xFFECEAE5)
+val md_theme_dark_surfaceVariant = Color(0xFF1F2426)
+val md_theme_dark_onSurfaceVariant = Color(0xFF9BA29F)
+val md_theme_dark_outline = Color(0xFF5A615F)
+val md_theme_dark_outlineVariant = Color(0xFF2A2F31)

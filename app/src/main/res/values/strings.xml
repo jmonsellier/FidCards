@@ -14,6 +14,13 @@
     <string name="sort_recency">Récemment utilisées</string>
     <string name="sort_name_asc">Nom A → Z</string>
     <string name="sort_name_desc">Nom Z → A</string>
+    <string name="sort_recency_short">Récentes</string>
+    <string name="sort_name_asc_short">A → Z</string>
+    <string name="sort_name_desc_short">Z → A</string>
+    <plurals name="home_card_count">
+        <item quantity="one">%d carte</item>
+        <item quantity="other">%d cartes</item>
+    </plurals>
 
     <!-- Plein écran -->
     <string name="detail_back">Retour</string>

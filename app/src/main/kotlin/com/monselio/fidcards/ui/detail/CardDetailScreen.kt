@@ -13,15 +13,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -44,6 +46,7 @@ import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
@@ -141,118 +144,157 @@ fun CardDetailScreen(
             ?: colorFromName(current.name)
         val onCardColor = if (cardColor.luminance() < 0.5f) Color.White else Color(0xFF1A1A1A)
 
-        Column(
+        // Écran entier aux couleurs de l'enseigne (refonte 2026), barres
+        // système comprises ; le contenu respecte les insets.
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+                .background(cardColor),
         ) {
-            Surface(
-                shape = RoundedCornerShape(28.dp),
-                color = cardColor,
-                modifier = Modifier.fillMaxWidth(),
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Column(modifier = Modifier.padding(12.dp)) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        IconButton(onClick = onBack) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.detail_back),
-                                tint = onCardColor,
-                            )
-                        }
-                        Text(
-                            text = current.name,
-                            style = MaterialTheme.typography.headlineSmall,
-                            color = onCardColor,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier
-                                .weight(1f)
-                                .padding(start = 4.dp, end = 8.dp),
-                        )
-                        brandLogoUri?.let { uri ->
-                            Surface(
-                                shape = RoundedCornerShape(12.dp),
-                                color = Color.White,
-                                modifier = Modifier.size(44.dp),
-                            ) {
-                                AsyncImage(
-                                    model = uri,
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Fit,
-                                    modifier = Modifier.padding(5.dp),
-                                )
-                            }
-                        }
-                        IconButton(onClick = onEdit) {
-                            Icon(
-                                Icons.Default.Edit,
-                                contentDescription = stringResource(R.string.detail_edit),
-                                tint = onCardColor,
-                            )
-                        }
-                    }
-
-                    // Cartouche blanc quel que soit le thème : un code inversé
-                    // n'est pas lu (§14). Un toucher l'agrandit.
-                    Surface(
-                        onClick = { if (!showBack) zoomed = true },
-                        shape = RoundedCornerShape(16.dp),
-                        color = Color.White,
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                ) {
+                    ScrimIconButton(
+                        onClick = onBack,
+                        icon = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = stringResource(R.string.detail_back),
+                        tint = onCardColor,
+                    )
+                    Text(
+                        text = current.name,
+                        style = MaterialTheme.typography.titleLarge,
+                        color = onCardColor,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 4.dp),
+                            .weight(1f)
+                            .padding(horizontal = 8.dp),
+                    )
+                    ScrimIconButton(
+                        onClick = onEdit,
+                        icon = Icons.Default.Edit,
+                        contentDescription = stringResource(R.string.detail_edit),
+                        tint = onCardColor,
+                    )
+                }
+
+                brandLogoUri?.let { uri ->
+                    Surface(
+                        shape = RoundedCornerShape(14.dp),
+                        color = Color.White,
+                        modifier = Modifier.padding(top = 20.dp),
                     ) {
-                        Crossfade(targetState = showBack, label = "recto-verso") { back ->
-                            if (back && current.backImagePath != null) {
-                                AsyncImage(
-                                    model = File(current.backImagePath.orEmpty()),
-                                    contentDescription = stringResource(R.string.detail_back_photo),
-                                    contentScale = ContentScale.Fit,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(10.dp),
-                                )
-                            } else {
-                                Column(
-                                    modifier = Modifier.padding(vertical = 18.dp, horizontal = 12.dp),
-                                    horizontalAlignment = Alignment.CenterHorizontally,
-                                ) {
-                                    BarcodeImage(
-                                        value = current.barcodeValue,
-                                        format = current.barcodeFormat,
-                                    )
-                                    NumberText(
-                                        value = current.numberToDisplay,
+                        AsyncImage(
+                            model = uri,
+                            contentDescription = null,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .height(48.dp)
+                                .widthIn(min = 48.dp, max = 132.dp)
+                                .padding(8.dp),
+                        )
+                    }
+                }
+
+            }
+
+            // Centré dans l'écran entier, comme la maquette — le centrage dans
+            // l'espace restant sous l'en-tête décalait le cartouche vers le bas.
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxWidth()
+                    .padding(innerPadding)
+                    .padding(horizontal = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                        // Cartouche blanc quel que soit le thème : un code
+                        // inversé n'est pas lu (§14). Un toucher l'agrandit.
+                        Surface(
+                            onClick = { if (!showBack) zoomed = true },
+                            shape = RoundedCornerShape(22.dp),
+                            color = Color.White,
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Crossfade(targetState = showBack, label = "recto-verso") { back ->
+                                if (back && current.backImagePath != null) {
+                                    AsyncImage(
+                                        model = File(current.backImagePath.orEmpty()),
+                                        contentDescription = stringResource(R.string.detail_back_photo),
+                                        contentScale = ContentScale.Fit,
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .padding(top = 14.dp),
+                                            .padding(10.dp),
                                     )
+                                } else {
+                                    Column(
+                                        modifier = Modifier.padding(vertical = 22.dp, horizontal = 14.dp),
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                    ) {
+                                        BarcodeImage(
+                                            value = current.barcodeValue,
+                                            format = current.barcodeFormat,
+                                        )
+                                        NumberText(
+                                            value = current.numberToDisplay,
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(top = 14.dp),
+                                        )
+                                    }
                                 }
                             }
                         }
+                        Text(
+                            text = stringResource(R.string.detail_zoom_hint),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = onCardColor.copy(alpha = 0.85f),
+                            modifier = Modifier.padding(top = 16.dp),
+                        )
+                        if (current.backImagePath != null) {
+                            TextButton(
+                                onClick = { showBack = !showBack },
+                                colors = ButtonDefaults.textButtonColors(contentColor = onCardColor),
+                            ) {
+                                Text(
+                                    stringResource(
+                                        if (showBack) R.string.detail_show_front else R.string.detail_show_back,
+                                    ),
+                                )
+                            }
+                        }
                     }
-                }
-            }
+        }
+    }
+}
 
-            Text(
-                text = stringResource(R.string.detail_zoom_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(top = 10.dp),
-            )
-            if (current.backImagePath != null) {
-                TextButton(onClick = { showBack = !showBack }) {
-                    Text(
-                        stringResource(
-                            if (showBack) R.string.detail_show_front else R.string.detail_show_back,
-                        ),
-                    )
-                }
-            }
+@Composable
+private fun ScrimIconButton(
+    onClick: () -> Unit,
+    icon: ImageVector,
+    contentDescription: String,
+    tint: Color,
+) {
+    Surface(
+        onClick = onClick,
+        shape = CircleShape,
+        color = tint.copy(alpha = 0.16f),
+        contentColor = tint,
+        modifier = Modifier.size(44.dp),
+    ) {
+        Box(contentAlignment = Alignment.Center) {
+            Icon(icon, contentDescription = contentDescription, tint = tint)
         }
     }
 }

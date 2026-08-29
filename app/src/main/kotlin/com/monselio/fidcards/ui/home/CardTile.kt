@@ -1,6 +1,7 @@
 package com.monselio.fidcards.ui.home
 
 import android.graphics.Bitmap
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,6 +34,7 @@ import coil3.request.allowHardware
 import coil3.toBitmap
 import com.monselio.fidcards.data.Card
 import kotlin.math.abs
+import kotlin.math.pow
 
 /**
  * Vignette de la grille d'accueil : uniquement la face de la carte, sans bandeau
@@ -53,9 +56,10 @@ fun CardTile(
         Surface(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
-            shape = MaterialTheme.shapes.large,
+            shape = RoundedCornerShape(14.dp),
             color = MaterialTheme.colorScheme.surfaceVariant,
-            tonalElevation = 1.dp,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            shadowElevation = 1.dp,
         ) {
             Box(
                 modifier = Modifier.aspectRatio(1.586f),
@@ -78,15 +82,15 @@ fun CardTile(
         }
         Text(
             text = card.name,
-            style = MaterialTheme.typography.bodySmall,
-            fontWeight = FontWeight.Normal,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.labelMedium,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurface,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 4.dp),
+                .padding(top = 6.dp),
         )
     }
 }
@@ -264,31 +268,43 @@ internal fun dominantPastel(bitmap: Bitmap, dark: Boolean): Color? {
     if (weight[best] <= 0f) return null
     val hue = hueSum[best] / weight[best]
     val sat = satSum[best] / weight[best]
-    return pastelHsl(hue, sat, dark)
+    return harmonizedTint(Color.hsl(hue, sat.coerceIn(0.35f, 0.9f), 0.5f), dark)
 }
 
-/** Pastel d'une couleur primaire d'enseigne : même teinte, très éclaircie. */
-internal fun pastelOf(argb: Int, dark: Boolean): Color {
-    val r = ((argb shr 16) and 0xFF) / 255f
-    val g = ((argb shr 8) and 0xFF) / 255f
-    val b = (argb and 0xFF) / 255f
-    val max = maxOf(r, g, b)
-    val min = minOf(r, g, b)
-    val delta = max - min
-    if (delta < 1e-5f) return if (dark) Color(0xFF20242B) else Color(0xFFEEEEEE)
-    val lightness = (max + min) / 2f
-    val sat = delta / (1f - abs(2f * lightness - 1f)).coerceAtLeast(1e-5f)
-    var hue = when (max) {
-        r -> 60f * (((g - b) / delta) % 6f)
-        g -> 60f * ((b - r) / delta + 2f)
-        else -> 60f * ((r - g) / delta + 4f)
-    }
-    if (hue < 0f) hue += 360f
-    return pastelHsl(hue, sat, dark)
+/** Pastel d'une couleur primaire d'enseigne. */
+internal fun pastelOf(argb: Int, dark: Boolean): Color = harmonizedTint(Color(argb), dark)
+
+/**
+ * Teinte harmonisée : mélange linéaire de la couleur d'enseigne vers un fond
+ * commun, dosé pour atteindre une même luminance cible. Toutes les tuiles
+ * partagent ainsi la même clarté perçue quelle que soit la teinte — l'HSL à
+ * clarté fixe donnait des pastels disparates (beige terne, lavande saturée).
+ */
+internal fun harmonizedTint(brand: Color, dark: Boolean): Color {
+    val base = if (dark) Color(0xFF20242B) else Color.White
+    val targetY = if (dark) 0.045f else 0.82f
+    val rBase = linearize(base.red)
+    val gBase = linearize(base.green)
+    val bBase = linearize(base.blue)
+    val rBrand = linearize(brand.red)
+    val gBrand = linearize(brand.green)
+    val bBrand = linearize(brand.blue)
+    val yBase = 0.2126f * rBase + 0.7152f * gBase + 0.0722f * bBase
+    val yBrand = 0.2126f * rBrand + 0.7152f * gBrand + 0.0722f * bBrand
+    val raw = if (abs(yBase - yBrand) < 1e-4f) 1f else (yBase - targetY) / (yBase - yBrand)
+    val k = raw.coerceIn(
+        if (dark) 0.15f else 0.12f,
+        if (dark) 0.95f else 0.50f,
+    )
+    return Color(
+        red = delinearize(rBase + (rBrand - rBase) * k),
+        green = delinearize(gBase + (gBrand - gBase) * k),
+        blue = delinearize(bBase + (bBrand - bBase) * k),
+    )
 }
 
-private fun pastelHsl(hue: Float, sat: Float, dark: Boolean): Color = if (dark) {
-    Color.hsl(hue, (sat * 0.5f).coerceIn(0.2f, 0.5f), 0.22f)
-} else {
-    Color.hsl(hue, (sat * 0.55f).coerceIn(0.15f, 0.45f), 0.90f)
-}
+private fun linearize(c: Float): Float =
+    if (c <= 0.04045f) c / 12.92f else ((c + 0.055f) / 1.055f).pow(2.4f)
+
+private fun delinearize(c: Float): Float =
+    (if (c <= 0.0031308f) c * 12.92f else 1.055f * c.pow(1f / 2.4f) - 0.055f).coerceIn(0f, 1f)
