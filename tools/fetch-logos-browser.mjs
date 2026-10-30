@@ -13,10 +13,11 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createRequire } from 'node:module'
 
-const require = createRequire('/Users/jerome/Projects/csm-scraper/')
-const { chromium } = require('playwright')
-
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
+
+// Playwright vient du dépôt csm-scraper, cloné à côté de FidCards (~/code/csm-scraper sur le VPS).
+const require = createRequire(join(ROOT, '..', 'csm-scraper', '/'))
+const { chromium } = require('playwright')
 const LOGOS = join(ROOT, 'brands', 'logos')
 const JSON_PATH = join(ROOT, 'brands', 'brands.json')
 

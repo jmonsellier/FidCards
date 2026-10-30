@@ -11,12 +11,13 @@
 // Usage : node tools/fetch-logos.mjs [chemin/vers/seed_brands.csv]
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { homedir } from 'node:os'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..')
 const OUT_DIR = join(ROOT, 'brands', 'logos')
-const CSV = process.argv[2] ?? '/Users/jerome/Downloads/seed_brands_1.csv'
+const CSV = process.argv[2] ?? join(homedir(), 'Downloads', 'seed_brands_1.csv')
 
 const MIN_PX = 128        // en deçà, une image est inutilisable dans la grille
 const CONCURRENCY = 6
