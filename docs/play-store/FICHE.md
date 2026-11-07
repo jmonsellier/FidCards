@@ -18,7 +18,7 @@ cheval sur les jointures ; les téléverser dans l'ordre 1 → 4.
 
 **Description courte** (80 car. max) :
 
-> Cartes de fidélité sans pub ni compte, qui marchent même hors ligne.
+> Cartes de fidélité hors ligne, gratuites, sans pub ni compte.
 
 **Description complète** :
 
@@ -27,7 +27,7 @@ cheval sur les jointures ; les téléverser dans l'ordre 1 → 4.
 > SANS PUB, SANS COMPTE
 > Aucune publicité, aucun compte à créer, aucun abonnement. L'app est gratuite.
 >
-> MARCHE HORS LIGNE
+> 100 % HORS LIGNE
 > FidCards n'utilise jamais Internet : vos cartes s'affichent même sans 4G ni Wi-Fi, au fond du magasin comme à l'étranger.
 >
 > RAPIDE EN CAISSE
@@ -40,7 +40,7 @@ cheval sur les jointures ; les téléverser dans l'ordre 1 → 4.
 > EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Codabar, ITF, QR, Data Matrix, PDF417, Aztec.
 >
 > VOS DONNÉES RESTENT CHEZ VOUS
-> Aucun traceur, aucune mesure d'audience, et pas même la permission d'accéder à Internet : vos cartes ne quittent jamais le téléphone. Sauvegarde dans un fichier que vous choisissez, pour changer de téléphone sans rien perdre.
+> Aucun traceur, aucune mesure d'audience, et pas même la permission d'accéder à Internet : vos cartes ne quittent jamais le téléphone. Sauvegarde automatique facultative dans le dossier de votre choix, sur le téléphone ou dans le cloud (Drive, Dropbox…), pour changer de téléphone sans rien perdre.
 >
 > Application libre et open source (GPL-3.0).
 >

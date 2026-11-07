@@ -3,8 +3,34 @@ package com.monselio.fidcards.ui
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.graphics.vector.PathParser
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.drawscope.rotate
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.Canvas
@@ -24,7 +50,6 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
@@ -50,6 +75,12 @@ import com.monselio.fidcards.ui.home.HomeScreen
 import com.monselio.fidcards.ui.theme.BricolageGrotesque
 import com.monselio.fidcards.ui.theme.FidCardsTheme
 import com.monselio.fidcards.ui.theme.InstrumentSans
+import com.monselio.fidcards.ui.theme.md_theme_light_background
+import com.monselio.fidcards.ui.theme.md_theme_light_onPrimaryContainer
+import com.monselio.fidcards.ui.theme.md_theme_light_primary
+import com.monselio.fidcards.ui.theme.md_theme_light_primaryContainer
+import com.monselio.fidcards.ui.theme.md_theme_light_secondaryContainer
+import com.monselio.fidcards.ui.theme.md_theme_light_tertiaryContainer
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -124,58 +155,18 @@ class VisuelsPlayStore {
 
     /**
      * Captures de la fiche en panorama : une seule image de 4 × 360 dp (4320 × 1920 px),
-     * fond continu et cartes à cheval sur deux captures, découpée en quatre
-     * captures 1080 × 1920 qui se suivent dans la fiche.
+     * fond continu (seul le code-barres en filigrane passe d'une capture à l'autre), découpée en
+     * quatre captures 1080 × 1920 : chacune contient entière son titre, son téléphone et ses encarts.
      */
     @Test
     @Config(qualifiers = "w1440dp-h640dp-xxhdpi")
     fun captures_panorama() {
-        val catalog = app.container.brandCatalog
         val parId = runBlocking { app.container.cardRepository.getAll() }.associateBy { it.brandId }
         compose.setContent {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.linearGradient(
-                            listOf(Color(0xFF00797E), Color(0xFF00585C), Color(0xFF00797E), Color(0xFF004A4E)),
-                        ),
-                    ),
-            ) {
-                // Vague claire continue d'un bout à l'autre du panorama.
-                Canvas(modifier = Modifier.fillMaxSize()) {
-                    val vague = Path().apply {
-                        moveTo(0f, size.height * 0.62f)
-                        for (i in 0 until 4) {
-                            val x = size.width * i / 4
-                            cubicTo(
-                                x + size.width / 12, size.height * 0.50f,
-                                x + size.width / 6, size.height * 0.80f,
-                                x + size.width / 4, size.height * 0.62f,
-                            )
-                        }
-                        lineTo(size.width, size.height)
-                        lineTo(0f, size.height)
-                        close()
-                    }
-                    drawPath(vague, Color.White.copy(alpha = 0.07f))
-                }
+            Box(modifier = Modifier.fillMaxSize().background(FOND)) {
+                FondCodeBarres()
                 DIAPOS.forEachIndexed { i, d ->
-                    Diapositive(d, parId, Modifier.offset(x = (i * 360).dp).width(360.dp))
-                }
-                // Cartes à cheval sur les jointures : elles lient les captures entre elles.
-                listOf("gifi" to -8f, "ikea" to 6f, "sephora" to -5f).forEachIndexed { i, (id, angle) ->
-                    val brand = requireNotNull(catalog.byId(id))
-                    CardTile(
-                        card = Card(name = "", barcodeValue = "0", barcodeFormat = BarcodeFormat.CODE_128, brandId = id, createdAt = 0),
-                        logoModel = catalog.logoAssetUri(brand),
-                        onClick = {},
-                        brandColorArgb = brand.colorArgb,
-                        modifier = Modifier
-                            .offset(x = ((i + 1) * 360 - 48).dp, y = (250 + i % 2 * 120).dp)
-                            .width(96.dp)
-                            .rotate(angle),
-                    )
+                    Diapositive(d, parId, Modifier.offset(x = (i * 360).dp).size(360.dp, 640.dp))
                 }
             }
         }
@@ -191,42 +182,102 @@ class VisuelsPlayStore {
         }
     }
 
+    /** Un grand code-barres en filigrane, légèrement incliné, qui court d'une capture à l'autre. */
+    @Composable
+    private fun FondCodeBarres() {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val hauteur = 250.dp.toPx()
+            val module = 3.dp.toPx()
+            val alea = java.util.Random(13)
+            rotate(-5f, pivot = Offset(size.width / 2, size.height * 0.62f)) {
+                var x = -size.width * 0.05f
+                var barre = true
+                while (x < size.width * 1.05f) {
+                    val largeur = module * (1 + alea.nextInt(if (barre) 3 else 4))
+                    if (barre) {
+                        drawRect(
+                            PASTILLE.copy(alpha = 0.7f),
+                            topLeft = Offset(x, size.height * 0.62f - hauteur / 2),
+                            size = Size(largeur, hauteur),
+                        )
+                    }
+                    x += largeur
+                    barre = !barre
+                }
+            }
+        }
+    }
+
+    /** Une capture : titre au mot surligné, téléphone Android entier, encarts qui le chevauchent. */
     @Composable
     private fun Diapositive(d: Diapo, parId: Map<String?, Card>, modifier: Modifier) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
-            Text(
-                d.titre,
-                fontFamily = BricolageGrotesque,
-                fontSize = 32.sp,
-                lineHeight = 34.sp,
-                textAlign = TextAlign.Center,
-                color = Color.White,
-                modifier = Modifier.padding(top = 40.dp, start = 14.dp, end = 14.dp),
-            )
-            Text(
-                d.sousTitre,
-                fontFamily = InstrumentSans,
-                fontSize = 15.sp,
-                textAlign = TextAlign.Center,
-                color = Color(0xFFBFEFF1),
-                modifier = Modifier.padding(top = 8.dp, bottom = 22.dp, start = 14.dp, end = 14.dp),
-            )
+        Box(modifier = modifier) {
+            Column(modifier = Modifier.padding(start = 24.dp, end = 18.dp, top = 30.dp)) {
+                Text(d.titre, style = TITRE)
+                Text(
+                    d.surligne,
+                    style = TITRE,
+                    modifier = Modifier
+                        .padding(top = 3.dp)
+                        .offset(x = (-6).dp)
+                        .background(d.accent, RoundedCornerShape(10.dp))
+                        .padding(horizontal = 6.dp, vertical = 1.dp),
+                )
+                Text(
+                    buildAnnotatedString {
+                        append(d.sousTitre)
+                        withStyle(SpanStyle(fontWeight = FontWeight.Bold, color = SARCELLE)) { append(d.sousTitreFort) }
+                    },
+                    fontFamily = InstrumentSans,
+                    fontSize = 15.sp,
+                    lineHeight = 20.sp,
+                    color = ENCRE.copy(alpha = 0.78f),
+                    modifier = Modifier.padding(top = 10.dp),
+                )
+            }
+            val xTelephone = if (d.telephoneAGauche) MARGE else 360 - MARGE - LARGEUR_TELEPHONE
+            Telephone(d, parId, Modifier.offset(x = xTelephone.dp, y = HAUT_TELEPHONE.dp))
+            val xEncarts = if (d.telephoneAGauche) 360 - MARGE - LARGEUR_ENCART else MARGE
+            // Sur l'écran carte, les encarts laissent le code-barres dégagé.
+            val ys = if (d.carte == null) listOf(232, 312, 392) else listOf(188, 474, 546)
+            d.encarts.zip(ys).forEach { (e, y) -> Encart(e, d.accent, Modifier.offset(x = xEncarts.dp, y = y.dp)) }
+        }
+    }
+
+    /**
+     * Téléphone Android : corps à bords fins, poinçon de caméra, boutons latéraux, barre
+     * d'état et barre de gestes autour de l'écran réel de l'app (360 × 760 dp, format 19:9).
+     */
+    @Composable
+    private fun Telephone(d: Diapo, parId: Map<String?, Card>, modifier: Modifier) {
+        val catalog = app.container.brandCatalog
+        val echelle = ECRAN_REDUIT / 360f
+        Box(modifier = modifier) {
+            // Boutons marche/arrêt et volume, sur la tranche droite.
+            listOf(84 to 30, 132 to 56).forEach { (y, h) ->
+                Box(
+                    Modifier
+                        .offset(x = (LARGEUR_TELEPHONE - 1).dp, y = y.dp)
+                        .size(3.dp, h.dp)
+                        .background(Color(0xFF2A2E32), RoundedCornerShape(2.dp)),
+                )
+            }
             Box(
                 modifier = Modifier
-                    .shadow(24.dp, RoundedCornerShape(22.dp))
-                    .background(Color(0xFF0E1213), RoundedCornerShape(22.dp))
-                    .padding(7.dp),
+                    .shadow(22.dp, RoundedCornerShape(30.dp), ambientColor = ENCRE, spotColor = ENCRE)
+                    .background(Color(0xFF1B1E21), RoundedCornerShape(30.dp))
+                    .border(1.dp, Color(0xFF3C4146), RoundedCornerShape(30.dp))
+                    .padding(BORDURE.dp),
             ) {
-                val echelle = ECRAN_REDUIT / 360f
                 Box(
                     modifier = Modifier
-                        .size(ECRAN_REDUIT.dp, (640 * echelle).dp)
-                        .clip(RoundedCornerShape(15.dp)),
+                        .size(ECRAN_REDUIT.dp, (HAUTEUR_ECRAN * echelle).dp)
+                        .clip(RoundedCornerShape(24.dp)),
                 ) {
                     Box(
                         modifier = Modifier
                             .wrapContentSize(Alignment.TopStart, unbounded = true)
-                            .requiredSize(360.dp, 640.dp)
+                            .requiredSize(360.dp, HAUTEUR_ECRAN.dp)
                             .graphicsLayer {
                                 scaleX = echelle
                                 scaleY = echelle
@@ -234,11 +285,26 @@ class VisuelsPlayStore {
                             },
                     ) {
                         FidCardsTheme(darkTheme = d.sombre) {
-                            val id = d.carte?.let { parId.getValue(it).id }
-                            if (id == null) {
-                                HomeScreen(onCardClick = {}, onAddCard = {}, onOpenSettings = {})
-                            } else {
-                                CardDetailScreen(cardId = id, onBack = {}, onEdit = {})
+                            val fond = d.carte?.let { Color(requireNotNull(catalog.byId(it)?.colorArgb)) }
+                                ?: MaterialTheme.colorScheme.background
+                            val encre = if (fond.luminance() > 0.5f) Color(0xFF1F1E1B) else Color.White
+                            // Les barres recouvrent l'écran d'1 dp : pas de liseré à la jonction.
+                            Box(modifier = Modifier.fillMaxSize().background(fond)) {
+                                Box(modifier = Modifier.padding(top = 29.dp, bottom = 21.dp)) {
+                                    val id = d.carte?.let { parId.getValue(it).id }
+                                    if (id == null) {
+                                        HomeScreen(onCardClick = {}, onAddCard = {}, onOpenSettings = {})
+                                    } else {
+                                        CardDetailScreen(cardId = id, onBack = {}, onEdit = {})
+                                    }
+                                }
+                                BarreEtat(encre, fond, avion = d.modeAvion)
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier.align(Alignment.BottomStart).fillMaxWidth().height(22.dp).background(fond),
+                                ) {
+                                    Box(Modifier.size(110.dp, 5.dp).background(encre.copy(alpha = 0.55f), CircleShape))
+                                }
                             }
                         }
                     }
@@ -247,25 +313,206 @@ class VisuelsPlayStore {
         }
     }
 
+    /** Barre d'état Android : heure, poinçon de caméra au centre, réseau (ou mode avion) et batterie. */
+    @Composable
+    private fun BarreEtat(encre: Color, fond: Color, avion: Boolean) {
+        Box(modifier = Modifier.fillMaxWidth().height(30.dp).background(fond).padding(horizontal = 22.dp)) {
+            Text(
+                "10:24",
+                fontFamily = InstrumentSans,
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 14.sp,
+                color = encre,
+                modifier = Modifier.align(Alignment.CenterStart),
+            )
+            Box(Modifier.align(Alignment.Center).size(15.dp).background(Color(0xFF0A0B0C), CircleShape))
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.align(Alignment.CenterEnd),
+            ) {
+                if (avion) {
+                    Icon(AVION, contentDescription = null, tint = encre, modifier = Modifier.size(16.dp))
+                } else {
+                    Canvas(Modifier.size(14.dp)) {
+                        drawPath(
+                            Path().apply { moveTo(size.width, 0f); lineTo(size.width, size.height); lineTo(0f, size.height); close() },
+                            encre,
+                        )
+                    }
+                }
+                Canvas(Modifier.size(9.dp, 15.dp)) {
+                    drawRoundRect(encre, topLeft = Offset(size.width * 0.3f, 0f), size = Size(size.width * 0.4f, 2.dp.toPx()))
+                    drawRoundRect(
+                        encre,
+                        topLeft = Offset(0f, 1.5.dp.toPx()),
+                        size = Size(size.width, size.height - 1.5.dp.toPx()),
+                        cornerRadius = CornerRadius(1.5.dp.toPx()),
+                    )
+                }
+            }
+        }
+    }
+
+    /** Encart flottant : pastille d'icône, libellé, et un badge qui donne la réponse. */
+    @Composable
+    private fun Encart(e: Encart, accent: Color, modifier: Modifier) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = modifier
+                .width(LARGEUR_ENCART.dp)
+                .shadow(14.dp, RoundedCornerShape(16.dp), ambientColor = ENCRE, spotColor = ENCRE)
+                .background(Color.White, RoundedCornerShape(16.dp))
+                .padding(horizontal = 10.dp, vertical = 9.dp),
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.size(32.dp).background(accent, CircleShape),
+            ) {
+                Icon(e.icone, contentDescription = null, tint = ENCRE, modifier = Modifier.size(18.dp))
+                if (e.barre) {
+                    // Barre « désactivé » à la Material : trait d'encre détouré de la couleur du fond.
+                    Canvas(Modifier.size(20.dp)) {
+                        val a = Offset(size.width * 0.12f, size.height * 0.12f)
+                        val b = Offset(size.width * 0.88f, size.height * 0.88f)
+                        drawLine(accent, a, b, strokeWidth = 5.dp.toPx(), cap = StrokeCap.Round)
+                        drawLine(ENCRE, a, b, strokeWidth = 2.dp.toPx(), cap = StrokeCap.Round)
+                    }
+                }
+            }
+            Column(modifier = Modifier.padding(start = 9.dp)) {
+                Text(
+                    e.libelle,
+                    fontFamily = InstrumentSans,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 13.sp,
+                    lineHeight = 16.sp,
+                    color = ENCRE,
+                )
+                Text(
+                    e.badge,
+                    fontFamily = InstrumentSans,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 10.sp,
+                    color = SARCELLE,
+                    modifier = Modifier
+                        .padding(top = 3.dp)
+                        .background(PASTILLE, RoundedCornerShape(50))
+                        .padding(horizontal = 7.dp, vertical = 1.dp),
+                )
+            }
+        }
+    }
+
+    private data class Encart(
+        val icone: ImageVector,
+        val libelle: String,
+        val badge: String,
+        val barre: Boolean = false,
+    )
+
     private data class Diapo(
         val nom: String,
         val titre: String,
+        val surligne: String,
         val sousTitre: String,
+        val sousTitreFort: String,
+        val accent: Color,
+        val telephoneAGauche: Boolean,
         val sombre: Boolean,
+        val encarts: List<Encart>,
         val carte: String? = null,
+        val modeAvion: Boolean = false,
     )
 
     private companion object {
-        /** Largeur de l'écran réduit dans le cadre, en dp (675 px en xxhdpi). */
-        const val ECRAN_REDUIT = 225f
+        /** Écran de l'app dans le téléphone : 360 × 760 dp réels, réduits à 210 dp de large. */
+        const val HAUTEUR_ECRAN = 760
+        const val ECRAN_REDUIT = 210f
+        const val BORDURE = 6
+        const val LARGEUR_TELEPHONE = 210 + 2 * BORDURE
+        const val HAUT_TELEPHONE = 166
+        const val MARGE = 16
+        const val LARGEUR_ENCART = 168
 
-        // Arguments vérifiables dans le code : aucune permission INTERNET, aucun SDK
-        // de pub ni de mesure, aucun compte ; tri par récence d'usage.
+        // Pictogrammes Material (Apache-2.0) absents de material-icons-core.
+        val AVION = vecteur(
+            "M21,16v-2l-8,-5V3.5c0,-0.83 -0.67,-1.5 -1.5,-1.5S10,2.67 10,3.5V9l-8,5v2l8,-2.5V19l-2,1.5V22l3.5,-1 3.5,1v-1.5L13,19v-5.5l8,2.5z",
+        )
+        val RESEAU = vecteur("M2,22h20V2z")
+        val WIFI = vecteur(
+            "M1,9l2,2c4.97,-4.97 13.03,-4.97 18,0l2,-2C16.93,2.93 7.08,2.93 1,9zM9,17l3,3 3,-3c-1.65,-1.66 -4.34,-1.66 -6,0zM5,13l2,2c2.76,-2.76 7.24,-2.76 10,0l2,-2C15.14,9.14 8.87,9.14 5,13z",
+        )
+        val PUB = vecteur(
+            "M18,11v2h4v-2h-4zM16,17.61c0.96,0.71 2.21,1.65 3.2,2.39 0.4,-0.53 0.8,-1.07 1.2,-1.6 -0.99,-0.74 -2.24,-1.68 -3.2,-2.4 -0.4,0.54 -0.8,1.08 -1.2,1.61zM20.4,5.6c-0.4,-0.53 -0.8,-1.07 -1.2,-1.6 -0.99,0.74 -2.24,1.68 -3.2,2.4 0.4,0.53 0.8,1.07 1.2,1.6 0.96,-0.72 2.21,-1.65 3.2,-2.4zM4,9c-1.1,0 -2,0.9 -2,2v2c0,1.1 0.9,2 2,2h1v4h2v-4h1l5,3V6L8,9H4zM15.5,12c0,-1.33 -0.58,-2.53 -1.5,-3.35v6.69c0.92,-0.81 1.5,-2.01 1.5,-3.34z",
+        )
+        val SOLEIL = vecteur(
+            "M12,7c-2.76,0 -5,2.24 -5,5s2.24,5 5,5 5,-2.24 5,-5 -2.24,-5 -5,-5zM2,13h2c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1L2,11c-0.55,0 -1,0.45 -1,1s0.45,1 1,1zM20,13h2c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1h-2c-0.55,0 -1,0.45 -1,1s0.45,1 1,1zM11,2v2c0,0.55 0.45,1 1,1s1,-0.45 1,-1L13,2c0,-0.55 -0.45,-1 -1,-1s-1,0.45 -1,1zM11,20v2c0,0.55 0.45,1 1,1s1,-0.45 1,-1v-2c0,-0.55 -0.45,-1 -1,-1 -0.55,0 -1,0.45 -1,1z",
+        )
+
+        val CODE = vecteur("M9.4,16.6L4.8,12l4.6,-4.6L8,6l-6,6 6,6 1.4,-1.4zM14.6,16.6l4.6,-4.6 -4.6,-4.6L16,6l6,6 -6,6 -1.4,-1.4z")
+        val OEIL = vecteur(
+            "M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z",
+        )
+
+        fun vecteur(chemin: String) = ImageVector.Builder("picto", 24.dp, 24.dp, 24f, 24f)
+            .addPath(PathParser().parsePathString(chemin).toNodes(), fill = SolidColor(Color.Black))
+            .build()
+
+        // Couleurs du thème de l'app (ui/theme/Color.kt).
+        val FOND = md_theme_light_background
+        val PASTILLE = md_theme_light_secondaryContainer
+        val ENCRE = md_theme_light_onPrimaryContainer
+        val SARCELLE = md_theme_light_primary
+
+        val TITRE = TextStyle(fontFamily = BricolageGrotesque, fontWeight = FontWeight.Bold, fontSize = 32.sp, lineHeight = 35.sp, color = ENCRE)
+
+        // Arguments vérifiables dans le code : aucune permission INTERNET, aucun SDK de pub
+        // ni de mesure, aucun compte ni achat ; tri par récence d'usage ; luminosité forcée
+        // au maximum sur l'écran carte (CardDetailScreen) ; dépôt GPL-3.0.
         val DIAPOS = listOf(
-            Diapo("rapide", "Votre carte\nen un toucher", "Les plus utilisées remontent en tête", sombre = false),
-            Diapo("hors-ligne", "Marche\nsans réseau", "Même au fond du magasin, sans 4G ni Wi-Fi", sombre = false, carte = "carrefour"),
-            Diapo("sans-pub", "Zéro pub,\nzéro compte", "Rien à créer, rien à subir", sombre = true),
-            Diapo("privee", "Vos cartes\nrestent chez vous", "Aucun accès à Internet, aucun traceur", sombre = true, carte = "lafoirfouille"),
+            Diapo(
+                "rapide", "Ouvrez, scannez,", "c'est réglé",
+                "La luminosité monte ", "toute seule.",
+                accent = md_theme_light_primaryContainer, telephoneAGauche = true, sombre = false,
+                encarts = listOf(
+                    Encart(Icons.Filled.Star, "Tri automatique", "Selon l'usage"),
+                    Encart(Icons.Filled.Search, "Recherche", "Par enseigne"),
+                    Encart(SOLEIL, "Luminosité", "Au maximum"),
+                ),
+            ),
+            Diapo(
+                "hors-ligne", "Pas de réseau ?", "Aucun souci",
+                "Aucune connexion : ", "100 % hors ligne.",
+                accent = md_theme_light_secondaryContainer, telephoneAGauche = false, sombre = false, carte = "carrefour",
+                modeAvion = true,
+                encarts = listOf(
+                    Encart(AVION, "Mode avion", "Fonctionne"),
+                    Encart(RESEAU, "Sans 4G ni 5G", "Fonctionne"),
+                    Encart(WIFI, "Sans Wi-Fi", "Fonctionne"),
+                ),
+            ),
+            Diapo(
+                "sans-pub", "Gratuite.", "Vraiment.",
+                "Ni pub, ni compte, ", "ni abonnement.",
+                accent = md_theme_light_primaryContainer, telephoneAGauche = true, sombre = true,
+                encarts = listOf(
+                    Encart(PUB, "Publicités", "Aucune", barre = true),
+                    Encart(Icons.Filled.Person, "Inscription", "Inutile", barre = true),
+                    Encart(CODE, "Code source", "Libre, GPL-3.0"),
+                ),
+            ),
+            Diapo(
+                "privee", "Vos cartes restent", "chez vous",
+                "Aucun serveur, ", "aucun intermédiaire.",
+                accent = md_theme_light_tertiaryContainer, telephoneAGauche = false, sombre = true, carte = "lafoirfouille",
+                encarts = listOf(
+                    Encart(Icons.Filled.Lock, "Accès Internet", "Non demandé"),
+                    Encart(OEIL, "Traceurs", "Aucun", barre = true),
+                    // Sauvegarde automatique facultative vers un dossier choisi (backup/AutoBackup.kt).
+                    Encart(Icons.Filled.Refresh, "Sauvegarde auto", "Drive, Dropbox…"),
+                ),
+            ),
         )
     }
 

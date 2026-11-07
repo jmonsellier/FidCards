@@ -1,6 +1,6 @@
 # FidCards
 
-Application Android libre de cartes de fidélité : sans pub, sans compte, et qui marche
+Application Android libre de cartes de fidélité : sans pub, sans compte, et 100 %
 hors ligne. Aucune donnée ne quitte le téléphone : aucun serveur, aucun accès réseau.
 
 Le chemin critique : **écran verrouillé → carte scannable en caisse.**
