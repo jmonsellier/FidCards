@@ -90,7 +90,7 @@ class CardDaoTest {
     @Test
     fun record_usage_applique_le_score_et_l_anti_rebond() = runBlocking {
         var now = 0L
-        val repo = CardRepository(dao, clock = { now })
+        val repo = CardRepository(db, clock = { now })
 
         val id = dao.insert(card())
 

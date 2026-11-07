@@ -25,7 +25,7 @@ android {
         applicationId = "com.monselio.fidcards"
         minSdk = 26
         targetSdk = 36
-        versionCode = 4
+        versionCode = 5
         versionName = "1.2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -122,7 +122,14 @@ dependencies {
     implementation(libs.androidx.camera.core)
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)
-    implementation(libs.androidx.camera.view)
+    // camera-view tire camera-video -> media3-common, dont le manifeste injecte
+    // ACCESS_NETWORK_STATE dans l'APK fusionné : une permission réseau visible
+    // sur la fiche Play Store, dans une app qui n'a pas le droit d'en avoir
+    // (CLAUDE.md). Seul PreviewView est utilisé ici, jamais l'enregistrement
+    // vidéo : l'exclusion retire aussi media3-muxer et Guava au passage.
+    implementation(libs.androidx.camera.view) {
+        exclude(group = "androidx.camera", module = "camera-video")
+    }
 
     implementation(libs.zxing.cpp.android)
     // Génération des codes : zxing-cpp 3.1.1 n'expose aucune API d'écriture sur Android

@@ -31,6 +31,21 @@ val md_theme_light_onSurfaceVariant = Color(0xFF6F6B64)
 val md_theme_light_outline = Color(0xFFA8A399)
 val md_theme_light_outlineVariant = Color(0xFFEAE7E1)
 
+// Conteneurs de surface : menus, dialogues et snackbars les lisent directement.
+// Non renseignés, ils retombaient sur le lavande baseline de Material, étranger
+// au fond chaud « Portefeuille ». L'échelle va du blanc au beige.
+val md_theme_light_surfaceContainerLowest = Color(0xFFFFFFFF)
+val md_theme_light_surfaceContainerLow = Color(0xFFFFFFFF)
+val md_theme_light_surfaceContainer = Color(0xFFFDFCFA)
+val md_theme_light_surfaceContainerHigh = Color(0xFFFAF8F5)
+val md_theme_light_surfaceContainerHighest = Color(0xFFF4F1EC)
+val md_theme_light_surfaceDim = Color(0xFFE4E0D9)
+val md_theme_light_surfaceBright = Color(0xFFFFFFFF)
+val md_theme_light_inverseSurface = Color(0xFF34322E)
+val md_theme_light_inverseOnSurface = Color(0xFFF6F3EE)
+val md_theme_light_inversePrimary = Color(0xFF8ADEE2)
+val md_theme_light_scrim = Color(0xFF000000)
+
 val md_theme_dark_primary = Color(0xFF8ADEE2)
 val md_theme_dark_onPrimary = Color(0xFF00363A)
 val md_theme_dark_primaryContainer = Color(0xFF004F52)
@@ -55,3 +70,17 @@ val md_theme_dark_surfaceVariant = Color(0xFF1F2426)
 val md_theme_dark_onSurfaceVariant = Color(0xFF9BA29F)
 val md_theme_dark_outline = Color(0xFF5A615F)
 val md_theme_dark_outlineVariant = Color(0xFF2A2F31)
+
+// Même échelle côté « Ardoise » : du presque noir au gris froid, sans le
+// violet du thème sombre baseline.
+val md_theme_dark_surfaceContainerLowest = Color(0xFF0E1113)
+val md_theme_dark_surfaceContainerLow = Color(0xFF191D1F)
+val md_theme_dark_surfaceContainer = Color(0xFF1D2123)
+val md_theme_dark_surfaceContainerHigh = Color(0xFF272B2E)
+val md_theme_dark_surfaceContainerHighest = Color(0xFF32373A)
+val md_theme_dark_surfaceDim = Color(0xFF141719)
+val md_theme_dark_surfaceBright = Color(0xFF3A3F42)
+val md_theme_dark_inverseSurface = Color(0xFFECEAE5)
+val md_theme_dark_inverseOnSurface = Color(0xFF2F3335)
+val md_theme_dark_inversePrimary = Color(0xFF00696D)
+val md_theme_dark_scrim = Color(0xFF000000)

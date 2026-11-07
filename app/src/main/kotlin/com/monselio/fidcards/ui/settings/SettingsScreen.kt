@@ -1,5 +1,6 @@
 package com.monselio.fidcards.ui.settings
 
+import android.content.Context
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
@@ -34,6 +35,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.net.toUri
 import androidx.compose.ui.unit.dp
@@ -55,7 +58,7 @@ fun SettingsScreen(
     val themeMode by viewModel.themeMode.collectAsStateWithLifecycle()
     val autoZoom by viewModel.autoZoom.collectAsStateWithLifecycle()
     val autoBackupUri by viewModel.autoBackupUri.collectAsStateWithLifecycle()
-    val lastResult by viewModel.lastResult.collectAsStateWithLifecycle()
+    val autoBackupHealthy by viewModel.autoBackupHealthy.collectAsStateWithLifecycle()
     val pendingImport by viewModel.pendingImport.collectAsStateWithLifecycle()
     val snackbarHostState = remember { SnackbarHostState() }
 
@@ -71,12 +74,12 @@ fun SettingsScreen(
         ActivityResultContracts.CreateDocument("application/zip"),
     ) { uri -> uri?.let(viewModel::enableAutoBackup) }
 
-    val messages = backupMessages()
-    LaunchedEffect(lastResult) {
-        val result = lastResult ?: return@LaunchedEffect
-        viewModel.consumeResult()
-        messages[result::class]?.let { render ->
-            snackbarHostState.showSnackbar(render(result))
+    // Clé constante : le flux d'événements survit à la recomposition, donc la
+    // snackbar a le temps de s'afficher jusqu'à son renvoi par l'utilisateur.
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.results.collect { result ->
+            snackbarHostState.showSnackbar(result.message(context))
         }
     }
 
@@ -162,13 +165,17 @@ fun SettingsScreen(
             ListItem(
                 headlineContent = { Text(stringResource(R.string.settings_auto_backup)) },
                 supportingContent = {
+                    val failing = autoBackupUri != null && !autoBackupHealthy
                     Text(
-                        autoBackupUri?.let { stored ->
-                            stringResource(
-                                R.string.settings_auto_backup_on,
-                                stored.toUri().lastPathSegment ?: stored,
-                            )
+                        text = autoBackupUri?.let { stored ->
+                            val label = destinationLabel(stored)
+                            if (failing) {
+                                stringResource(R.string.settings_auto_backup_failed, label)
+                            } else {
+                                stringResource(R.string.settings_auto_backup_on, label)
+                            }
                         } ?: stringResource(R.string.settings_auto_backup_off),
+                        color = if (failing) MaterialTheme.colorScheme.error else Color.Unspecified,
                     )
                 },
                 trailingContent = {
@@ -208,12 +215,17 @@ fun SettingsScreen(
                 }
             },
             dismissButton = {
+                // « Annuler » d'abord, à l'écart de l'action destructive, qui porte
+                // en plus la couleur d'erreur : « Remplacer » efface la bibliothèque.
                 Row {
-                    TextButton(onClick = { viewModel.confirmImport(ImportMode.REPLACE) }) {
-                        Text(stringResource(R.string.import_replace))
-                    }
                     TextButton(onClick = viewModel::cancelImport) {
                         Text(stringResource(R.string.action_cancel))
+                    }
+                    TextButton(onClick = { viewModel.confirmImport(ImportMode.REPLACE) }) {
+                        Text(
+                            text = stringResource(R.string.import_replace),
+                            color = MaterialTheme.colorScheme.error,
+                        )
                     }
                 }
             },
@@ -231,22 +243,19 @@ private fun SectionTitle(text: String) {
     )
 }
 
-/** Rend chaque résultat de sauvegarde en message localisé. */
-@Composable
-private fun backupMessages(): Map<kotlin.reflect.KClass<out BackupResult>, (BackupResult) -> String> {
-    val exportOk = stringResource(R.string.backup_export_done)
-    val importOk = stringResource(R.string.backup_import_done)
-    val version = stringResource(R.string.backup_error_version)
-    val failed = stringResource(R.string.backup_error_generic)
-    return mapOf(
-        BackupResult.ExportOk::class to { r -> exportOk.format((r as BackupResult.ExportOk).cards) },
-        BackupResult.ImportOk::class to { r ->
-            val ok = r as BackupResult.ImportOk
-            importOk.format(ok.imported, ok.skipped)
-        },
-        BackupResult.UnknownVersion::class to { version },
-        BackupResult.Failed::class to { failed },
-    )
+/**
+ * Un identifiant de document SAF ressemble à « primary:Download/fidcards.zip » :
+ * l'afficher tel quel n'apprend rien, seul le nom de fichier est parlant.
+ */
+private fun destinationLabel(stored: String): String =
+    stored.toUri().lastPathSegment?.substringAfterLast('/')?.takeIf { it.isNotBlank() } ?: stored
+
+/** Message localisé d'un résultat de sauvegarde ; le `when` en garantit la couverture. */
+private fun BackupResult.message(context: Context): String = when (this) {
+    is BackupResult.ExportOk -> context.getString(R.string.backup_export_done, cards)
+    is BackupResult.ImportOk -> context.getString(R.string.backup_import_done, imported, skipped)
+    BackupResult.UnknownVersion -> context.getString(R.string.backup_error_version)
+    BackupResult.Failed -> context.getString(R.string.backup_error_generic)
 }
 
 private fun ThemeMode.labelRes(): Int = when (this) {

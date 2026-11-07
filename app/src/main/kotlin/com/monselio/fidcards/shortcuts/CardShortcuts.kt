@@ -31,6 +31,14 @@ object CardShortcuts {
                 .setIntent(
                     Intent(context, MainActivity::class.java)
                         .setAction(Intent.ACTION_VIEW)
+                        // CLEAR_TOP + SINGLE_TOP : l'app déjà lancée est ramenée
+                        // au premier plan avec CE nouvel intent (onNewIntent),
+                        // au lieu de reprendre l'écran quitté en ignorant l'extra.
+                        .setFlags(
+                            Intent.FLAG_ACTIVITY_NEW_TASK or
+                                Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                Intent.FLAG_ACTIVITY_SINGLE_TOP,
+                        )
                         .putExtra(EXTRA_CARD_ID, card.id),
                 )
                 .build()

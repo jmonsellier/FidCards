@@ -550,7 +550,7 @@ class VisuelsPlayStore {
                 "hors-ligne", "Pas de réseau ?", "Aucun souci",
                 "Aucune connexion : ", "100 % hors ligne.",
                 accent = md_theme_light_secondaryContainer, telephoneAGauche = false, ecran = Ecran.CARTE, carte = "carrefour",
-                modeAvion = true, ys = listOf(188, 474, 546),
+                modeAvion = true, ys = listOf(188, 302, 522),
                 encarts = listOf(
                     Encart(AVION, "Mode avion", "Fonctionne"),
                     Encart(RESEAU, "Sans 4G ni 5G", "Fonctionne"),

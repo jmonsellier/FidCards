@@ -19,6 +19,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+/** Une carte peut ne jamais arriver : supprimée depuis un raccourci encore posé. */
+sealed interface CardDetailState {
+    data object Loading : CardDetailState
+    data object Missing : CardDetailState
+    data class Loaded(val card: Card) : CardDetailState
+}
+
 class CardDetailViewModel(
     repository: CardRepository,
     catalog: BrandCatalog,
@@ -31,7 +38,14 @@ class CardDetailViewModel(
         .map { it }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
-    val card: StateFlow<Card?> = repository.observeById(cardId)
+    val state: StateFlow<CardDetailState> = repository.observeById(cardId)
+        .map<Card?, CardDetailState> { card ->
+            if (card == null) CardDetailState.Missing else CardDetailState.Loaded(card)
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CardDetailState.Loading)
+
+    private val card: StateFlow<Card?> = state
+        .map { (it as? CardDetailState.Loaded)?.card }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     /** Enseigne du catalogue (couleur officielle, logo), nulle hors catalogue.

@@ -28,7 +28,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.get
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
@@ -175,9 +174,13 @@ internal fun initialsOf(name: String): String =
         .joinToString("")
         .ifEmpty { "?" }
 
-/** Couleur stable dérivée du nom : teinte issue du hachage, franche comme une vraie carte. */
+/**
+ * Couleur stable dérivée du nom : teinte issue du hachage, franche comme une vraie carte.
+ * `mod` et non `abs(...) % ...` : abs(Int.MIN_VALUE) reste négatif, et une
+ * teinte négative fait lever Color.hsl.
+ */
 internal fun colorFromName(name: String): Color {
-    val hue = (abs(name.lowercase().hashCode()) % 360).toFloat()
+    val hue = name.lowercase().hashCode().mod(360).toFloat()
     return Color.hsl(hue = hue, saturation = 0.65f, lightness = 0.42f)
 }
 
@@ -193,16 +196,23 @@ internal fun edgeBackgroundColor(bitmap: Bitmap): Color? {
     val h = bitmap.height
     if (w < 8 || h < 8) return null
 
+    // Quatre lectures groupées plutôt qu'une centaine de getPixel : cette
+    // analyse tourne sur le thread principal, à l'arrivée de chaque logo.
+    val topRow = IntArray(w).also { bitmap.getPixels(it, 0, w, 0, 0, w, 1) }
+    val bottomRow = IntArray(w).also { bitmap.getPixels(it, 0, w, 0, h - 1, w, 1) }
+    val leftCol = IntArray(h).also { bitmap.getPixels(it, 0, 1, 0, 0, 1, h) }
+    val rightCol = IntArray(h).also { bitmap.getPixels(it, 0, 1, w - 1, 0, 1, h) }
+
     val pixels = ArrayList<Int>(96)
     val stepX = maxOf(1, w / 24)
     val stepY = maxOf(1, h / 24)
     for (x in 0 until w step stepX) {
-        pixels += bitmap[x, 0]
-        pixels += bitmap[x, h - 1]
+        pixels += topRow[x]
+        pixels += bottomRow[x]
     }
     for (y in 0 until h step stepY) {
-        pixels += bitmap[0, y]
-        pixels += bitmap[w - 1, y]
+        pixels += leftCol[y]
+        pixels += rightCol[y]
     }
 
     if (pixels.any { (it ushr 24) < 250 }) return null

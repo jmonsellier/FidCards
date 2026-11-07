@@ -14,9 +14,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,6 +34,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -42,6 +46,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
@@ -49,6 +54,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -57,12 +63,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.monselio.fidcards.R
 import com.monselio.fidcards.barcode.generateBarcodeBitmap
 import com.monselio.fidcards.barcode.rotatedQuarter
+import com.monselio.fidcards.brands.Brand
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.ui.home.cardFaceColor
@@ -87,7 +95,7 @@ fun CardDetailScreen(
         factory = CardDetailViewModel.factory(cardId),
     ),
 ) {
-    val card by viewModel.card.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateWithLifecycle()
     val brand by viewModel.brand.collectAsStateWithLifecycle()
     val brandLogoUri by viewModel.brandLogoUri.collectAsStateWithLifecycle()
     val activity = LocalActivity.current
@@ -126,104 +134,168 @@ fun CardDetailScreen(
         }
     }
 
-    Scaffold { innerPadding ->
-        val current = card ?: return@Scaffold
-        if (zoomed) {
-            ZoomedBarcode(
-                card = current,
-                onDismiss = { zoomed = false },
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
-            )
-            return@Scaffold
+    val loaded = state as? CardDetailState.Loaded
+    val cardColor = loaded?.let { cardColor(it.card, brand) }
+
+    // La couleur d'enseigne court jusque sous la barre d'état : sans cet
+    // accord, l'horloge et la batterie disparaissent sur les enseignes très
+    // sombres (Bershka) comme très claires (Cultura). L'agrandi, lui, est blanc.
+    val view = LocalView.current
+    DisposableEffect(activity, view, cardColor, zoomed) {
+        val controller = activity?.window?.let { WindowCompat.getInsetsController(it, view) }
+        val previous = controller?.isAppearanceLightStatusBars
+        val lightBackground = if (zoomed) true else cardColor?.let { it.luminance() >= 0.5f }
+        if (controller != null && lightBackground != null) {
+            controller.isAppearanceLightStatusBars = lightBackground
         }
+        onDispose {
+            if (controller != null && previous != null) {
+                controller.isAppearanceLightStatusBars = previous
+            }
+        }
+    }
 
-        val cardColor = cardFaceColor(current, brand?.colorArgb)
-        val onCardColor = contentColorOn(cardColor)
+    Scaffold { innerPadding ->
+        when (val current = state) {
+            // Premier passage avant l'arrivée du flux : rien à annoncer.
+            CardDetailState.Loading -> Unit
 
-        // Écran entier aux couleurs de l'enseigne (refonte 2026), barres
-        // système comprises ; le contenu respecte les insets.
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(cardColor),
-        ) {
-            Column(
+            CardDetailState.Missing -> MissingCard(
+                onBack = onBack,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
-                    .padding(horizontal = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 8.dp),
-                ) {
-                    ScrimIconButton(
-                        onClick = onBack,
-                        icon = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = stringResource(R.string.detail_back),
-                        tint = onCardColor,
-                    )
-                    Text(
-                        text = current.name,
-                        style = MaterialTheme.typography.titleLarge,
-                        color = onCardColor,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier
-                            .weight(1f)
-                            .padding(horizontal = 8.dp),
-                    )
-                    ScrimIconButton(
-                        onClick = onEdit,
-                        icon = Icons.Default.Edit,
-                        contentDescription = stringResource(R.string.detail_edit),
-                        tint = onCardColor,
-                    )
-                }
+                    .padding(horizontal = 24.dp),
+            )
 
-                // Logo posé à même le fond, comme sur la carte : le catalogue
-                // fournit la variante dessinée pour cette couleur.
-                brandLogoUri?.let { uri ->
+            is CardDetailState.Loaded -> if (zoomed) {
+                ZoomedBarcode(
+                    card = current.card,
+                    onDismiss = { zoomed = false },
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding),
+                )
+            } else {
+                CardFace(
+                    card = current.card,
+                    brandLogoUri = brandLogoUri,
+                    cardColor = cardColor ?: cardColor(current.card, brand),
+                    showBack = showBack,
+                    onToggleBack = { showBack = !showBack },
+                    onZoom = { zoomed = true },
+                    onBack = onBack,
+                    onEdit = onEdit,
+                    contentPadding = innerPadding,
+                )
+            }
+        }
+    }
+}
+
+/** Couleur de fond : celle de l'enseigne, sinon celle de la carte, sinon dérivée du nom. */
+private fun cardColor(card: Card, brand: Brand?): Color = cardFaceColor(card, brand?.colorArgb)
+
+/**
+ * La carte plein écran : en-tête ancré en haut, cartouche centré dans l'espace
+ * restant. Ce bloc central défile dès qu'il ne tient plus — code matriciel,
+ * verso en portrait, paysage ou grande taille de police — au lieu d'être rogné,
+ * et il n'est plus superposé à l'en-tête, dont il interceptait les touches.
+ */
+@Composable
+private fun CardFace(
+    card: Card,
+    brandLogoUri: String?,
+    cardColor: Color,
+    showBack: Boolean,
+    onToggleBack: () -> Unit,
+    onZoom: () -> Unit,
+    onBack: () -> Unit,
+    onEdit: () -> Unit,
+    contentPadding: PaddingValues,
+) {
+    val onCardColor = contentColorOn(cardColor)
+
+    // Écran entier aux couleurs de l'enseigne (refonte 2026), barres
+    // système comprises ; le contenu respecte les insets.
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(cardColor),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+            ) {
+                ScrimIconButton(
+                    onClick = onBack,
+                    icon = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = stringResource(R.string.detail_back),
+                    tint = onCardColor,
+                )
+                Text(
+                    text = card.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    color = onCardColor,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 8.dp),
+                )
+                ScrimIconButton(
+                    onClick = onEdit,
+                    icon = Icons.Default.Edit,
+                    contentDescription = stringResource(R.string.detail_edit),
+                    tint = onCardColor,
+                )
+            }
+
+            // Logo posé à même le fond, comme sur la carte : le catalogue
+            // fournit la variante dessinée pour cette couleur.
+            brandLogoUri?.let { uri ->
+                Box(modifier = Modifier.padding(top = 24.dp)) {
                     AsyncImage(
                         model = uri,
                         contentDescription = null,
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .padding(top = 24.dp)
                             .height(64.dp)
                             .widthIn(max = 220.dp),
                     )
                 }
             }
 
-            // Centré dans l'écran entier, comme la maquette — le centrage dans
-            // l'espace restant sous l'en-tête décalait le cartouche vers le bas.
             Column(
                 modifier = Modifier
-                    .align(Alignment.Center)
+                    .weight(1f)
                     .fillMaxWidth()
-                    .padding(innerPadding)
-                    .padding(horizontal = 16.dp),
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 // Cartouche blanc quel que soit le thème : un code
                 // inversé n'est pas lu (§14). Un toucher l'agrandit.
                 Surface(
-                    onClick = { if (!showBack) zoomed = true },
+                    onClick = { if (!showBack) onZoom() },
                     shape = RoundedCornerShape(22.dp),
                     color = Color.White,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Crossfade(targetState = showBack, label = "recto-verso") { back ->
-                        if (back && current.backImagePath != null) {
+                        if (back && card.backImagePath != null) {
                             AsyncImage(
-                                model = File(current.backImagePath.orEmpty()),
+                                model = File(card.backImagePath.orEmpty()),
                                 contentDescription = stringResource(R.string.detail_back_photo),
                                 contentScale = ContentScale.Fit,
                                 modifier = Modifier
@@ -236,11 +308,11 @@ fun CardDetailScreen(
                                 horizontalAlignment = Alignment.CenterHorizontally,
                             ) {
                                 BarcodeImage(
-                                    value = current.barcodeValue,
-                                    format = current.barcodeFormat,
+                                    value = card.barcodeValue,
+                                    format = card.barcodeFormat,
                                 )
                                 NumberText(
-                                    value = current.numberToDisplay,
+                                    value = card.numberToDisplay,
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(top = 14.dp),
@@ -255,9 +327,9 @@ fun CardDetailScreen(
                     color = onCardColor.copy(alpha = 0.85f),
                     modifier = Modifier.padding(top = 16.dp),
                 )
-                if (current.backImagePath != null) {
+                if (card.backImagePath != null) {
                     TextButton(
-                        onClick = { showBack = !showBack },
+                        onClick = onToggleBack,
                         colors = ButtonDefaults.textButtonColors(contentColor = onCardColor),
                     ) {
                         Text(
@@ -268,6 +340,31 @@ fun CardDetailScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * La carte a disparu — supprimée alors qu'un raccourci d'écran d'accueil la
+ * désignait encore. Sans ce cas, l'écran restait vide et sans issue.
+ */
+@Composable
+private fun MissingCard(onBack: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = stringResource(R.string.detail_card_missing),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Center,
+        )
+        OutlinedButton(
+            onClick = onBack,
+            modifier = Modifier.padding(top = 24.dp),
+        ) {
+            Text(stringResource(R.string.detail_back))
         }
     }
 }
@@ -284,7 +381,9 @@ private fun ScrimIconButton(
         shape = CircleShape,
         color = tint.copy(alpha = 0.16f),
         contentColor = tint,
-        modifier = Modifier.size(44.dp),
+        // 48 dp : cible tactile minimale, que Surface(onClick) n'impose pas
+        // d'elle-même contrairement à IconButton.
+        modifier = Modifier.size(48.dp),
     ) {
         Box(contentAlignment = Alignment.Center) {
             Icon(icon, contentDescription = contentDescription, tint = tint)

@@ -1,11 +1,14 @@
 package com.monselio.fidcards.data
 
+import androidx.room.withTransaction
 import kotlinx.coroutines.flow.Flow
 
 class CardRepository(
-    private val dao: CardDao,
+    private val database: FidCardsDatabase,
     private val clock: () -> Long = System::currentTimeMillis,
 ) {
+
+    private val dao: CardDao = database.cardDao()
 
     fun observeAll(): Flow<List<Card>> = dao.observeAll()
 
@@ -19,9 +22,22 @@ class CardRepository(
 
     suspend fun insert(card: Card): Long = dao.insert(card)
 
+    suspend fun insertAll(cards: List<Card>) {
+        if (cards.isNotEmpty()) dao.insertAll(cards)
+    }
+
     suspend fun update(card: Card) = dao.update(card)
 
     suspend fun delete(card: Card) = dao.delete(card)
+
+    suspend fun deleteAll() = dao.deleteAll()
+
+    /**
+     * Exécute [block] en une transaction unique : tout ou rien. Indispensable à
+     * l'import « remplacer », qui vide la bibliothèque avant de la reconstruire
+     * — une interruption en cours de route ne doit rien laisser derrière elle.
+     */
+    suspend fun <T> inTransaction(block: suspend () -> T): T = database.withTransaction(block)
 
     /**
      * Enregistre une ouverture en plein écran : score décayé puis incrémenté,
