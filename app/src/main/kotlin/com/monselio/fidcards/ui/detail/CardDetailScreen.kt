@@ -45,7 +45,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layout
@@ -66,7 +65,8 @@ import com.monselio.fidcards.barcode.generateBarcodeBitmap
 import com.monselio.fidcards.barcode.rotatedQuarter
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.data.Card
-import com.monselio.fidcards.ui.home.colorFromName
+import com.monselio.fidcards.ui.home.cardFaceColor
+import com.monselio.fidcards.ui.home.contentColorOn
 import java.io.File
 
 /**
@@ -139,10 +139,8 @@ fun CardDetailScreen(
             return@Scaffold
         }
 
-        val cardColor = brand?.colorArgb?.let(::Color)
-            ?: current.colorArgb?.let(::Color)
-            ?: colorFromName(current.name)
-        val onCardColor = if (cardColor.luminance() < 0.5f) Color.White else Color(0xFF1A1A1A)
+        val cardColor = cardFaceColor(current, brand?.colorArgb)
+        val onCardColor = contentColorOn(cardColor)
 
         // Écran entier aux couleurs de l'enseigne (refonte 2026), barres
         // système comprises ; le contenu respecte les insets.
@@ -189,24 +187,19 @@ fun CardDetailScreen(
                     )
                 }
 
+                // Logo posé à même le fond, comme sur la carte : le catalogue
+                // fournit la variante dessinée pour cette couleur.
                 brandLogoUri?.let { uri ->
-                    Surface(
-                        shape = RoundedCornerShape(14.dp),
-                        color = Color.White,
-                        modifier = Modifier.padding(top = 20.dp),
-                    ) {
-                        AsyncImage(
-                            model = uri,
-                            contentDescription = null,
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .height(48.dp)
-                                .widthIn(min = 48.dp, max = 132.dp)
-                                .padding(8.dp),
-                        )
-                    }
+                    AsyncImage(
+                        model = uri,
+                        contentDescription = null,
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .padding(top = 24.dp)
+                            .height(64.dp)
+                            .widthIn(max = 220.dp),
+                    )
                 }
-
             }
 
             // Centré dans l'écran entier, comme la maquette — le centrage dans
@@ -219,62 +212,62 @@ fun CardDetailScreen(
                     .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                        // Cartouche blanc quel que soit le thème : un code
-                        // inversé n'est pas lu (§14). Un toucher l'agrandit.
-                        Surface(
-                            onClick = { if (!showBack) zoomed = true },
-                            shape = RoundedCornerShape(22.dp),
-                            color = Color.White,
-                            modifier = Modifier.fillMaxWidth(),
-                        ) {
-                            Crossfade(targetState = showBack, label = "recto-verso") { back ->
-                                if (back && current.backImagePath != null) {
-                                    AsyncImage(
-                                        model = File(current.backImagePath.orEmpty()),
-                                        contentDescription = stringResource(R.string.detail_back_photo),
-                                        contentScale = ContentScale.Fit,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(10.dp),
-                                    )
-                                } else {
-                                    Column(
-                                        modifier = Modifier.padding(vertical = 22.dp, horizontal = 14.dp),
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                    ) {
-                                        BarcodeImage(
-                                            value = current.barcodeValue,
-                                            format = current.barcodeFormat,
-                                        )
-                                        NumberText(
-                                            value = current.numberToDisplay,
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .padding(top = 14.dp),
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                        Text(
-                            text = stringResource(R.string.detail_zoom_hint),
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = onCardColor.copy(alpha = 0.85f),
-                            modifier = Modifier.padding(top = 16.dp),
-                        )
-                        if (current.backImagePath != null) {
-                            TextButton(
-                                onClick = { showBack = !showBack },
-                                colors = ButtonDefaults.textButtonColors(contentColor = onCardColor),
+                // Cartouche blanc quel que soit le thème : un code
+                // inversé n'est pas lu (§14). Un toucher l'agrandit.
+                Surface(
+                    onClick = { if (!showBack) zoomed = true },
+                    shape = RoundedCornerShape(22.dp),
+                    color = Color.White,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Crossfade(targetState = showBack, label = "recto-verso") { back ->
+                        if (back && current.backImagePath != null) {
+                            AsyncImage(
+                                model = File(current.backImagePath.orEmpty()),
+                                contentDescription = stringResource(R.string.detail_back_photo),
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp),
+                            )
+                        } else {
+                            Column(
+                                modifier = Modifier.padding(vertical = 22.dp, horizontal = 14.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally,
                             ) {
-                                Text(
-                                    stringResource(
-                                        if (showBack) R.string.detail_show_front else R.string.detail_show_back,
-                                    ),
+                                BarcodeImage(
+                                    value = current.barcodeValue,
+                                    format = current.barcodeFormat,
+                                )
+                                NumberText(
+                                    value = current.numberToDisplay,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(top = 14.dp),
                                 )
                             }
                         }
                     }
+                }
+                Text(
+                    text = stringResource(R.string.detail_zoom_hint),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = onCardColor.copy(alpha = 0.85f),
+                    modifier = Modifier.padding(top = 16.dp),
+                )
+                if (current.backImagePath != null) {
+                    TextButton(
+                        onClick = { showBack = !showBack },
+                        colors = ButtonDefaults.textButtonColors(contentColor = onCardColor),
+                    ) {
+                        Text(
+                            stringResource(
+                                if (showBack) R.string.detail_show_front else R.string.detail_show_back,
+                            ),
+                        )
+                    }
+                }
+            }
         }
     }
 }

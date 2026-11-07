@@ -29,11 +29,9 @@ import kotlinx.coroutines.launch
 data class HomeCard(
     val card: Card,
     val logoModel: Any?,
-    /** Cartouche sombre exigé par le logo (§6.3.1), indépendamment du thème. */
-    val logoOnDark: Boolean,
     /** Photo recto en repli (§5.1) : plein cadre, pas de cartouche. */
     val isPhoto: Boolean = false,
-    /** Couleur primaire officielle de l'enseigne, si connue du catalogue. */
+    /** Couleur officielle de la carte de l'enseigne, si connue du catalogue. */
     val brandColorArgb: Int? = null,
 )
 
@@ -76,20 +74,19 @@ class HomeViewModel(
         // catalogue (brandId nul) récupère logo et couleur sans réédition.
         val brand = catalog.byId(card.brandId) ?: catalog.byName(card.name)
         card.logoPath?.let { path ->
-            return HomeCard(card, File(path), logoOnDark = false, brandColorArgb = brand?.colorArgb)
+            return HomeCard(card, File(path), brandColorArgb = brand?.colorArgb)
         }
         catalog.logoAssetUri(brand)?.let { uri ->
             return HomeCard(
                 card = card,
                 logoModel = uri,
-                logoOnDark = brand?.backgroundDark == true,
                 brandColorArgb = brand?.colorArgb,
             )
         }
         card.frontImagePath?.let { path ->
-            return HomeCard(card, File(path), logoOnDark = false, isPhoto = true)
+            return HomeCard(card, File(path), isPhoto = true)
         }
-        return HomeCard(card, logoModel = null, logoOnDark = false, brandColorArgb = brand?.colorArgb)
+        return HomeCard(card, logoModel = null, brandColorArgb = brand?.colorArgb)
     }
 
     private fun filter(cards: List<Card>, q: String): List<Card> {

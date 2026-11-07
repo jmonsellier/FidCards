@@ -15,9 +15,10 @@ data class Brand(
     val website: String?,
     /** Nom de fichier dans assets/brands/, nul si l'enseigne n'a pas de logo. */
     val logo: String?,
-    /** Pastille sur laquelle poser le logo : `light` ou `dark`, indépendant du thème (§6.3.1). */
-    val backgroundDark: Boolean,
-    /** Couleur primaire officielle (seed_brands_3.csv), ARGB opaque, nulle si inconnue. */
+    /**
+     * Fond officiel de la carte de l'enseigne, ARGB opaque, nul si inconnu. Le
+     * logo du catalogue est la variante dessinée pour ce fond (§6.3.1).
+     */
     val colorArgb: Int?,
 )
 
@@ -57,7 +58,6 @@ class BrandCatalog(private val context: Context) {
                         sector = o.cleanString("sector"),
                         website = o.cleanString("website"),
                         logo = o.cleanString("logo"),
-                        backgroundDark = o.optString("background") == "dark",
                         colorArgb = o.optString("color")
                             .takeIf { Regex("^#[0-9a-fA-F]{6}$").matches(it) }
                             ?.let { 0xFF000000.toInt() or it.substring(1).toInt(16) },

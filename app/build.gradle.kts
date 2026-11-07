@@ -72,6 +72,21 @@ android {
         compose = true
         buildConfig = true
     }
+
+    testOptions {
+        // Robolectric lit les assets (brands.json, logos) et les ressources.
+        unitTests.isIncludeAndroidResources = true
+        unitTests.all { test ->
+            // Captures d'écran JVM (Roborazzi) : seulement sur demande, par
+            // ./gradlew testDebugUnitTest --tests '*Captures*' -Pcaptures
+            // → app/build/captures/. Sans -Pcaptures, la classe est ignorée.
+            if (project.hasProperty("captures")) {
+                test.systemProperty("fidcards.captures", "true")
+                test.systemProperty("roborazzi.test.record", "true")
+                test.systemProperty("fidcards.captures.dir", layout.buildDirectory.dir("captures").get().asFile.path)
+            }
+        }
+    }
 }
 
 kotlin {
@@ -119,6 +134,12 @@ dependencies {
     implementation(libs.coil.svg)
 
     testImplementation(libs.junit)
+    testImplementation(platform(libs.compose.bom))
+    testImplementation(libs.compose.ui.test.junit4)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.roborazzi)
+    testImplementation(libs.roborazzi.compose)
+    debugImplementation(libs.compose.ui.test.manifest)
 
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)

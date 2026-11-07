@@ -21,12 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.graphics.get
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.ImageRequest
@@ -34,19 +36,18 @@ import coil3.request.allowHardware
 import coil3.toBitmap
 import com.monselio.fidcards.data.Card
 import kotlin.math.abs
-import kotlin.math.pow
 
 /**
- * Vignette de la grille d'accueil : uniquement la face de la carte, sans bandeau
- * de texte. Logo si disponible (le fond de la tuile adopte la couleur de bord du
- * logo quand elle est uniforme — il « déborde » alors sur toute la carte), sinon
- * photo recto plein cadre, sinon pastille de couleur portant initiales et nom.
+ * Vignette de la grille d'accueil : la face de la carte telle que l'enseigne la
+ * dessine — fond plein à sa couleur officielle, logo dans sa version prévue pour
+ * ce fond (catalogue). Identique en thème clair et sombre : c'est la carte, pas
+ * le cadre. À défaut de logo : photo recto plein cadre, sinon pastille à
+ * initiales sur la couleur de la carte.
  */
 @Composable
 fun CardTile(
     card: Card,
     logoModel: Any?,
-    logoOnDark: Boolean,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     isPhoto: Boolean = false,
@@ -75,7 +76,7 @@ fun CardTile(
                             modifier = Modifier.fillMaxSize(),
                         )
                     }
-                    logoModel != null -> LogoFace(card, logoModel, logoOnDark, brandColorArgb)
+                    logoModel != null -> LogoFace(card, logoModel, brandColorArgb)
                     else -> InitialsSwatch(card, brandColorArgb)
                 }
             }
@@ -96,60 +97,45 @@ fun CardTile(
 }
 
 @Composable
-private fun LogoFace(card: Card, logoModel: Any, logoOnDark: Boolean, brandColorArgb: Int?) {
-    // Fond de la tuile :
-    // 1. pastel de la couleur primaire officielle de l'enseigne (catalogue),
-    //    appliqué immédiatement — assombri pour les logos exigeant un fond
-    //    sombre (§6.3.1) ;
-    // 2. au chargement du logo : un fichier à fond opaque uniforme impose son
-    //    fond (le logo « déborde », un pastel derrière montrerait un rectangle) ;
-    // 3. sans couleur au catalogue : pastel dérivé de la teinte dominante des
-    //    pixels, ou cartouche neutre si le logo est monochrome.
-    val brandPastel = remember(brandColorArgb, logoOnDark) {
-        brandColorArgb?.let { pastelOf(it, logoOnDark) }
-    }
-    var tileColor by remember(logoModel) { mutableStateOf(brandPastel) }
-    val fallback = if (logoOnDark) Color(0xFF20242B) else Color.White
+private fun LogoFace(card: Card, logoModel: Any, brandColorArgb: Int?) {
+    // Fond : la couleur officielle de l'enseigne, telle quelle — le logo du
+    // catalogue est la variante dessinée pour ce fond. Un logo personnel (fichier
+    // de l'utilisateur, sans couleur au catalogue) impose son propre fond opaque
+    // s'il en a un ; sinon il reste sur blanc, le papier pour lequel il est fait.
+    val brandColor = brandColorArgb?.let(::Color)
+    var tileColor by remember(logoModel, brandColor) { mutableStateOf(brandColor ?: Color.White) }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(tileColor ?: fallback),
+            .background(tileColor),
         contentAlignment = Alignment.Center,
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalPlatformContext.current)
                 .data(logoModel)
-                // Bitmap logiciel : indispensable pour lire les pixels.
-                .allowHardware(false)
+                // Bitmap logiciel seulement quand il faut lire les pixels.
+                .allowHardware(brandColor != null)
                 .build(),
             contentDescription = card.name,
             contentScale = ContentScale.Fit,
             onSuccess = { state ->
-                runCatching {
-                    val bitmap = state.result.image.toBitmap()
-                    val edge = edgeBackgroundColor(bitmap)
-                    tileColor = when {
-                        edge != null -> edge
-                        brandPastel != null -> brandPastel
-                        else -> dominantPastel(bitmap, logoOnDark)
-                    }
+                if (brandColor == null) {
+                    runCatching { edgeBackgroundColor(state.result.image.toBitmap()) }
+                        .getOrNull()
+                        ?.let { tileColor = it }
                 }
             },
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 12.dp, vertical = 9.dp),
+                .padding(horizontal = 14.dp, vertical = 11.dp),
         )
     }
 }
 
 @Composable
 private fun InitialsSwatch(card: Card, brandColorArgb: Int? = null) {
-    // Priorité : couleur choisie par l'utilisateur, couleur officielle de
-    // l'enseigne, couleur dérivée du nom. Le nom, lui, est sous la tuile.
-    val color = card.colorArgb?.let { Color(it) }
-        ?: brandColorArgb?.let { Color(it) }
-        ?: colorFromName(card.name)
+    val color = cardFaceColor(card, brandColorArgb)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -158,13 +144,27 @@ private fun InitialsSwatch(card: Card, brandColorArgb: Int? = null) {
     ) {
         Text(
             text = initialsOf(card.name),
-            color = Color.White,
+            color = contentColorOn(color),
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             letterSpacing = 2.sp,
         )
     }
 }
+
+/**
+ * Couleur de la face d'une carte, partagée par la vignette et l'écran carte :
+ * couleur choisie par l'utilisateur, sinon couleur officielle de l'enseigne,
+ * sinon couleur stable dérivée du nom.
+ */
+internal fun cardFaceColor(card: Card, brandColorArgb: Int?): Color =
+    card.colorArgb?.let(::Color)
+        ?: brandColorArgb?.let(::Color)
+        ?: colorFromName(card.name)
+
+/** Texte et icônes posés sur une face de carte : blanc sur fond sombre, quasi-noir sinon. */
+internal fun contentColorOn(background: Color): Color =
+    if (background.luminance() < 0.4f) Color.White else Color(0xFF1A1A1A)
 
 /** « E.Leclerc » → « EL », « Carrefour » → « C ». */
 internal fun initialsOf(name: String): String =
@@ -175,16 +175,16 @@ internal fun initialsOf(name: String): String =
         .joinToString("")
         .ifEmpty { "?" }
 
-/** Couleur stable dérivée du nom : teinte issue du hachage, tons maîtrisés. */
+/** Couleur stable dérivée du nom : teinte issue du hachage, franche comme une vraie carte. */
 internal fun colorFromName(name: String): Color {
     val hue = (abs(name.lowercase().hashCode()) % 360).toFloat()
-    return Color.hsl(hue = hue, saturation = 0.45f, lightness = 0.45f)
+    return Color.hsl(hue = hue, saturation = 0.65f, lightness = 0.42f)
 }
 
 /**
  * Couleur de bord d'un logo : échantillonne le pourtour du bitmap ; renvoie la
  * couleur moyenne si tous les échantillons sont opaques et quasi uniformes,
- * null sinon (fond transparent ou hétérogène → cartouche par défaut). Par
+ * null sinon (fond transparent ou hétérogène → fond blanc). Par
  * construction, cette couleur contraste avec l'intérieur du logo : c'est son
  * propre fond.
  */
@@ -197,12 +197,12 @@ internal fun edgeBackgroundColor(bitmap: Bitmap): Color? {
     val stepX = maxOf(1, w / 24)
     val stepY = maxOf(1, h / 24)
     for (x in 0 until w step stepX) {
-        pixels += bitmap.getPixel(x, 0)
-        pixels += bitmap.getPixel(x, h - 1)
+        pixels += bitmap[x, 0]
+        pixels += bitmap[x, h - 1]
     }
     for (y in 0 until h step stepY) {
-        pixels += bitmap.getPixel(0, y)
-        pixels += bitmap.getPixel(w - 1, y)
+        pixels += bitmap[0, y]
+        pixels += bitmap[w - 1, y]
     }
 
     if (pixels.any { (it ushr 24) < 250 }) return null
@@ -219,92 +219,3 @@ internal fun edgeBackgroundColor(bitmap: Bitmap): Color? {
     if (!uniform) return null
     return Color(rAvg, gAvg, bAvg)
 }
-
-/**
- * Teinte dominante du logo → fond pastel de la tuile. Histogramme de teintes
- * (36 seaux de 10°) sur les pixels opaques et saturés ; les gris, blancs et
- * noirs sont ignorés. Null si le logo est monochrome : le cartouche neutre
- * reste alors le meilleur fond.
- */
-internal fun dominantPastel(bitmap: Bitmap, dark: Boolean): Color? {
-    val w = bitmap.width
-    val h = bitmap.height
-    if (w < 8 || h < 8) return null
-
-    val stepX = maxOf(1, w / 48)
-    val stepY = maxOf(1, h / 48)
-    val weight = FloatArray(36)
-    val hueSum = FloatArray(36)
-    val satSum = FloatArray(36)
-
-    for (y in 0 until h step stepY) {
-        for (x in 0 until w step stepX) {
-            val p = bitmap.getPixel(x, y)
-            if ((p ushr 24) < 200) continue
-            val r = ((p shr 16) and 0xFF) / 255f
-            val g = ((p shr 8) and 0xFF) / 255f
-            val b = (p and 0xFF) / 255f
-            val max = maxOf(r, g, b)
-            val min = minOf(r, g, b)
-            val delta = max - min
-            if (delta < 1e-5f) continue
-            val lightness = (max + min) / 2f
-            val sat = delta / (1f - abs(2f * lightness - 1f)).coerceAtLeast(1e-5f)
-            if (sat < 0.2f || lightness < 0.08f || lightness > 0.95f) continue
-            var hue = when (max) {
-                r -> 60f * (((g - b) / delta) % 6f)
-                g -> 60f * ((b - r) / delta + 2f)
-                else -> 60f * ((r - g) / delta + 4f)
-            }
-            if (hue < 0f) hue += 360f
-            val bucket = (hue / 10f).toInt().coerceIn(0, 35)
-            weight[bucket] += sat
-            hueSum[bucket] += hue * sat
-            satSum[bucket] += sat * sat
-        }
-    }
-
-    val best = weight.indices.maxBy { weight[it] }
-    if (weight[best] <= 0f) return null
-    val hue = hueSum[best] / weight[best]
-    val sat = satSum[best] / weight[best]
-    return harmonizedTint(Color.hsl(hue, sat.coerceIn(0.35f, 0.9f), 0.5f), dark)
-}
-
-/** Pastel d'une couleur primaire d'enseigne. */
-internal fun pastelOf(argb: Int, dark: Boolean): Color = harmonizedTint(Color(argb), dark)
-
-/**
- * Teinte harmonisée : mélange linéaire de la couleur d'enseigne vers un fond
- * commun, dosé pour atteindre une même luminance cible. Toutes les tuiles
- * partagent ainsi la même clarté perçue quelle que soit la teinte — l'HSL à
- * clarté fixe donnait des pastels disparates (beige terne, lavande saturée).
- */
-internal fun harmonizedTint(brand: Color, dark: Boolean): Color {
-    val base = if (dark) Color(0xFF20242B) else Color.White
-    val targetY = if (dark) 0.045f else 0.82f
-    val rBase = linearize(base.red)
-    val gBase = linearize(base.green)
-    val bBase = linearize(base.blue)
-    val rBrand = linearize(brand.red)
-    val gBrand = linearize(brand.green)
-    val bBrand = linearize(brand.blue)
-    val yBase = 0.2126f * rBase + 0.7152f * gBase + 0.0722f * bBase
-    val yBrand = 0.2126f * rBrand + 0.7152f * gBrand + 0.0722f * bBrand
-    val raw = if (abs(yBase - yBrand) < 1e-4f) 1f else (yBase - targetY) / (yBase - yBrand)
-    val k = raw.coerceIn(
-        if (dark) 0.15f else 0.12f,
-        if (dark) 0.95f else 0.50f,
-    )
-    return Color(
-        red = delinearize(rBase + (rBrand - rBase) * k),
-        green = delinearize(gBase + (gBrand - gBase) * k),
-        blue = delinearize(bBase + (bBrand - bBase) * k),
-    )
-}
-
-private fun linearize(c: Float): Float =
-    if (c <= 0.04045f) c / 12.92f else ((c + 0.055f) / 1.055f).pow(2.4f)
-
-private fun delinearize(c: Float): Float =
-    (if (c <= 0.0031308f) c * 12.92f else 1.055f * c.pow(1f / 2.4f) - 0.055f).coerceIn(0f, 1f)
