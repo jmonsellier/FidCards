@@ -5,6 +5,10 @@ on:
     branches: [main]
   pull_request:
 
+# Les PR de forks ne reçoivent qu'un jeton en lecture seule.
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest

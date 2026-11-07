@@ -51,7 +51,7 @@ l'autre ; les téléverser dans l'ordre 1 → 5.
 
 - Type : Application · Catégorie : **Shopping** · Tags : cartes de fidélité, portefeuille
 - Coordonnées : e-mail jmonsellier@gmail.com
-- Politique de confidentialité : `https://github.com/jmonsellier/FidCards/blob/main/PRIVACY.md` (une fois le dépôt public)
+- Politique de confidentialité : `https://github.com/jmonsellier/FidCards/blob/main/PRIVACY.md`
 
 ## Contenu de l'application
 

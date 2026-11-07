@@ -32,7 +32,8 @@ application Android de cartes de fidélité écrite pour son usage et celui de s
 familial proche — quatre à cinq personnes.
 
 Chacun installe l'app et saisit ses propres cartes : **aucun partage de données entre
-téléphones**. La distribution passe par un dépôt GitHub privé et Obtainium.
+téléphones**. La distribution passait par un dépôt GitHub privé et Obtainium ; depuis le
+2026-11-07, le dépôt est public et l'app est sur Google Play (§0.2).
 
 L'utilisateur ouvre l'app, voit ses cartes, en touche une, la montre en caisse. Rien
 d'autre.
@@ -73,8 +74,13 @@ le risque, et le sujet est clos. Ce que ça rouvre dans le tableau ci-dessus :
 | Visuels de la fiche | test `VisuelsPlayStore` (icône, bannière, captures en panorama) |
 | Validation des développeurs Android, test fermé 12 × 14 j | checklist de `docs/play-store/FICHE.md` |
 
-Le reste de §0.1 tient toujours : pas de dons, pas de traductions communautaires, pas de
-build reproductible tant que F-Droid n'est pas visé.
+Le dépôt s'ouvre aussi aux **contributions de la communauté** (décision de Jérôme,
+2026-11-07) : guide `CONTRIBUTING.md`, code de conduite, politique de sécurité,
+modèles d'issues (enseigne, bug, idée) et de PR, CI obligatoire sur chaque PR. Les
+**dons** passent par GitHub Sponsors (`.github/FUNDING.yml`).
+
+Le reste de §0.1 tient toujours : pas de traductions communautaires (l'app reste en
+français), pas de build reproductible tant que F-Droid n'est pas visé.
 
 ## 1. Principe directeur
 

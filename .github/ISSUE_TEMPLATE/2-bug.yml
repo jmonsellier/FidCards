@@ -1,0 +1,52 @@
+name: Bug
+description: Un plantage, une carte illisible en caisse, un écran mal affiché.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ne joignez jamais une capture qui montre le numéro complet d'une de vos cartes.
+  - type: textarea
+    id: probleme
+    attributes:
+      label: Ce qui se passe
+      description: Et ce que vous attendiez à la place.
+    validations:
+      required: true
+  - type: textarea
+    id: etapes
+    attributes:
+      label: Étapes pour reproduire
+      placeholder: |
+        1. Ouvrir une carte au format EAN-13
+        2. …
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version de FidCards
+      description: Visible en bas des Réglages.
+      placeholder: "1.2.0"
+    validations:
+      required: true
+  - type: input
+    id: appareil
+    attributes:
+      label: Téléphone et version d'Android
+      placeholder: Pixel 8, Android 16
+    validations:
+      required: true
+  - type: dropdown
+    id: source
+    attributes:
+      label: Installée depuis
+      options:
+        - Google Play
+        - Release GitHub (Obtainium ou APK)
+        - Compilée moi-même
+  - type: textarea
+    id: format
+    attributes:
+      label: Pour un code illisible en caisse
+      description: Format du code (EAN-13, QR, Code 128…), type de lecteur (laser, caméra) et luminosité de l'écran.

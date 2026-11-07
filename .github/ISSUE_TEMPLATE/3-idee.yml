@@ -1,0 +1,19 @@
+name: Idée d'amélioration
+description: Une fonction qui rendrait FidCards plus pratique, sans réseau ni compte.
+labels: ["idée"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        FidCards reste volontairement simple : aucun accès réseau, aucun compte, une seule permission (caméra). Les idées qui demandent l'un des trois ne pourront pas être retenues. Voir [CONTRIBUTING.md](https://github.com/jmonsellier/FidCards/blob/main/CONTRIBUTING.md).
+  - type: textarea
+    id: besoin
+    attributes:
+      label: Le besoin
+      description: La situation où l'app vous manque, plutôt que la solution.
+    validations:
+      required: true
+  - type: textarea
+    id: proposition
+    attributes:
+      label: Ce que vous proposez

@@ -1,5 +1,15 @@
 # FidCards
 
+[![CI](https://github.com/jmonsellier/FidCards/actions/workflows/ci.yml/badge.svg)](https://github.com/jmonsellier/FidCards/actions/workflows/ci.yml)
+[![Licence GPL-3.0](https://img.shields.io/badge/licence-GPL--3.0-blue.svg)](LICENSE)
+[![Google Play](https://img.shields.io/badge/Google_Play-FidCards-3BCCFF?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.monselio.fidcards)
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-db61a2?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/jmonsellier)
+
+> **In English:** FidCards is a free, open-source Android app for loyalty cards: no
+> ads, no account, and 100 % offline (it does not even declare the `INTERNET`
+> permission). It ships the real colours and logos of 240+ French retailers.
+> Contributions are welcome, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 Application Android libre de cartes de fidélité : sans pub, sans compte, et 100 %
 hors ligne. Aucune donnée ne quitte le téléphone : aucun serveur, aucun accès réseau.
 
@@ -19,6 +29,20 @@ Le chemin critique : **écran verrouillé → carte scannable en caisse.**
   emplacement choisi une fois (dossier local, Drive/Dropbox via leur sélecteur,
   dossier Syncthing/Nextcloud…) : le cloud sans jamais donner le réseau à l'app ;
 - raccourcis d'écran d'accueil vers les cartes les plus utilisées.
+
+## Contribuer
+
+Une enseigne manque ou s'affiche mal ? Un code illisible en caisse ? Ouvrez une
+[issue](https://github.com/jmonsellier/FidCards/issues/new/choose) : les modèles
+guident pour donner les bonnes informations. Pour proposer du code ou un logo, le
+guide est dans [CONTRIBUTING.md](CONTRIBUTING.md), et la participation suit le
+[code de conduite](CODE_OF_CONDUCT.md). Faille de sécurité : voir
+[SECURITY.md](SECURITY.md), jamais en issue publique.
+
+## Soutenir le projet
+
+FidCards est gratuite, sans pub et le restera. Si elle vous rend service, vous pouvez
+soutenir son développement sur [GitHub Sponsors](https://github.com/sponsors/jmonsellier).
 
 ## Construire
 

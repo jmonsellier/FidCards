@@ -1,0 +1,40 @@
+name: Enseigne à ajouter ou corriger
+description: Une enseigne manque, ou sa couleur ou son logo ne correspondent pas à la vraie carte.
+title: "Enseigne : "
+labels: ["enseigne"]
+body:
+  - type: dropdown
+    id: type
+    attributes:
+      label: Demande
+      options:
+        - Ajouter une enseigne
+        - Corriger la couleur
+        - Corriger le logo (périmé, mauvais pays, illisible)
+        - Autre correction (nom, secteur)
+    validations:
+      required: true
+  - type: input
+    id: nom
+    attributes:
+      label: Nom de l'enseigne
+      placeholder: Leroy Merlin
+    validations:
+      required: true
+  - type: input
+    id: site
+    attributes:
+      label: Site officiel en France
+      placeholder: leroymerlin.fr
+  - type: textarea
+    id: sources
+    attributes:
+      label: Logo et couleur officiels
+      description: Liens vers le logo actuel (site, kit presse, Wikipédia FR, app officielle) et la couleur de fond de la carte si vous la connaissez.
+    validations:
+      required: true
+  - type: textarea
+    id: capture
+    attributes:
+      label: Capture
+      description: Pour une correction, une capture de la carte dans FidCards, et si possible une photo de la vraie carte (numéro masqué).
