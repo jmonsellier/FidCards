@@ -18,6 +18,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import com.monselio.fidcards.FidCardsApplication
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.data.Card
+import com.monselio.fidcards.data.DebugSeed
 import com.monselio.fidcards.ui.detail.CardDetailScreen
 import com.monselio.fidcards.ui.home.CardTile
 import com.monselio.fidcards.ui.home.HomeScreen
@@ -73,7 +74,7 @@ class CapturesEcrans {
                 repository.insert(
                     Card(
                         name = brand.name,
-                        barcodeValue = "2" + (100000000000 + i * 7919L).toString(),
+                        barcodeValue = DebugSeed.ean13("2" + (10000000000 + i * 7919L)),
                         barcodeFormat = BarcodeFormat.EAN_13,
                         brandId = brand.id,
                         createdAt = 0,

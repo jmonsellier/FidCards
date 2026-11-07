@@ -5,8 +5,10 @@
 - **Lire `docs/PROJET.md` avant tout travail de fond** : cahier des charges, décisions
   actées, pièges techniques anticipés. Ne pas rediscuter une décision déjà tranchée sans
   élément nouveau.
-- **Le dépôt reste privé.** C'est la seule règle juridique du projet : les logos embarqués
-  ne sont pas redistribuables publiquement (docs/PROJET.md §0.1 et §15).
+- **Dépôt public et open source (GPL-3.0), app en production sur Google Play** (décision de
+  Jérôme, 2026-11-07, docs/PROJET.md §0.2). Les logos de marques sont embarqués et diffusés :
+  Jérôme en assume le risque, le sujet est clos. Le dépôt étant public, **aucun secret** n'y
+  entre jamais (keystore, mots de passe, `keystore.properties`).
 - **Aucun accès réseau dans l'app** : la permission `INTERNET` n'est pas déclarée et ne
   doit jamais l'être. Seule permission : `CAMERA`.
 - **Toutes les chaînes UI dans `res/values/strings.xml`**, en français, aucune en dur.

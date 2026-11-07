@@ -1,8 +1,8 @@
 # FidCards — cahier des charges et plan d'implémentation
 
-**Portée : application familiale, hors stores.** Usage personnel et partage avec le cercle
-familial proche, via un dépôt GitHub privé. Aucune publication sur les stores pour le
-moment ; le §15 recense ce qu'on garde ouvert pour ne pas fermer cette porte.
+**Portée : application publique, depuis le 2026-11-07.** Conçue pour le cercle familial
+(§0, §0.1), FidCards est désormais open source (dépôt GitHub public) et publiée en
+production sur Google Play (§0.2).
 
 **Dernière mise à jour** : 2026-08-27 · **Statut** : phases 0 à 8 implémentées et
 vérifiées sur AVD (Pixel 8, API 35). Restent, sur téléphone physique : le scan caméra
@@ -60,6 +60,22 @@ privé**. Diffuser des logos de marques dans un cercle familial n'est pas une re
 publique ; rendre le dépôt public ferait tout resurgir. C'est le seul geste à ne pas faire
 par inadvertance.
 
+### 0.2 Passage en public (2026-11-07)
+
+Décision de Jérôme : le dépôt devient **public** (open source, GPL-3.0) et l'app sort en
+**production sur Google Play**. Les logos de marques restent embarqués : Jérôme en assume
+le risque, et le sujet est clos. Ce que ça rouvre dans le tableau ci-dessus :
+
+| Rouvert | Où c'est traité |
+|---|---|
+| Politique de confidentialité | `PRIVACY.md` à la racine, URL publique du dépôt |
+| Fiche Play, formulaire Data Safety, classification | `docs/play-store/FICHE.md` |
+| Visuels de la fiche | test `VisuelsPlayStore` (icône, bannière, captures en panorama) |
+| Validation des développeurs Android, test fermé 12 × 14 j | checklist de `docs/play-store/FICHE.md` |
+
+Le reste de §0.1 tient toujours : pas de dons, pas de traductions communautaires, pas de
+build reproductible tant que F-Droid n'est pas visé.
+
 ## 1. Principe directeur
 
 Le chemin critique est : **écran verrouillé → carte scannable en caisse**. Tout ce qui
@@ -103,8 +119,8 @@ colonne `displayValue`, optionnelle et vide dans la quasi-totalité des cas.
 | Logos | Base couvrant les **246 enseignes** (170 à l'origine, 76 ajouts le 2026-11-07), embarquée dans l'APK |
 | Constitution de la base | ~40 % par script, le reste à la main, une seule fois |
 | Catalogue d'enseignes | `seed_brands_1.csv`, 171 entrées, noms et groupes de cartes |
-| Dépôt | GitHub **privé** |
-| Livraison | APK signé par tag + Obtainium sur les téléphones du foyer |
+| Dépôt | GitHub **public** depuis le 2026-11-07 (privé jusque-là) |
+| Livraison | Google Play en production (AAB, Play App Signing) ; APK signé par tag pour Obtainium |
 | Sauvegarde | Export / import ZIP |
 | Langue | Français ; chaînes externalisées, anglais possible plus tard |
 | Thème | Material You (API 31+), palette statique de repli en 26-30 |
@@ -554,7 +570,6 @@ suffisent ; automatiser trois releases par an via GitHub Actions ne se rentabili
 
 | Décision | Coût aujourd'hui | Ce qu'elle préserve |
 |---|---|---|
-| Dépôt privé | nul | Tant qu'il l'est, les logos restent dans le cercle familial |
 | Licence GPL-3.0 et `com.monselio.fidcards` | nul | Identité et licence définitives dès le premier APK |
 | `zxing-cpp` plutôt que ML Kit | nul | F-Droid reste possible : aucune dépendance propriétaire |
 | Chaînes dans `strings.xml` | nul | Version anglaise sans reprendre les écrans |

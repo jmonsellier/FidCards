@@ -1,8 +1,7 @@
 # FidCards
 
-Application Android de cartes de fidélité, à usage familial. Chacun installe l'app et
-saisit ses propres cartes ; aucune donnée ne circule entre téléphones, aucun serveur,
-aucun accès réseau.
+Application Android libre de cartes de fidélité : sans pub, sans compte, et qui marche
+hors ligne. Aucune donnée ne quitte le téléphone : aucun serveur, aucun accès réseau.
 
 Le chemin critique : **écran verrouillé → carte scannable en caisse.**
 
@@ -58,46 +57,32 @@ Prérequis : JDK 17, SDK Android (compileSdk 37.1).
      --title "FidCards 1.0.0" --notes "…"
    ```
 
-### Canal retenu : tests internes du Play Store
+### Google Play
 
-Plus simple qu'Obtainium pour le foyer : installation et mises à jour par le
-Play Store, sans token. Dans la [Play Console](https://play.google.com/console) :
+FidCards est publiée en production sur Google Play. Textes de la fiche, réponses
+de la Play Console (Data Safety, classification) et visuels : `docs/play-store/`.
+Politique de confidentialité : [PRIVACY.md](PRIVACY.md).
 
-1. Créer l'app (FidCards, application, gratuite) ; déclarations triviales —
-   aucune donnée collectée, aucune permission sensible (`CAMERA` seule) ;
-2. accepter **Play App Signing** : la clé locale devient une simple clé
-   d'upload, remplaçable auprès de Google en cas de perte ;
-3. Tests internes → créer une liste de testeurs avec les adresses Gmail du
-   foyer → téléverser `app/build/outputs/bundle/release/app-release.aab` ;
-4. partager le lien d'activation aux testeurs ; chaque nouvelle version est
-   un simple upload d'AAB sur la même piste (versionCode incrémenté).
+1. **Play App Signing** : la clé locale est une simple clé d'upload, remplaçable
+   auprès de Google en cas de perte ;
+2. chaque version : `./gradlew bundleRelease`, puis téléverser
+   `app/build/outputs/bundle/release/app-release.aab` (versionCode incrémenté).
 
-La piste interne reste limitée à des testeurs nommés : la logique « cercle
-familial, pas de redistribution publique » des logos est préservée. **Un seul
-canal par téléphone** : l'APK GitHub (clé Monselio) et le build Play (clé
+**Un seul canal par téléphone** : l'APK GitHub (clé Monselio) et le build Play (clé
 Google) ont des signatures différentes — passer de l'un à l'autre impose une
 désinstallation, donc un export/import ZIP.
 
-## Installation dans le foyer (Obtainium)
-
-Le dépôt est **privé** — il doit le rester, les logos embarqués n'étant pas
-redistribuables publiquement. Sur chaque téléphone :
+## Installation hors Play Store (Obtainium)
 
 1. installer [Obtainium](https://github.com/ImranR98/Obtainium) ;
-2. dans Obtainium : Réglages → Source GitHub → renseigner le *token* GitHub en
-   lecture seule fourni par Jérôme (un seul token, généré une fois sur
-   github.com/settings/tokens avec la portée `repo` en lecture, suffit pour tout
-   le foyer) ;
-3. « Ajouter une application » avec l'URL de ce dépôt ;
-4. Obtainium installe l'APK de la dernière release et proposera chaque mise à jour.
-
-C'est la seule étape technique demandée à la famille.
+2. « Ajouter une application » avec l'URL de ce dépôt ;
+3. Obtainium installe l'APK de la dernière release et proposera chaque mise à jour.
 
 ## Licence
 
 GPL-3.0 — Copyright (C) 2026 Monselio. Voir [LICENSE](LICENSE).
 
 Les logos d'enseignes contenus dans `brands/` et `app/src/main/assets/brands/`
-appartiennent à leurs propriétaires respectifs ; ils sont embarqués pour un usage
-strictement personnel et familial, et ne doivent pas être redistribués publiquement.
-Leur provenance et licence sont tracées dans `brands/brands.json`.
+appartiennent à leurs propriétaires respectifs et ne sont pas couverts par la
+GPL-3.0. FidCards n'est affiliée à aucune enseigne. Leur provenance est tracée
+dans `brands/brands.json`.

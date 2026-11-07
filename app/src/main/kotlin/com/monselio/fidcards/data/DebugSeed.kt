@@ -8,7 +8,7 @@ package com.monselio.fidcards.data
 object DebugSeed {
 
     /** Clé de contrôle EAN-13 sur les 12 premiers chiffres. */
-    private fun ean13(base12: String): String {
+    internal fun ean13(base12: String): String {
         require(base12.length == 12 && base12.all { it.isDigit() })
         val sum = base12.mapIndexed { i, c -> (c - '0') * if (i % 2 == 0) 1 else 3 }.sum()
         return base12 + ((10 - sum % 10) % 10)
