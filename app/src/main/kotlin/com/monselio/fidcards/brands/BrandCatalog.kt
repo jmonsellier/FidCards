@@ -30,7 +30,7 @@ class BrandCatalog(private val context: Context) {
 
     /**
      * Index des fichiers réellement embarqués, par nom de base : l'optimisation
-     * (tools/optimize-logos.sh) peut changer l'extension (svg rasterisé, png
+     * (tools/optimize-logos.py) peut changer l'extension (svg rasterisé, png
      * converti en webp) sans que brands.json ait à suivre.
      */
     private val logoFiles: Map<String, String> by lazy(LazyThreadSafetyMode.SYNCHRONIZED) {
