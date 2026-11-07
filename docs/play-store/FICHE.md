@@ -2,15 +2,16 @@
 
 Textes et réponses à reporter dans la Play Console. Visuels dans ce dossier, rendus
 depuis l'UI réelle par le test `VisuelsPlayStore` (`./gradlew testDebugUnitTest --tests
-'*VisuelsPlayStore*' -Pcaptures`, sortie dans `app/build/captures/play/`). Les quatre
-captures forment un **panorama** : une seule image découpée, fond continu et cartes à
-cheval sur les jointures ; les téléverser dans l'ordre 1 → 4.
+'*VisuelsPlayStore*' -Pcaptures`, sortie dans `app/build/captures/play/`). Les cinq
+captures montrent chacune un écran différent (plein écran, carte, liste, ajout, réglages),
+découpées dans un même **panorama** : seul le code-barres du fond passe d'une capture à
+l'autre ; les téléverser dans l'ordre 1 → 5.
 
 | Élément | Fichier | Format exigé |
 |---|---|---|
 | Icône de l'application | `icone-512.png` | 512 × 512 PNG |
 | Image de présentation | `banniere-1024x500.png` | 1024 × 500 |
-| Captures téléphone (panorama, dans l'ordre) | `capture-1-rapide.png`, `capture-2-hors-ligne.png`, `capture-3-sans-pub.png`, `capture-4-privee.png` | 1080 × 1920 (9:16) |
+| Captures téléphone (panorama, dans l'ordre) | `capture-1-plein-ecran.png`, `capture-2-hors-ligne.png`, `capture-3-sans-pub.png`, `capture-4-ajout.png`, `capture-5-privee.png` | 1080 × 1920 (9:16) |
 
 ## Fiche principale (français)
 

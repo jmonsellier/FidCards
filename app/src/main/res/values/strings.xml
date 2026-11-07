@@ -89,5 +89,5 @@
     <string name="backup_error_version">Version de sauvegarde inconnue — mettez d\'abord l\'application à jour.</string>
     <string name="backup_error_generic">Échec de l\'opération. Vérifiez le fichier choisi.</string>
     <string name="settings_about">À propos</string>
-    <string name="settings_about_body">Version %1$s · GPL-3.0 · © 2026 Monselio.\nCartes de fidélité du foyer, sans réseau, sans compte, sans traceur.</string>
+    <string name="settings_about_body">Version %1$s · GPL-3.0 · © 2026 Monselio.\nCartes de fidélité sans réseau, sans compte, sans traceur.</string>
 </resources>

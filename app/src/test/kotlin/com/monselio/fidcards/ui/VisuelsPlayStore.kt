@@ -3,6 +3,16 @@ package com.monselio.fidcards.ui
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.hasScrollAction
+import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.performTextInput
+import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.performClick
+import com.monselio.fidcards.ui.edit.EditCardScreen
+import com.monselio.fidcards.ui.settings.SettingsScreen
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -132,8 +142,9 @@ class VisuelsPlayStore {
                 repository.insert(
                     Card(
                         name = brand.name,
-                        barcodeValue = DebugSeed.ean13("2" + (10000000000 + i * 7919L)),
-                        barcodeFormat = BarcodeFormat.EAN_13,
+                        // Decathlon en QR : un code carré reste lisible en plein écran sans pivoter.
+                        barcodeValue = if (id == "decathlon") "2090001234567" else DebugSeed.ean13("2" + (10000000000 + i * 7919L)),
+                        barcodeFormat = if (id == "decathlon") BarcodeFormat.QR_CODE else BarcodeFormat.EAN_13,
                         brandId = brand.id,
                         createdAt = 0,
                         score = (ids.size - i).toDouble(),
@@ -154,12 +165,13 @@ class VisuelsPlayStore {
     }
 
     /**
-     * Captures de la fiche en panorama : une seule image de 4 × 360 dp (4320 × 1920 px),
+     * Captures de la fiche en panorama : une seule image de 5 × 360 dp (5400 × 1920 px),
      * fond continu (seul le code-barres en filigrane passe d'une capture à l'autre), découpée en
-     * quatre captures 1080 × 1920 : chacune contient entière son titre, son téléphone et ses encarts.
+     * cinq captures 1080 × 1920, une par écran de l'app : chacune contient entière son titre,
+     * son téléphone et ses encarts.
      */
     @Test
-    @Config(qualifiers = "w1440dp-h640dp-xxhdpi")
+    @Config(qualifiers = "w1800dp-h640dp-xxhdpi")
     fun captures_panorama() {
         val parId = runBlocking { app.container.cardRepository.getAll() }.associateBy { it.brandId }
         compose.setContent {
@@ -169,6 +181,40 @@ class VisuelsPlayStore {
                     Diapositive(d, parId, Modifier.offset(x = (i * 360).dp).size(360.dp, 640.dp))
                 }
             }
+        }
+        // Plein écran : toucher le cartouche du code, comme l'utilisateur (le réglage
+        // d'agrandissement automatique vaudrait pour toutes les captures à la fois).
+        compose.waitForIdle()
+        DIAPOS.forEachIndexed { i, d ->
+            if (d.ecran != Ecran.PLEIN_ECRAN) return@forEachIndexed
+            val noeuds = compose.onAllNodes(hasClickAction())
+            val liste = noeuds.fetchSemanticsNodes()
+            val largeurDiapo = 360 * app.resources.displayMetrics.density
+            val cartouche = liste.indices
+                .filter { liste[it].boundsInRoot.left >= i * largeurDiapo && liste[it].boundsInRoot.right <= (i + 1) * largeurDiapo }
+                .maxBy { liste[it].boundsInRoot.width }
+            noeuds[cartouche].performClick()
+        }
+        // Formulaire : l'enseigne saisie, comme après le choix dans l'autocomplétion.
+        DIAPOS.indexOfFirst { it.ecran == Ecran.AJOUT }.let { i ->
+            val champs = compose.onAllNodes(hasSetTextAction())
+            val liste = champs.fetchSemanticsNodes()
+            val largeurDiapo = 360 * app.resources.displayMetrics.density
+            val nom = liste.indices
+                .filter { liste[it].boundsInRoot.left >= i * largeurDiapo && liste[it].boundsInRoot.right <= (i + 1) * largeurDiapo }
+                .minBy { liste[it].boundsInRoot.top }
+            champs[nom].performTextInput("Sephora")
+        }
+        // Réglages : la section Sauvegarde entière à l'écran.
+        // (performScrollTo ne défile pas : l'écran réduit par graphicsLayer paraît déjà visible.)
+        compose.onAllNodes(hasScrollAction()).let { defilables ->
+            val i = DIAPOS.indexOfFirst { it.ecran == Ecran.REGLAGES }
+            val largeurDiapo = 360 * app.resources.displayMetrics.density
+            val liste = defilables.fetchSemanticsNodes()
+            val reglages = liste.indices.single { liste[it].boundsInRoot.left >= i * largeurDiapo }
+            // Tout en bas, puis remonter d'« À propos » : la version du build debug reste hors champ.
+            defilables[reglages].performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, 2000f) }
+            defilables[reglages].performSemanticsAction(SemanticsActions.ScrollBy) { it(0f, -480f) }
         }
         val panorama = File(dir, "panorama.png")
         capturer(panorama.nameWithoutExtension)
@@ -239,8 +285,7 @@ class VisuelsPlayStore {
             Telephone(d, parId, Modifier.offset(x = xTelephone.dp, y = HAUT_TELEPHONE.dp))
             val xEncarts = if (d.telephoneAGauche) 360 - MARGE - LARGEUR_ENCART else MARGE
             // Sur l'écran carte, les encarts laissent le code-barres dégagé.
-            val ys = if (d.carte == null) listOf(232, 312, 392) else listOf(188, 474, 546)
-            d.encarts.zip(ys).forEach { (e, y) -> Encart(e, d.accent, Modifier.offset(x = xEncarts.dp, y = y.dp)) }
+            d.encarts.zip(d.ys).forEach { (e, y) -> Encart(e, d.accent, Modifier.offset(x = xEncarts.dp, y = y.dp)) }
         }
     }
 
@@ -284,18 +329,29 @@ class VisuelsPlayStore {
                                 transformOrigin = TransformOrigin(0f, 0f)
                             },
                     ) {
-                        FidCardsTheme(darkTheme = d.sombre) {
-                            val fond = d.carte?.let { Color(requireNotNull(catalog.byId(it)?.colorArgb)) }
-                                ?: MaterialTheme.colorScheme.background
+                        FidCardsTheme(darkTheme = false) {
+                            val fond = when (d.ecran) {
+                                Ecran.CARTE -> Color(requireNotNull(catalog.byId(requireNotNull(d.carte))?.colorArgb))
+                                Ecran.PLEIN_ECRAN -> Color.White
+                                else -> MaterialTheme.colorScheme.background
+                            }
                             val encre = if (fond.luminance() > 0.5f) Color(0xFF1F1E1B) else Color.White
                             // Les barres recouvrent l'écran d'1 dp : pas de liseré à la jonction.
                             Box(modifier = Modifier.fillMaxSize().background(fond)) {
                                 Box(modifier = Modifier.padding(top = 29.dp, bottom = 21.dp)) {
-                                    val id = d.carte?.let { parId.getValue(it).id }
-                                    if (id == null) {
-                                        HomeScreen(onCardClick = {}, onAddCard = {}, onOpenSettings = {})
-                                    } else {
-                                        CardDetailScreen(cardId = id, onBack = {}, onEdit = {})
+                                    when (d.ecran) {
+                                        Ecran.LISTE -> HomeScreen(onCardClick = {}, onAddCard = {}, onOpenSettings = {})
+                                        Ecran.CARTE, Ecran.PLEIN_ECRAN ->
+                                            CardDetailScreen(cardId = parId.getValue(d.carte).id, onBack = {}, onEdit = {})
+                                        // Formulaire tel qu'il s'ouvre après un scan.
+                                        Ecran.AJOUT -> EditCardScreen(
+                                            cardId = null,
+                                            scannedValue = DebugSeed.ean13("300000012345"),
+                                            scannedFormat = BarcodeFormat.EAN_13.name,
+                                            onDone = {},
+                                            onDeleted = {},
+                                        )
+                                        Ecran.REGLAGES -> SettingsScreen(onBack = {})
                                     }
                                 }
                                 BarreEtat(encre, fond, avion = d.modeAvion)
@@ -419,11 +475,15 @@ class VisuelsPlayStore {
         val sousTitreFort: String,
         val accent: Color,
         val telephoneAGauche: Boolean,
-        val sombre: Boolean,
+        val ecran: Ecran,
         val encarts: List<Encart>,
         val carte: String? = null,
         val modeAvion: Boolean = false,
+        /** Ordonnée de chaque encart, en dp : ils laissent dégagé l'essentiel de l'écran. */
+        val ys: List<Int> = listOf(232, 312, 392),
     )
+
+    private enum class Ecran { PLEIN_ECRAN, CARTE, LISTE, AJOUT, REGLAGES }
 
     private companion object {
         /** Écran de l'app dans le téléphone : 360 × 760 dp réels, réduits à 210 dp de large. */
@@ -450,6 +510,9 @@ class VisuelsPlayStore {
             "M12,7c-2.76,0 -5,2.24 -5,5s2.24,5 5,5 5,-2.24 5,-5 -2.24,-5 -5,-5zM2,13h2c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1L2,11c-0.55,0 -1,0.45 -1,1s0.45,1 1,1zM20,13h2c0.55,0 1,-0.45 1,-1s-0.45,-1 -1,-1h-2c-0.55,0 -1,0.45 -1,1s0.45,1 1,1zM11,2v2c0,0.55 0.45,1 1,1s1,-0.45 1,-1L13,2c0,-0.55 -0.45,-1 -1,-1s-1,0.45 -1,1zM11,20v2c0,0.55 0.45,1 1,1s1,-0.45 1,-1v-2c0,-0.55 -0.45,-1 -1,-1 -0.55,0 -1,0.45 -1,1z",
         )
 
+        val PHOTO = vecteur(
+            "M12,12m-3.2,0a3.2,3.2 0,1 1,6.4 0a3.2,3.2 0,1 1,-6.4 0M9,2L7.17,4H4c-1.1,0 -2,0.9 -2,2v12c0,1.1 0.9,2 2,2h16c1.1,0 2,-0.9 2,-2V6c0,-1.1 -0.9,-2 -2,-2h-3.17L15,2H9zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5z",
+        )
         val CODE = vecteur("M9.4,16.6L4.8,12l4.6,-4.6L8,6l-6,6 6,6 1.4,-1.4zM14.6,16.6l4.6,-4.6 -4.6,-4.6L16,6l6,6 -6,6 -1.4,-1.4z")
         val OEIL = vecteur(
             "M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z",
@@ -469,23 +532,25 @@ class VisuelsPlayStore {
 
         // Arguments vérifiables dans le code : aucune permission INTERNET, aucun SDK de pub
         // ni de mesure, aucun compte ni achat ; tri par récence d'usage ; luminosité forcée
-        // au maximum sur l'écran carte (CardDetailScreen) ; dépôt GPL-3.0.
+        // au maximum sur l'écran carte (CardDetailScreen) ; 12 formats ; catalogue de plus de
+        // 240 enseignes ; photos recto verso facultatives.
         val DIAPOS = listOf(
             Diapo(
-                "rapide", "Ouvrez, scannez,", "c'est réglé",
+                "plein-ecran", "Ouvrez, scannez,", "c'est réglé",
                 "La luminosité monte ", "toute seule.",
-                accent = md_theme_light_primaryContainer, telephoneAGauche = true, sombre = false,
+                accent = md_theme_light_primaryContainer, telephoneAGauche = true, ecran = Ecran.PLEIN_ECRAN, carte = "decathlon",
+                ys = listOf(196, 504, 570),
                 encarts = listOf(
-                    Encart(Icons.Filled.Star, "Tri automatique", "Selon l'usage"),
-                    Encart(Icons.Filled.Search, "Recherche", "Par enseigne"),
                     Encart(SOLEIL, "Luminosité", "Au maximum"),
+                    Encart(Icons.Filled.Search, "Code en grand", "D'un toucher"),
+                    Encart(Icons.Filled.Star, "12 formats", "EAN, QR, Aztec…"),
                 ),
             ),
             Diapo(
                 "hors-ligne", "Pas de réseau ?", "Aucun souci",
                 "Aucune connexion : ", "100 % hors ligne.",
-                accent = md_theme_light_secondaryContainer, telephoneAGauche = false, sombre = false, carte = "carrefour",
-                modeAvion = true,
+                accent = md_theme_light_secondaryContainer, telephoneAGauche = false, ecran = Ecran.CARTE, carte = "carrefour",
+                modeAvion = true, ys = listOf(188, 474, 546),
                 encarts = listOf(
                     Encart(AVION, "Mode avion", "Fonctionne"),
                     Encart(RESEAU, "Sans 4G ni 5G", "Fonctionne"),
@@ -495,7 +560,7 @@ class VisuelsPlayStore {
             Diapo(
                 "sans-pub", "Gratuite.", "Vraiment.",
                 "Ni pub, ni compte, ", "ni abonnement.",
-                accent = md_theme_light_primaryContainer, telephoneAGauche = true, sombre = true,
+                accent = md_theme_light_primaryContainer, telephoneAGauche = true, ecran = Ecran.LISTE,
                 encarts = listOf(
                     Encart(PUB, "Publicités", "Aucune", barre = true),
                     Encart(Icons.Filled.Person, "Inscription", "Inutile", barre = true),
@@ -503,9 +568,20 @@ class VisuelsPlayStore {
                 ),
             ),
             Diapo(
+                "ajout", "Nouvelle carte ?", "Scannez-la",
+                "Plus de 240 enseignes ", "reconnues.",
+                accent = md_theme_light_tertiaryContainer, telephoneAGauche = false, ecran = Ecran.AJOUT,
+                ys = listOf(438, 504, 570),
+                encarts = listOf(
+                    Encart(PHOTO, "Scan du code", "Appareil photo"),
+                    Encart(Icons.Filled.ShoppingCart, "Enseignes", "Couleur et logo"),
+                    Encart(PHOTO, "Photos", "Recto et verso"),
+                ),
+            ),
+            Diapo(
                 "privee", "Vos cartes restent", "chez vous",
                 "Aucun serveur, ", "aucun intermédiaire.",
-                accent = md_theme_light_tertiaryContainer, telephoneAGauche = false, sombre = true, carte = "lafoirfouille",
+                accent = md_theme_light_secondaryContainer, telephoneAGauche = true, ecran = Ecran.REGLAGES,
                 encarts = listOf(
                     Encart(Icons.Filled.Lock, "Accès Internet", "Non demandé"),
                     Encart(OEIL, "Traceurs", "Aucun", barre = true),
