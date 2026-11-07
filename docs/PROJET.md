@@ -17,7 +17,7 @@ tag et la release signée (voir README).
 | compileSdk | 36 | **37.1** : le BOM Compose 2026.08.00 (Compose 1.12) l'exige |
 | Gradle / plugin Kotlin | — | Gradle 9.7.1 (AGP 9.3.2 refuse 9.3.1) ; AGP 9 intègre Kotlin : `org.jetbrains.kotlin.android` interdit |
 | UPC-E scanné | tel quel | zxing-cpp rapporte le texte étendu EAN-13 : recompression vers la forme courte à 8 chiffres au scan (`UpcE`), verrouillée par test instrumenté |
-| Poids des logos | < 1 Mo | 2,4 Mo d'assets pour 245 logos (SVG minifiés, rasters 768 px → WebP, `tools/optimize-logos.py`) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
+| Poids des logos | < 1 Mo | 2,4 Mo d'assets pour 243 logos (SVG minifiés, rasters 768 px → WebP, `tools/optimize-logos.py`) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
 | Plein écran (§5.2) | bascule paysage forcée pour les formats 1D | Demande utilisateur (2026-08-28) : écran carte en portrait aux couleurs de l'enseigne, code sur cartouche blanc ; un toucher agrandit le code (ouverture directe possible via un réglage), les formats linéaires pivotant de 90° dans l'image (rotation bitmap sans perte) — lu téléphone tourné : nom en haut, numéro sous le code, croix de fermeture en haut à droite |
 | Sauvegarde (§8) | export manuel uniquement | Ajout utilisateur (2026-08-28) : **sauvegarde automatique** optionnelle — destination SAF choisie une fois (permission persistante), archive réécrite à chaque modification des cartes (différé 3 s, pas d'écriture au simple lancement). L'app reste sans réseau : une destination Drive/Dropbox/dossier synchronisé fait porter l'upload par l'app tierce |
 | Groupes de cartes (§6.4) | l'autocomplétion signale le groupe | Demande utilisateur (2026-08-28) : simplifié **à la source** — les membres non-têtes sont retirés de brands.json (171 → 159 entrées : une seule entrée Carrefour, Super U, Auchan, Casino ; 170 après l'ajout des 11 enseignes des cartes réelles du foyer le 2026-08-28), la notion de groupe disparaît du code et de l'UI. Au passage, correction du piège org.json : `optString` rend la chaîne « null » pour un null JSON, ce qui créait un groupe fantôme réunissant les 155 enseignes sans groupe |
@@ -100,7 +100,7 @@ colonne `displayValue`, optionnelle et vide dans la quasi-totalité des cas.
 | Langage / UI | Kotlin + Jetpack Compose + Material 3 |
 | Licence | GPL-3.0, `Copyright (C) 2026 Monselio` |
 | Codes-barres | `zxing-cpp`, lecture et génération |
-| Logos | Base couvrant les **248 enseignes** (171 à l'origine, 78 ajouts le 2026-11-07), embarquée dans l'APK |
+| Logos | Base couvrant les **246 enseignes** (170 à l'origine, 76 ajouts le 2026-11-07), embarquée dans l'APK |
 | Constitution de la base | ~40 % par script, le reste à la main, une seule fois |
 | Catalogue d'enseignes | `seed_brands_1.csv`, 171 entrées, noms et groupes de cartes |
 | Dépôt | GitHub **privé** |
@@ -253,7 +253,7 @@ ou reste sur la pastille — qui doit donc rester soignée.
 ### 6.3 Constitution : ce qui a été fait
 
 **Sourcing clos le 2026-08-27 : 167 logos sur 171 enseignes (98 %).** Repris entièrement le
-2026-11-07 (§6.3.1) : 245 logos sur 248 enseignes, chacun avec sa couleur officielle. Les
+2026-11-07 (§6.3.1) : 243 logos sur 246 enseignes, chacun avec sa couleur officielle. Les
 tableaux ci-dessous décrivent la passe d'août.
 
 | Source | Logos |
@@ -343,6 +343,10 @@ Auchan — seize enseignes pour quatre cartes.
 
 Conséquence : l'autocomplétion doit proposer l'enseigne **et** signaler le groupe, pour
 éviter de créer cinq cartes Carrefour identiques.
+
+Même règle pour les ajouts de 2026-11 : Cache Cache, Bonobo et Bréal partagent le programme
+My Vib's (groupe Beaumanoir), d'où une seule entrée « Vib's (Cache Cache, Bonobo, Bréal) » ; la
+recherche « cache » ou « bréal » la trouve par son nom.
 
 ## 7. Permissions et données
 
@@ -465,8 +469,8 @@ FidCards/
 │       ├── test/              tests JVM, dont le round-trip code-barres
 │       └── androidTest/       tests instrumentés (DAO, migrations)
 ├── brands/                    CATALOGUE CONSTITUÉ, prêt à intégrer
-│   ├── brands.json            248 enseignes : couleur, logo, variante, sources
-│   ├── logos/                 245 fichiers
+│   ├── brands.json            246 enseignes : couleur, logo, variante, sources
+│   ├── logos/                 243 fichiers
 │   └── MISSING.md             les enseignes sans source fiable
 ├── docs/PROJET.md
 ├── tools/                     optimisation des logos, voir §6.3.2
@@ -564,4 +568,4 @@ champ ; ne pas le faire obligerait à tout réauditer avant publication.
 ## 16. Décisions restant à prendre
 
 1. **Appareil physique de test** — conditionne le jalon du plein écran (§10.2).
-2. **Rien d'autre.** Le périmètre de la base est tranché : les 248 enseignes du catalogue (élargi le 2026-11-07 aux grandes enseignes manquantes, Gifi en tête, et aux enseignes des classements de fidélité ; les enseignes fermées ou sans programme de fidélité ont été écartées).
+2. **Rien d'autre.** Le périmètre de la base est tranché : les 246 enseignes du catalogue (élargi le 2026-11-07 aux grandes enseignes manquantes, Gifi en tête, et aux enseignes des classements de fidélité ; les enseignes fermées ou sans programme de fidélité ont été écartées).

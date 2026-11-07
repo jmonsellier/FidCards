@@ -1,4 +1,4 @@
-# Enseignes sans source fiable : 23 sur 248
+# Enseignes sans source fiable : 23 sur 246
 
 Révision du 2026-11-07 (vraies couleurs, logo officiel actuel). Chaque enseigne du catalogue
 porte son fond officiel (`color`) et le logo dessiné pour ce fond (`logoVariant`). Celles-ci
@@ -6,7 +6,7 @@ n'ont qu'une couleur ou un logo **non attestés** par une source officielle, ou 
 exploitable (pastille à initiales sur la couleur retenue). Le détail est dans `note` et
 `sources` de brands.json.
 
-245 enseignes sur 248 ont un logo.
+243 enseignes sur 246 ont un logo.
 
 Pour corriger une enseigne : déposer le logo dans `brands/logos/<id>.svg|png`, renseigner
 `color`, `logo`, `logoVariant`, `confidence`, `sources` dans brands/brands.json, puis :

@@ -419,21 +419,6 @@
     "note": "Marque noir et blanc : le site fournit la variante blanche officielle et un carré noir ; fond noir + logo-bzb-blanc.svg. L'icône App Store est gris clair #F7F7F7 (conflit, d'où moyenne). Logo actuel = celui du header du site."
   },
   {
-    "id": "bonobo",
-    "name": "Bonobo",
-    "sector": "Mode",
-    "website": "bonoboplanet.com",
-    "color": "#000000",
-    "logoVariant": "officiel-inverse",
-    "confidence": "moyenne",
-    "sources": [
-      "https://web.archive.org/web/20260411173559/https://www.bonoboplanet.com/ (header, logo.svg, avril 2026)"
-    ],
-    "note": "Reprise de zéro (Cloudflare, passé par web.archive.org). Logo du header actuel BONOBO (lettres en pastilles, noir). Marque noir et blanc : bg noir, logo recoloré en blanc. Aucune couleur de fond attestée (site et icône Vib's blancs) : confiance moyenne.",
-    "license": "unknown",
-    "logo": "bonobo.svg"
-  },
-  {
     "id": "botanic",
     "name": "Botanic",
     "sector": "Jardinerie",
@@ -635,21 +620,6 @@
       "https://www.c-and-a.com/fr/fr (favicon noir sur blanc)"
     ],
     "note": "Marque noir et blanc sans couleur de fond : fond blanc, logo noir officiel."
-  },
-  {
-    "id": "cachecache",
-    "name": "Cache Cache",
-    "sector": "Mode",
-    "website": "cache-cache.fr",
-    "color": "#000000",
-    "logoVariant": "officiel-inverse",
-    "confidence": "moyenne",
-    "sources": [
-      "https://web.archive.org/web/20260507043446/https://www.cache-cache.fr/ (header, logo_CCH_FR.svg, mai 2026)"
-    ],
-    "note": "Reprise de zéro (site 403, passé par web.archive.org). Logo du header actuel : wordmark CACHE CACHE noir/contour + point jaune #FFE524. Marque noir et blanc : bg noir, logo recoloré en blanc, point jaune conservé. Aucune source de couleur de fond de marque (site blanc, logo noir) : confiance moyenne.",
-    "license": "unknown",
-    "logo": "cachecache.svg"
   },
   {
     "id": "calzedonia",
@@ -3774,16 +3744,17 @@
   },
   {
     "id": "vibs",
-    "name": "Vib's",
+    "name": "Vib's (Cache Cache, Bonobo, Bréal)",
     "sector": "Mode multimarques",
     "website": "vibs.com",
     "color": "#FFFFFF",
     "logoVariant": "officiel-tel-quel",
     "confidence": "moyenne",
     "sources": [
-      "https://web.archive.org/web/20260517003014im_/https://www.vibs.com/on/demandware.static/Sites-VIB_FR_SFRA-Site/-/default/dw378a9a0b/images/logo_VIB_FR.svg"
+      "https://web.archive.org/web/20260517003014im_/https://www.vibs.com/on/demandware.static/Sites-VIB_FR_SFRA-Site/-/default/dw378a9a0b/images/logo_VIB_FR.svg",
+      "https://www.dealabs.com/codes-promo/bonoboplanet (My Vib's commun à Bonobo, Cache Cache et Bréal, 2026-06)"
     ],
-    "note": "Logo actuel Vib's noir #1d1d1b (avec mention Cache Cache / Bonobo / Bréal, tel que dans le header vibs.com en 2026). Fond blanc : icône d'app et site sont noir sur blanc, aucune couleur de fond de marque (moyenne).",
+    "note": "Logo actuel Vib's noir #1d1d1b (avec mention Cache Cache / Bonobo / Bréal, tel que dans le header vibs.com en 2026). Fond blanc : icône d'app et site sont noir sur blanc, aucune couleur de fond de marque (moyenne). Carte commune : le programme My Vib's couvre Cache Cache, Bonobo et Bréal (groupe Beaumanoir), d'où une seule entrée (§6.4).",
     "license": "unknown",
     "logo": "vibs.svg"
   },
