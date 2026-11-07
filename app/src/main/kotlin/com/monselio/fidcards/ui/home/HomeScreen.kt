@@ -20,7 +20,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
@@ -88,11 +87,7 @@ fun HomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
         ) {
-            HomeHeader(
-                sortMode = uiState.sortMode,
-                onSelectSort = viewModel::setSortMode,
-                onOpenSettings = onOpenSettings,
-            )
+            HomeHeader(onOpenSettings = onOpenSettings)
             when {
                 !uiState.loaded -> Unit
 
@@ -112,13 +107,9 @@ fun HomeScreen(
     }
 }
 
-/** Wordmark à gauche, tri et réglages en pastilles à droite. */
+/** Wordmark à gauche, réglages en pastille à droite. Le tri est dans [MetaRow]. */
 @Composable
-private fun HomeHeader(
-    sortMode: SortMode,
-    onSelectSort: (SortMode) -> Unit,
-    onOpenSettings: () -> Unit,
-) {
+private fun HomeHeader(onOpenSettings: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -134,23 +125,6 @@ private fun HomeHeader(
             color = MaterialTheme.colorScheme.onBackground,
         )
         Spacer(Modifier.weight(1f))
-        Box {
-            var expanded by remember { mutableStateOf(false) }
-            CircleButton(onClick = { expanded = true }) {
-                Icon(
-                    Icons.AutoMirrored.Filled.List,
-                    contentDescription = stringResource(R.string.home_sort),
-                    modifier = Modifier.size(20.dp),
-                )
-            }
-            SortDropdown(
-                expanded = expanded,
-                onDismiss = { expanded = false },
-                current = sortMode,
-                onSelect = onSelectSort,
-            )
-        }
-        Spacer(Modifier.width(8.dp))
         CircleButton(onClick = onOpenSettings) {
             Icon(
                 Icons.Default.Settings,

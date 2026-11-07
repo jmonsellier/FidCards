@@ -22,6 +22,9 @@ import kotlinx.coroutines.withContext
 
 enum class CardImageKind { LOGO, FRONT, BACK }
 
+/** Enseigne proposée sous le champ nom, avec son logo embarqué s'il existe. */
+data class BrandSuggestion(val brand: Brand, val logoUri: String?)
+
 data class EditUiState(
     val loaded: Boolean = false,
     val isNew: Boolean = true,
@@ -35,7 +38,7 @@ data class EditUiState(
     val logoPath: String? = null,
     val frontPath: String? = null,
     val backPath: String? = null,
-    val suggestions: List<Brand> = emptyList(),
+    val suggestions: List<BrandSuggestion> = emptyList(),
     val nameError: Boolean = false,
     /** La valeur ne s'encode pas dans le format choisi (checksum, caractères, longueur). */
     val valueError: Boolean = false,
@@ -107,7 +110,11 @@ class EditCardViewModel(
             )
         }
         viewModelScope.launch(Dispatchers.IO) {
-            val suggestions = if (value.isBlank()) emptyList() else catalog.search(value)
+            val suggestions = if (value.isBlank()) {
+                emptyList()
+            } else {
+                catalog.search(value).map { BrandSuggestion(it, catalog.logoAssetUri(it)) }
+            }
             _uiState.update {
                 // Ne pas rouvrir la liste si l'utilisateur vient de choisir cette enseigne.
                 if (it.brand?.name == value) it.copy(suggestions = emptyList())

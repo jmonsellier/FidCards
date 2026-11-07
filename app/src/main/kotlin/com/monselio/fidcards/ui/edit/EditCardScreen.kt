@@ -9,15 +9,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -49,16 +50,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.monselio.fidcards.R
+import com.monselio.fidcards.brands.Brand
 import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.ui.home.colorFromName
+import com.monselio.fidcards.ui.home.contentColorOn
+import com.monselio.fidcards.ui.home.initialsOf
 import java.io.File
 
 /** Couleurs proposées quand l'enseigne est absente du catalogue (docs/PROJET.md §5.3). */
@@ -229,8 +235,10 @@ private fun NameField(state: EditUiState, viewModel: EditCardViewModel) {
                 modifier = Modifier.fillMaxWidth(),
             ) {
                 Column {
-                    state.suggestions.forEach { brand ->
+                    state.suggestions.forEach { suggestion ->
+                        val brand = suggestion.brand
                         ListItem(
+                            leadingContent = { BrandThumbnail(brand, suggestion.logoUri) },
                             headlineContent = { Text(brand.name) },
                             supportingContent = { brand.sector?.let { Text(it) } },
                             modifier = Modifier.clickable { viewModel.selectBrand(brand) },
@@ -238,6 +246,41 @@ private fun NameField(state: EditUiState, viewModel: EditCardViewModel) {
                     }
                 }
             }
+        }
+    }
+}
+
+/**
+ * Mini face de carte d'une suggestion : couleur officielle de l'enseigne et son
+ * logo, comme la vignette de l'accueil ; à défaut de logo, ses initiales.
+ */
+@Composable
+private fun BrandThumbnail(brand: Brand, logoUri: String?) {
+    val color = brand.colorArgb?.let(::Color) ?: colorFromName(brand.name)
+    Box(
+        modifier = Modifier
+            .size(width = 56.dp, height = 36.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .background(color)
+            .border(1.dp, MaterialTheme.colorScheme.outlineVariant, RoundedCornerShape(6.dp)),
+        contentAlignment = Alignment.Center,
+    ) {
+        if (logoUri != null) {
+            AsyncImage(
+                model = logoUri,
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 6.dp, vertical = 4.dp),
+            )
+        } else {
+            Text(
+                text = initialsOf(brand.name),
+                color = contentColorOn(color),
+                style = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.Bold,
+            )
         }
     }
 }

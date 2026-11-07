@@ -11,7 +11,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.performTextReplacement
 import androidx.compose.ui.unit.dp
 import androidx.test.core.app.ApplicationProvider
 import com.github.takahirom.roborazzi.captureRoboImage
@@ -20,6 +22,7 @@ import com.monselio.fidcards.data.BarcodeFormat
 import com.monselio.fidcards.data.Card
 import com.monselio.fidcards.data.DebugSeed
 import com.monselio.fidcards.ui.detail.CardDetailScreen
+import com.monselio.fidcards.ui.edit.EditCardScreen
 import com.monselio.fidcards.ui.home.CardTile
 import com.monselio.fidcards.ui.home.HomeScreen
 import com.monselio.fidcards.ui.theme.FidCardsTheme
@@ -126,6 +129,26 @@ class CapturesEcrans {
                 carte.value = parId.getValue(id).id
                 capturer("carte-$id-$suffixe")
             }
+        }
+    }
+
+    /** Formulaire d'ajout, suggestions d'enseignes ouvertes (logo à gauche). */
+    @Test
+    fun formulaire_suggestions() {
+        compose.setContent {
+            FidCardsTheme(darkTheme = false) {
+                EditCardScreen(
+                    cardId = null,
+                    scannedValue = DebugSeed.ean13("300000012345"),
+                    scannedFormat = BarcodeFormat.EAN_13.name,
+                    onDone = {},
+                    onDeleted = {},
+                )
+            }
+        }
+        for (saisie in listOf("le", "m")) {
+            compose.onAllNodes(hasSetTextAction())[0].performTextReplacement(saisie)
+            capturer("formulaire-$saisie")
         }
     }
 

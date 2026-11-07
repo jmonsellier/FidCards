@@ -1699,13 +1699,13 @@
     "website": "hm.com",
     "logo": "hm.svg",
     "license": "Public domain",
-    "color": "#E50010",
-    "logoVariant": "recolore",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel",
     "confidence": "moyenne",
     "sources": [
       "https://cdn.jsdelivr.net/npm/simple-icons/icons/handm.svg (couleur #E50010 et silhouette)"
     ],
-    "note": "Rouge H&M (Simple Icons) ; silhouette officielle passee en blanc."
+    "note": "Logo officiel : silhouette rouge H&M #E50010 (Simple Icons) sur fond blanc, comme l'enseigne."
   },
   {
     "id": "ikea",
@@ -2259,13 +2259,13 @@
     "logo": "leroymerlin.svg",
     "license": "CC0-1.0",
     "color": "#78BE20",
-    "logoVariant": "recolore",
+    "logoVariant": "officiel-plaque",
     "confidence": "haute",
     "sources": [
       "https://simpleicons.org/?q=leroy+merlin (couleur 78BE20)",
-      "https://fr.wikipedia.org/wiki/Fichier:Leroy_Merlin_-_logo_(France,_1995-).svg (vert #7BB51C)"
+      "https://commons.wikimedia.org/wiki/File:Leroy_Merlin_-_logo_(France,_1995-).svg (logo officiel, triangle #7BB51C, lettres noires)"
     ],
-    "note": "Vert #78BE20 = couleur Leroy Merlin (Simple Icons) ; logo officiel en monochrome blanc (version inversée des enseignes)"
+    "note": "Vert #78BE20 = couleur Leroy Merlin (Simple Icons) ; logo officiel en couleurs posé sur une plaque blanche arrondie, lisible sur la carte verte"
   },
   {
     "id": "les3brasseurs",
@@ -2520,13 +2520,14 @@
     "website": "mcdonalds.fr",
     "logo": "mcdonalds.svg",
     "license": "CC0-1.0",
-    "color": "#DB0007",
+    "color": "#264F36",
     "logoVariant": "officiel-inverse",
     "confidence": "haute",
     "sources": [
-      "https://commons.wikimedia.org/wiki/File:McDonald's_square_2020.svg"
+      "https://logos.fandom.com/wiki/McDonald%27s_(France) (logo France, fond vert #264F36, arches #FFBC0D)",
+      "https://commons.wikimedia.org/wiki/File:McDonald's_square_2020.svg (arches dorées)"
     ],
-    "note": "Rouge du carré officiel McDonald's 2020 (Commons) ; arches dorées #FFBC0D extraites du même fichier | actuel : arches du carré officiel 2020 (Commons), identité en vigueur"
+    "note": "Fond vert #264F36 de McDonald's France (depuis 2009, à la place du rouge mondial) ; arches dorées #FFBC0D du carré officiel 2020"
   },
   {
     "id": "megarama",
