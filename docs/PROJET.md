@@ -17,11 +17,11 @@ tag et la release signée (voir README).
 | compileSdk | 36 | **37.1** : le BOM Compose 2026.08.00 (Compose 1.12) l'exige |
 | Gradle / plugin Kotlin | — | Gradle 9.7.1 (AGP 9.3.2 refuse 9.3.1) ; AGP 9 intègre Kotlin : `org.jetbrains.kotlin.android` interdit |
 | UPC-E scanné | tel quel | zxing-cpp rapporte le texte étendu EAN-13 : recompression vers la forme courte à 8 chiffres au scan (`UpcE`), verrouillée par test instrumenté |
-| Poids des logos | < 1 Mo | 1,6 Mo d'assets (SVG minifiés, rasters 512 px → WebP) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
+| Poids des logos | < 1 Mo | 2,4 Mo d'assets pour 245 logos (SVG minifiés, rasters 768 px → WebP, `tools/optimize-logos.py`) ; les SVG texte se compressent encore dans l'APK — release complète : ~10 Mo |
 | Plein écran (§5.2) | bascule paysage forcée pour les formats 1D | Demande utilisateur (2026-08-28) : écran carte en portrait aux couleurs de l'enseigne, code sur cartouche blanc ; un toucher agrandit le code (ouverture directe possible via un réglage), les formats linéaires pivotant de 90° dans l'image (rotation bitmap sans perte) — lu téléphone tourné : nom en haut, numéro sous le code, croix de fermeture en haut à droite |
 | Sauvegarde (§8) | export manuel uniquement | Ajout utilisateur (2026-08-28) : **sauvegarde automatique** optionnelle — destination SAF choisie une fois (permission persistante), archive réécrite à chaque modification des cartes (différé 3 s, pas d'écriture au simple lancement). L'app reste sans réseau : une destination Drive/Dropbox/dossier synchronisé fait porter l'upload par l'app tierce |
 | Groupes de cartes (§6.4) | l'autocomplétion signale le groupe | Demande utilisateur (2026-08-28) : simplifié **à la source** — les membres non-têtes sont retirés de brands.json (171 → 159 entrées : une seule entrée Carrefour, Super U, Auchan, Casino ; 170 après l'ajout des 11 enseignes des cartes réelles du foyer le 2026-08-28), la notion de groupe disparaît du code et de l'UI. Au passage, correction du piège org.json : `optString` rend la chaîne « null » pour un null JSON, ce qui créait un groupe fantôme réunissant les 155 enseignes sans groupe |
-| Vignette d'accueil (§5.1) | logo + nom sous la vignette | Demande utilisateur (2026-08-28) : face de carte seule, sans bandeau de nom. Fond : **pastel de la couleur primaire officielle** (`color` dans brands.json, importée de seed_brands_3.csv via tools/apply-primary-colors.mjs), un fond opaque uniforme du fichier logo restant prioritaire ; à défaut, pastel de la teinte dominante des pixels, ou cartouche neutre. La pastille des cartes sans logo garde le nom, à l'intérieur, et prend la couleur officielle quand l'enseigne est au catalogue |
+| Vignette d'accueil (§5.1) | logo + nom sous la vignette | Demande utilisateur (2026-08-28) : face de carte seule, sans bandeau de nom. **Révisé le 2026-11-07 : les vraies couleurs de l'enseigne, sans pastel.** Fond plein à la couleur officielle de la carte (`color` dans brands.json), logo officiel actuel dans la variante dessinée pour ce fond (`logoVariant` : logo blanc sur rouge, par exemple), identique en thème clair et sombre. La pastille des cartes sans logo garde le nom, à l'intérieur, sur la couleur officielle quand l'enseigne est au catalogue, sinon sur une teinte franche tirée du nom (§6.3.1) |
 
 ---
 
@@ -100,7 +100,7 @@ colonne `displayValue`, optionnelle et vide dans la quasi-totalité des cas.
 | Langage / UI | Kotlin + Jetpack Compose + Material 3 |
 | Licence | GPL-3.0, `Copyright (C) 2026 Monselio` |
 | Codes-barres | `zxing-cpp`, lecture et génération |
-| Logos | Base couvrant les **171 enseignes**, embarquée dans l'APK |
+| Logos | Base couvrant les **248 enseignes** (171 à l'origine, 78 ajouts le 2026-11-07), embarquée dans l'APK |
 | Constitution de la base | ~40 % par script, le reste à la main, une seule fois |
 | Catalogue d'enseignes | `seed_brands_1.csv`, 171 entrées, noms et groupes de cartes |
 | Dépôt | GitHub **privé** |
@@ -178,8 +178,10 @@ Les réglages (thème, tri courant) vont dans DataStore Preferences, pas dans Ro
 | `id`, `name`, `sector`, `website` | identité de l'enseigne |
 | `cardGroup` | regroupement : cinq enseignes Carrefour, une seule carte |
 | `logo` | fichier dans `assets/brands/`, nul si aucun logo |
-| `background` | `light` ou `dark` : la pastille sur laquelle poser le logo (§6.3.1) |
-| `source`, `license` | traçabilité, indispensable si le projet devenait public |
+| `color` | fond officiel de la carte de l'enseigne, `#RRGGBB` (§6.3.1) |
+| `logoVariant` | `officiel-inverse`, `officiel-tel-quel`, `recolore` ou `aucun` : comment le logo a été obtenu pour ce fond |
+| `confidence`, `sources`, `note` | fiabilité de la couleur et du logo, URLs, sur quoi repose le « logo actuel » |
+| `license` | traçabilité, indispensable si le projet devenait public |
 | `groupLogoFrom` | l'enseigne dont ce membre hérite son logo |
 
 Une carte référence une enseigne par `brandId` ; tout le reste vient du catalogue.
@@ -250,9 +252,9 @@ ou reste sur la pastille — qui doit donc rester soignée.
 
 ### 6.3 Constitution : ce qui a été fait
 
-**Sourcing clos le 2026-08-27 : 167 logos sur 171 enseignes (98 %).**
-Chaque logo a été validé à l'œil sur une planche contact, et porte la couleur de pastille
-sur laquelle l'app doit l'afficher.
+**Sourcing clos le 2026-08-27 : 167 logos sur 171 enseignes (98 %).** Repris entièrement le
+2026-11-07 (§6.3.1) : 245 logos sur 248 enseignes, chacun avec sa couleur officielle. Les
+tableaux ci-dessous décrivent la passe d'août.
 
 | Source | Logos |
 |---|---|
@@ -293,42 +295,45 @@ Quatre sources automatiques ont été mesurées avant d'arrêter la stratégie :
 **4 enseignes restent sans logo**, et c'est un choix assumé : Maxi Toys, La Panetière, Sophie Lebreuilly, L'Onglerie.
 Elles afficheront la pastille à initiales.
 
-### 6.3.1 Pastille d'affichage
+### 6.3.1 Vraies couleurs (révision du 2026-11-07)
 
-Chaque logo porte un champ `background` : la couleur du cartouche sur lequel l'app le pose,
-**indépendamment du thème de l'utilisateur**. Sans quoi un logo noir disparaît en thème
-sombre.
+Décision de Jérôme : chaque carte s'affiche **comme sa vraie carte**. Fond plein à la couleur
+officielle de l'enseigne (`color`), logo officiel **actuel** dans la variante prévue pour ce fond.
+Plus de pastel ni de cartouche clair, et le même rendu en thème clair et sombre : une carte
+Carrefour est bleue partout. Cela remplace le champ `background` (`light`/`dark`) de 2026-08.
 
-Répartition : **158 sur fond clair, 9 sur fond sombre**. La grille affichera donc des
-cartouches clairs dans la quasi-totalité des cas, y compris en thème sombre — un logo de
-marque est presque toujours dessiné pour du papier blanc. C'est le parti pris de Google
-Wallet, et il doit être assumé dès la conception de l'écran d'accueil.
+- **Couleur** : charte ou kit presse, sinon fond du logo officiel, CSS du site, icône d'app.
+  Le blanc n'est retenu que si la marque n'a aucun fond coloré (Aldi, Alain Afflelou, C&A…).
+- **Logo** : `officiel-inverse` (variante blanche publiée), `officiel-tel-quel` (cartouche
+  propre, comme Ikea ou Lidl), `recolore` (vecteur officiel passé en monochrome, seulement si
+  la version inversée officielle est une silhouette unie), `aucun` (pastille à initiales).
+- **Logo actuel** : vérifié contre l'en-tête actuel du site (web.archive.org quand le site
+  bloque les robots), l'icône de l'app officielle sur l'App Store FR et Wikipédia FR. La
+  comparaison avec les icônes d'app a révélé des logos périmés (Monoprix 2026, Bershka 2023,
+  Kiabi, Primark 2024, Go Sport, Gibert, Léon, Vival 2025, La Halle) et des faux (favicon du
+  Furet du Nord, Cora, O'Tacos). Une icône d'app reste un monogramme : elle date une identité,
+  elle ne remplace pas le logo de la carte. Méfiance aussi sur les homonymes (Netto Allemagne,
+  Royal Match…).
+- Les enseignes dont la couleur ou le logo ne sont pas attestés sont listées dans
+  `brands/MISSING.md`.
+
+Dans l'app : `cardFaceColor` (couleur de la carte saisie > couleur du catalogue > teinte tirée
+du nom), `contentColorOn` pour le texte posé dessus (blanc sous une luminance de 0,4).
 
 ### 6.3.2 Outillage, dans `tools/`
 
 | Script | Rôle |
 |---|---|
-| `fetch-logos.mjs` | Passe HTTP : Simple Icons puis favicons ≥ 128 px |
-| `fetch-logos-browser.mjs` | Playwright : SVG inline, `header-img`, `og:image` |
-| `fetch-logos-wikidata.mjs` | Wikidata P154 vers Commons, avec sa licence |
-| `fetch-logos-wikipedia.mjs` | Infobox de Wikipédia FR |
-| `fetch-logos-manuel.mjs` | Pages Wikipédia désignées à la main |
-| `import-logos-manuels.mjs` | Import par URL ou fichier local |
-| `contact-sheet.mjs` | Planche de validation visuelle |
-| `apply-verdicts.mjs` | Application des verdicts, propagation aux groupes |
+| `optimize-logos.py` | `brands/logos/` → `app/src/main/assets/brands/` : SVG minifiés (svgo), raster extrait des SVG qui n'emballent qu'une image, rasters ramenés à 768 px et convertis en WebP |
 
-Ces scripts ont rempli leur office et n'ont plus vocation à tourner en boucle. Ils restent
-utiles pour ajouter une enseigne ponctuellement :
+Les scripts de scraping de 2026-08 (favicons, Wikidata, Playwright, import manuel) ont été
+retirés le 2026-11-07 : ils écrivaient l'ancien schéma (`background`, `validated`) et ne
+vérifiaient ni la couleur ni l'actualité du logo. Le sourcing de 2026-11 s'est fait à la main,
+enseigne par enseigne, avec relecture contre les icônes d'app. Le test JVM `BrandCatalogTest`
+verrouille la cohérence du catalogue : identifiants et noms uniques, une couleur par enseigne,
+chaque logo déclaré présent dans les assets.
 
-```bash
-node tools/import-logos-manuels.mjs "okaidi=https://…/logo.svg"
-```
-
-**Reste à faire, en phase d'intégration** : les logos pèsent **5,7 Mo**, dont 102 SVG.
-Une passe de minification des SVG et de redimensionnement des rasters à 512 px devrait
-ramener l'ensemble sous 1 Mo. Sept rasters font moins de 200 px de large (Etam, Undiz,
-Léon de Bruxelles, Sport 2000, Point.P, Speedy, CGR Cinémas) et paraîtront flous en grande
-vignette.
+Pour ajouter ou corriger une enseigne : voir `brands/MISSING.md`.
 
 ### 6.4 Regroupement de cartes
 
@@ -460,11 +465,11 @@ FidCards/
 │       ├── test/              tests JVM, dont le round-trip code-barres
 │       └── androidTest/       tests instrumentés (DAO, migrations)
 ├── brands/                    CATALOGUE CONSTITUÉ, prêt à intégrer
-│   ├── brands.json            171 enseignes : logo, pastille, groupe, licence
-│   ├── logos/                 152 fichiers (102 SVG, 50 rasters)
-│   └── MISSING.md             les 7 enseignes laissées en pastille
+│   ├── brands.json            248 enseignes : couleur, logo, variante, sources
+│   ├── logos/                 245 fichiers
+│   └── MISSING.md             les enseignes sans source fiable
 ├── docs/PROJET.md
-├── tools/                     scripts de sourcing, voir §6.3.2
+├── tools/                     optimisation des logos, voir §6.3.2
 ├── gradle/libs.versions.toml
 ├── CLAUDE.md                  importe le claude.md du coffre Obsidian
 ├── LICENSE                    GPL-3.0
@@ -559,4 +564,4 @@ champ ; ne pas le faire obligerait à tout réauditer avant publication.
 ## 16. Décisions restant à prendre
 
 1. **Appareil physique de test** — conditionne le jalon du plein écran (§10.2).
-2. **Rien d'autre.** Le périmètre de la base est tranché : les 171 enseignes du catalogue.
+2. **Rien d'autre.** Le périmètre de la base est tranché : les 248 enseignes du catalogue (élargi le 2026-11-07 aux grandes enseignes manquantes, Gifi en tête, et aux enseignes des classements de fidélité ; les enseignes fermées ou sans programme de fidélité ont été écartées).

@@ -11,7 +11,7 @@ Le chemin critique : **écran verrouillé → carte scannable en caisse.**
 - Kotlin + Jetpack Compose + Material 3 (Material You, repli statique en API 26-30) ;
 - lecture des codes par `zxing-cpp` (caméra), génération par `zxing core`
   (nearest neighbour + quiet zone, verrouillés par un test round-trip JVM) ;
-- base de logos de 167 enseignes embarquée dans l'APK, catalogue de 171 enseignes
+- base de logos de 245 enseignes aux vraies couleurs embarquée dans l'APK, catalogue de 248 enseignes
   pour l'autocomplétion ;
 - seule permission : `CAMERA` (repli complet en saisie manuelle) ;
 - sauvegarde par export/import ZIP — c'est **l'unique** chemin de migration entre

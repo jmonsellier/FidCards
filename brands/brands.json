@@ -1,31 +1,81 @@
 [
   {
+    "id": "5asec",
+    "name": "5àsec",
+    "sector": "Pressing / Retouches",
+    "website": "5asec.fr",
+    "color": "#3A124A",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.5asec.fr/",
+      "https://www.5asec.fr/wp-content/uploads/2025/07/02e641b2-2ead-4b0f-baf4-a37d4965c339-5asecorangeetblanc.webp"
+    ],
+    "note": "Fond violet #3A124A = header du site 5asec.fr (28 occurrences dans le CSS). Logo orange et blanc de l'en-tête actuel du site (téléversé 07/2025), webp converti en PNG 822 px.",
+    "license": "unknown",
+    "logo": "5asec.png"
+  },
+  {
+    "id": "adidas",
+    "name": "Adidas",
+    "sector": "Sport / Sneakers",
+    "website": "adidas.fr",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/adidas.svg"
+    ],
+    "note": "Marque noir et blanc ; Badge of Sport (trois bandes, logo corporate actuel) via Simple Icons, recoloré en blanc sur noir. Pas de wordmark.",
+    "license": "unknown",
+    "logo": "adidas.svg"
+  },
+  {
+    "id": "agatha",
+    "name": "Agatha",
+    "sector": "Bijouterie fantaisie",
+    "website": "agatha.fr",
+    "color": "#111E2D",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.agatha.fr/",
+      "https://www.agatha.fr/on/demandware.static/Sites-AG-FR-Site/-/default/dwf57e21f7/images/logo-agatha.svg"
+    ],
+    "note": "Bleu nuit #111E2D = fill du logo officiel et bandeau supérieur du site ; logo actuel du site (logo-agatha.svg) recoloré en blanc, le site l'affiche en blanc sur son header.",
+    "license": "unknown",
+    "logo": "agatha.svg"
+  },
+  {
     "id": "alainafflelou",
     "name": "Alain Afflelou",
     "sector": "Optique",
     "website": "afflelou.com",
     "logo": "alainafflelou.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#C3A269"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.afflelou.com/ (logo.svg du header)"
+    ],
+    "note": "Aucune couleur de fond attestee : logo noir + signature rouge du site officiel (favicon AA noir sur blanc), donc fond blanc. Rouge #C70C0F = accent seulement."
   },
   {
     "id": "aldi",
     "name": "Aldi",
     "sector": "Hard discount",
     "website": "aldi.fr",
-    "logo": "aldi.jpg",
-    "source": "site:og:image",
+    "logo": "aldi.svg",
     "license": "unknown",
-    "w": 1222,
-    "h": 1280,
-    "validated": true,
-    "background": "light",
-    "color": "#202B78"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.aldi.fr/assets/organization-logo.svg (logo officiel SVG, cadre rouge #C51718 + bandeau #202B78)",
+      "https://play-lh.googleusercontent.com/SacQDsmttU6UOYjVLls5a7mvUYCS5yMEZt5XF6m0zUq34mrSf9O5vZBDPazxk4RBPCA (icône Play Store : logo sur fond blanc)"
+    ],
+    "note": "Blanc retenu : l'icône d'app et le logo SVG officiel du site (cadre rouge + bandeau bleu) sont conçus pour fond blanc ; fond bleu inexploitable (le bandeau bleu disparaîtrait). theme-color du site #00B4DC non retenu."
   },
   {
     "id": "alinea",
@@ -33,13 +83,14 @@
     "sector": "Meuble / Déco",
     "website": "alinea.com",
     "logo": "alinea.svg",
-    "source": "wikidata:Q2837066",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#2B2B2B"
+    "color": "#404727",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "logo svg du depot (fill #404727)"
+    ],
+    "note": "Site alinea.com bloque (403), Commons injoignable (429). Seule couleur de marque connue = le vert olive du logo (#404727) ; logo recolore en blanc par inference, version inversee officielle non verifiee."
   },
   {
     "id": "amorino",
@@ -47,27 +98,31 @@
     "sector": "Glacier",
     "website": "amorino.com",
     "logo": "amorino.svg",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#C97F3B"
+    "color": "#100B0C",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.amorino.com/build/icons/icon_512x512.dd2fec.png (fond #100B0C mesure)",
+      "https://admin.amorino.com/wp-content/uploads/2020/11/logo.svg"
+    ],
+    "note": "Icone d'app officielle : fond quasi noir #100B0C avec chérubin blanc ; logo officiel (monochrome #100B0C) recolore en blanc."
   },
   {
     "id": "ange",
     "name": "Ange",
     "sector": "Boulangerie",
     "website": "boulangerie-ange.fr",
-    "logo": "ange.png",
-    "source": "site:body-img",
+    "logo": "ange.svg",
     "license": "unknown",
-    "w": 450,
-    "h": 396,
-    "validated": true,
-    "background": "dark",
-    "color": "#CCD444"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.boulangerie-ange.fr/ (icône « Encart Noir » 512 px, fond #000000 mesuré)",
+      "https://www.boulangerie-ange.fr/wp-content/uploads/2024/01/logo-angex2.png (logo blanc + anneau #CAD400)"
+    ],
+    "note": "Icône officielle du site = encart noir ; logo officiel blanc avec anneau vert, vectorisé (potrace) depuis le PNG 450 px natif (pas de SVG publié)."
   },
   {
     "id": "animalis",
@@ -75,13 +130,62 @@
     "sector": "Animalerie",
     "website": "animalis.com",
     "logo": "animalis.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": 950,
-    "h": 200,
-    "validated": true,
-    "background": "light",
-    "color": "#E2000D"
+    "color": "#FB0000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.animalis.com/ (logo_animalis_red.png, favicon : rouge #FB0000/#FC0000 mesure)"
+    ],
+    "note": "Logo officiel rouge #FB0000 monochrome (site) ; fond = ce rouge, logo recolore en blanc. Version blanche officielle non trouvee."
+  },
+  {
+    "id": "armandthiery",
+    "name": "Armand Thiery",
+    "sector": "Mode homme",
+    "website": "armandthiery.fr",
+    "color": "#101010",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.armandthiery.fr/",
+      "https://cdn.armandthiery.fr/ximg/logo.svg"
+    ],
+    "note": "Marque noir et blanc : logo du site (fill #101010) recoloré en blanc sur fond du même noir ; logo actuel du header de armandthiery.fr (cdn ximg/logo.svg).",
+    "license": "unknown",
+    "logo": "armandthiery.svg"
+  },
+  {
+    "id": "armorlux",
+    "name": "Armor Lux",
+    "sector": "Mode",
+    "website": "armorlux.com",
+    "color": "#04121D",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.armorlux.com/",
+      "https://www.armorlux.com/cdn/shop/files/LOGO_white.svg?v=1734535496"
+    ],
+    "note": "Fond = bleu marine #04121D, fill du logo officiel du site ; variante LOGO_white.svg du site (blanc avec point rouge #9F2834), en-tête actuel (fichiers de 12/2024).",
+    "license": "unknown",
+    "logo": "armorlux.svg"
+  },
+  {
+    "id": "aromazone",
+    "name": "Aroma-Zone",
+    "sector": "Beauté / Cosmétique",
+    "website": "aroma-zone.com",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo-aroma-zone.png",
+      "https://aroma-zone.com/content/cgu-fidelite"
+    ],
+    "note": "Site protégé par Cloudflare (403) : seul le PNG Commons (3780 px, gris foncé sur transparent) est accessible, date du logo non vérifiable ; la marque n'a pas de fond coloré attesté, blanc par défaut.",
+    "license": "unknown",
+    "logo": "aromazone.png"
   },
   {
     "id": "aubert",
@@ -89,13 +193,30 @@
     "sector": "Puériculture",
     "website": "aubert.com",
     "logo": "aubert.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#E9514F"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.aubert.com/ (logo-2022.svg, header blanc)"
+    ],
+    "note": "Logo officiel 2022 or #D5AD69 + coeur corail #E9514F, utilise sur fond blanc par le site ; aucune couleur de fond de marque."
+  },
+  {
+    "id": "aubureau",
+    "name": "Au Bureau",
+    "sector": "Restauration à table",
+    "website": "aubureau.fr",
+    "color": "#000000",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.aubureau.fr/",
+      "https://a.storyblok.com/f/339491/1119x248/bd94021f4a/logo-aubureau-beige.png"
+    ],
+    "note": "Fond noir du site aubureau.fr (hero et header), logo beige 'AU BUREAU Pub & Brasserie' du header actuel (storyblok logo-aubureau-beige.png, 1119 px).",
+    "license": "unknown",
+    "logo": "aubureau.png"
   },
   {
     "id": "auchan",
@@ -103,13 +224,14 @@
     "sector": "Hypermarché",
     "website": "auchan.fr",
     "logo": "auchan.svg",
-    "source": "site:home-link-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#E0001A"
+    "color": "#E0001A",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.auchan.fr/ (CSS : #E0001A dominant ; logo desktop svg #D6180B)"
+    ],
+    "note": "Rouge Auchan du CSS du site ; logo officiel (monochrome rouge) recolore en blanc (version inversee habituelle de la marque)."
   },
   {
     "id": "autourdebebe",
@@ -117,13 +239,29 @@
     "sector": "Puériculture",
     "website": "autourdebebe.com",
     "logo": "autourdebebe.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#DFB8CC"
+    "color": "#AA0061",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.autourdebebe.com/ (CSS : #AA0061 dominant ; logo.svg #B10064)"
+    ],
+    "note": "Magenta du CSS du site ; logo officiel monochrome magenta recolore en blanc."
+  },
+  {
+    "id": "auvieuxcampeur",
+    "name": "Au Vieux Campeur",
+    "sector": "Sport",
+    "website": "auvieuxcampeur.fr",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.auvieuxcampeur.fr/ (logo.svg du header)"
+    ],
+    "note": "Logo = logo.svg du header actuel du site (vert #01972B + pastille orange) tel quel sur blanc (multicolore). Programme de fidélité non confirmé par une source : à vérifier.",
+    "license": "unknown",
+    "logo": "auvieuxcampeur.svg"
   },
   {
     "id": "avia",
@@ -131,11 +269,30 @@
     "sector": "Carburant / Station-service",
     "website": "avia.com",
     "logo": "avia.png",
-    "source": "site:og:image",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#87A6D4"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.avia-france.fr/ (AVIA_International_logo_couleur.png ; rouge #ED1C24, brand primary #E10613)"
+    ],
+    "note": "Logo officiel rouge utilise sur fond blanc (site). Pas de version inversee trouvee ; fond blanc car rouge sur rouge illisible."
+  },
+  {
+    "id": "bagelstein",
+    "name": "Bagelstein",
+    "sector": "Restauration rapide",
+    "website": "bagelstein.com",
+    "color": "#000000",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.bagelstein.com/",
+      "https://fr.wikipedia.org/wiki/Fichier:Logo_Bagelstein.svg"
+    ],
+    "note": "Noir #000000 = theme-color et bandeau de navigation du site bagelstein.com ; blason rond Bagelstein (SVG fr.wikipedia 'Logo Bagelstein.svg', même blason que celui du site actuel, fichier Logo-Bagelstein-NBO non téléchargeable : accès protégé) avec son disque blanc.",
+    "license": "unknown",
+    "logo": "bagelstein.svg"
   },
   {
     "id": "basicfit",
@@ -143,25 +300,30 @@
     "sector": "Salle de sport",
     "website": "basic-fit.com",
     "logo": "basicfit.svg",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#FE7000"
+    "color": "#FE7000",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.basic-fit.com/ (favicon.svg : orange #FE7000 + BF blanc)",
+      "logo-bf-orange.svg du header"
+    ],
+    "note": "Fond orange de l'icone officielle ; wordmark officiel recolore en blanc comme sur l'icone."
   },
   {
     "id": "beautysuccess",
     "name": "Beauty Success",
     "sector": "Beauté / Parfumerie",
     "website": "beautysuccess.fr",
-    "logo": "beautysuccess.png",
-    "source": "site:og:image",
+    "logo": "beautysuccess.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#EE3124"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.beautysuccess.fr/ (logo_noflag.svg, header ; --color-primary #000000)"
+    ],
+    "note": "Logo officiel noir + fleur rose sur fond blanc (site) ; aucune couleur de fond de marque."
   },
   {
     "id": "bebe9",
@@ -169,13 +331,14 @@
     "sector": "Puériculture",
     "website": "bebe9.com",
     "logo": "bebe9.svg",
-    "source": "site:home-link-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#9B907C"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.bebe9.com/ (logo-bebe9-desktop_1.svg ; favicon turquoise #009798)"
+    ],
+    "note": "Logo officiel turquoise/rose sur fond blanc (site) ; pas de fond de marque atteste."
   },
   {
     "id": "bershka",
@@ -183,13 +346,15 @@
     "sector": "Mode",
     "website": "bershka.com",
     "logo": "bershka.svg",
-    "source": "wikidata:Q827258",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Bershka_logo_2023.svg (logo 2023, majuscules grasses)",
+      "https://apps.apple.com/fr/app/bershka/id427769832 (captures App Store nov. 2026 : wordmark BERSHKA majuscules blanc sur noir)"
+    ],
+    "note": "Ancien rendu = wordmark 2017 en bas de casse maigre. Remplace par le wordmark 2023 majuscules, recolore blanc sur noir (marque noir et blanc ; app en fond sombre). L'icone d'app bleue avec un B stylise n'est qu'une icone d'app, pas le logo complet. Pas de carte de fidelite Bershka a verifier. | actuel : logo 2023 Commons + captures App Store 2026-11-03"
   },
   {
     "id": "bessonchaussures",
@@ -197,13 +362,14 @@
     "sector": "Chaussures",
     "website": "besson-chaussures.com",
     "logo": "bessonchaussures.svg",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#E7474B"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.besson-shoes.com/ (inaccessible) ; logo svg du depot : noir + signature rouge #E7474B"
+    ],
+    "note": "Logo officiel noir + hashtag rouge sur blanc ; rouge #E7474B = accent du logo seulement, pas atteste comme fond. Site inaccessible."
   },
   {
     "id": "biocbon",
@@ -211,13 +377,14 @@
     "sector": "Supermarché bio",
     "website": "bio-c-bon.fr",
     "logo": "biocbon.svg",
-    "source": "wikidata:Q54312551",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#006133"
+    "color": "#006133",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "logo svg du depot : cartouche vert #006133 + texte blanc + apostrophe #FBE100"
+    ],
+    "note": "Vert = fond du logo officiel carre (retire, texte rogne). Site bio-c-bon.fr injoignable (erreur TLS)."
   },
   {
     "id": "biocoop",
@@ -225,11 +392,15 @@
     "sector": "Supermarché bio",
     "website": "biocoop.fr",
     "logo": "biocoop.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#034EA2"
+    "color": "#034DA3",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.biocoop.fr/static/.../css (--primary-mark:#034da3 ; en-tête et 346 occurrences #0C4DA2)",
+      "https://www.biocoop.fr/static/version1793036554/frontend/Biocoop/fusion/fr_FR/images/logo.png (logo standard, 3330x1010)"
+    ],
+    "note": "Bleu Biocoop #034DA3 (variable CSS --primary-mark, fond de l'en-tête) ; logo standard blanc/jaune/vert du thème du site (3330 px natif), et non le bandeau temporaire « 40 ans » du header."
   },
   {
     "id": "bizzbee",
@@ -237,13 +408,30 @@
     "sector": "Prêt-à-porter",
     "website": "bizzbee.com",
     "logo": "bizzbee.svg",
-    "source": "manuel",
     "license": "unknown",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "sourceUrl": "https://www.b-z-b.com/on/demandware.static/-/Sites/default/dw33ac086c/BZB-logo.svg"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.b-z-b.com/on/demandware.static/-/Sites-Bizzbee-SFRA-Library/fr_FR/dw154cbe34/logo-bzb-blanc.svg (logo blanc officiel)",
+      "https://www.b-z-b.com/ (Logo-BZB-carre-noir.svg, icône BZB noir)"
+    ],
+    "note": "Marque noir et blanc : le site fournit la variante blanche officielle et un carré noir ; fond noir + logo-bzb-blanc.svg. L'icône App Store est gris clair #F7F7F7 (conflit, d'où moyenne). Logo actuel = celui du header du site."
+  },
+  {
+    "id": "bonobo",
+    "name": "Bonobo",
+    "sector": "Mode",
+    "website": "bonoboplanet.com",
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260411173559/https://www.bonoboplanet.com/ (header, logo.svg, avril 2026)"
+    ],
+    "note": "Reprise de zéro (Cloudflare, passé par web.archive.org). Logo du header actuel BONOBO (lettres en pastilles, noir). Marque noir et blanc : bg noir, logo recoloré en blanc. Aucune couleur de fond attestée (site et icône Vib's blancs) : confiance moyenne.",
+    "license": "unknown",
+    "logo": "bonobo.svg"
   },
   {
     "id": "botanic",
@@ -251,11 +439,15 @@
     "sector": "Jardinerie",
     "website": "botanic.com",
     "logo": "botanic.png",
-    "source": "site:body-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#00634D"
+    "color": "#00594D",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.botanic.com/ (theme-color et mask-icon #00594D)",
+      "logo blanc du depot (fond vert integre retire)"
+    ],
+    "note": "Vert #00594D du site ; logo officiel blanc sur vert (fond integre #00634C retire par demixage alpha)."
   },
   {
     "id": "boulanger",
@@ -263,14 +455,15 @@
     "sector": "Électroménager / High-tech",
     "website": "boulanger.com",
     "logo": "boulanger.svg",
-    "source": "wikidata:Q2921695",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#F1650A"
+    "color": "#FD5300",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://simpleicons.org (boulanger = #FD5300)",
+      "logo svg du depot (fill #FD5300)"
+    ],
+    "note": "Orange officiel #FD5300 (Simple Icons, egal au fill du logo) ; wordmark entierement recolore en blanc."
   },
   {
     "id": "boulangerielouise",
@@ -278,13 +471,14 @@
     "sector": "Boulangerie",
     "website": "boulangerie-louise.com",
     "logo": "boulangerielouise.png",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#1A1310"
+    "color": "#000000",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "logo raster du depot (cartouche noir, filets creme)"
+    ],
+    "note": "Site boulangerie-louise.com injoignable (502/echec). Cartouche officiel noir + creme ; fond noir deduit du logo, non source."
   },
   {
     "id": "bp",
@@ -292,13 +486,15 @@
     "sector": "Carburant / Station-service",
     "website": "bp.com",
     "logo": "bp.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#009900"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.bp.com/apple-icon.png (Helios sur fond blanc)",
+      "bp/icon.svg (vert #009900, #99CC00, #FFE600)"
+    ],
+    "note": "Icone d'app officielle = Helios sur fond blanc ; vert BP #009900 n'est qu'une couleur du logo (rayons)."
   },
   {
     "id": "bricodepot",
@@ -306,13 +502,14 @@
     "sector": "Bricolage",
     "website": "bricodepot.fr",
     "logo": "bricodepot.svg",
-    "source": "site:icon",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#E30613"
+    "color": "#E30613",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.bricodepot.fr/ (logo-brico-depot.svg, CSS #E30613)"
+    ],
+    "note": "Rouge #E30613 du site ; logo officiel en cartouche blanc (plaque rouge/noire) tel quel."
   },
   {
     "id": "bricomarche",
@@ -320,13 +517,15 @@
     "sector": "Bricolage",
     "website": "bricomarche.com",
     "logo": "bricomarche.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#FE0000"
+    "color": "#E2001A",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "logo svg du depot (fill #E2001A)",
+      "bricomarche.com : 403"
+    ],
+    "note": "Rouge du logo officiel #E2001A (site bloque 403) ; wordmark recolore en blanc."
   },
   {
     "id": "bricorama",
@@ -334,13 +533,14 @@
     "sector": "Bricolage",
     "website": "bricorama.fr",
     "logo": "bricorama.svg",
-    "source": "fr-wikipedia:Bricorama",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "color": "#FFD300"
+    "color": "#FFD300",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "logo svg du depot : point jaune #FFD300, texte #020203"
+    ],
+    "note": "Jaune = pastille officielle du logo ; wordmark monochrome noir #020203 sur jaune (le point jaune devient noir). Site bricorama.fr bloque (403)."
   },
   {
     "id": "briochedoree",
@@ -348,11 +548,14 @@
     "sector": "Boulangerie / Café",
     "website": "briochedoree.fr",
     "logo": "briochedoree.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#C72E26"
+    "color": "#D90F16",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.briochedoree.fr/ (logo-brioche-doree.svg : ovale #D90F16 ; CSS #CC2717)"
+    ],
+    "note": "Rouge de l'ovale du logo officiel ; l'ovale (anneau blanc + texte blanc) se detache sur ce meme rouge."
   },
   {
     "id": "buffalogrill",
@@ -360,11 +563,14 @@
     "sector": "Restauration à table",
     "website": "buffalo-grill.fr",
     "logo": "buffalogrill.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "dark",
-    "color": "#A7241C"
+    "color": "#BF0505",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.buffalo-grill.fr/ (CSS tailwind rgb(191 5 5) = #BF0505 ; logo-BG.svg blanc)"
+    ],
+    "note": "Rouge principal du CSS du site ; logo officiel blanc du header."
   },
   {
     "id": "bureauvallee",
@@ -372,37 +578,47 @@
     "sector": "Papeterie / Bureau",
     "website": "bureau-vallee.fr",
     "logo": "bureauvallee.svg",
-    "source": "site:body-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#0D182A"
+    "color": "#173D6C",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "icône App Store MyBV : fond bleu #173D6C, BV jaune",
+      "https://www.bureau-vallee.fr/ (logo-fr.svg : texte #173D6C, cartouche #FEC900, #008537)"
+    ],
+    "note": "Bleu marine #173D6C attesté par l'icône d'app et par les fills du logo du site ; cartouche jaune/vert du logo actuel (logo-fr.svg du site) posé tel quel sur ce bleu."
   },
   {
     "id": "burgerking",
     "name": "Burger King",
     "sector": "Restauration rapide",
     "website": "burgerking.fr",
-    "logo": "burgerking.png",
-    "source": "manuel",
+    "logo": "burgerking.svg",
     "license": "unknown",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#ABA49A"
+    "color": "#D62300",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.burgerking.fr/ (CSS #D62300)",
+      "https://simpleicons.org (burgerking = #D62300)",
+      "SVG inline de l'en-tête, calque « Logo_PrimaryBG_SafeZone »"
+    ],
+    "note": "Rouge #D62300 ; SVG vectoriel du logo « bun » 2021 extrait de l'en-tête du site actuel (calque prévu pour le fond primaire)."
   },
   {
     "id": "but",
     "name": "But",
     "sector": "Meuble / Déco",
     "website": "but.fr",
-    "logo": "but.png",
-    "source": "site:og:image",
+    "logo": "but.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#E3001B"
+    "color": "#ED1C24",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo-BUT.svg (couleur + logo)"
+    ],
+    "note": "Logo officiel Commons, carré rouge #ED1C24 retiré, BUT blanc sur fond rouge."
   },
   {
     "id": "ca",
@@ -410,26 +626,92 @@
     "sector": "Prêt-à-porter",
     "website": "c-and-a.com",
     "logo": "ca.svg",
-    "source": "fr-wikipedia:C&A",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:C%26A_logo.svg (logo)",
+      "https://www.c-and-a.com/fr/fr (favicon noir sur blanc)"
+    ],
+    "note": "Marque noir et blanc sans couleur de fond : fond blanc, logo noir officiel."
+  },
+  {
+    "id": "cachecache",
+    "name": "Cache Cache",
+    "sector": "Mode",
+    "website": "cache-cache.fr",
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260507043446/https://www.cache-cache.fr/ (header, logo_CCH_FR.svg, mai 2026)"
+    ],
+    "note": "Reprise de zéro (site 403, passé par web.archive.org). Logo du header actuel : wordmark CACHE CACHE noir/contour + point jaune #FFE524. Marque noir et blanc : bg noir, logo recoloré en blanc, point jaune conservé. Aucune source de couleur de fond de marque (site blanc, logo noir) : confiance moyenne.",
+    "license": "unknown",
+    "logo": "cachecache.svg"
+  },
+  {
+    "id": "calzedonia",
+    "name": "Calzedonia",
+    "sector": "Mode",
+    "website": "calzedonia.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.calzedonia.com/fr/",
+      "https://www.calzedonia.com/on/demandware.static/-/Library-Sites-CalzedoniaContentLibrary/fr_FR/Calzedonia_logo.svg"
+    ],
+    "note": "Marque noir et blanc : logo SVG actuel du site (Calzedonia_logo.svg, noir) recoloré en blanc sur noir. theme-color du site #4766FF non retenu (couleur d'app, pas la couleur de marque affichée).",
+    "license": "unknown",
+    "logo": "calzedonia.svg"
+  },
+  {
+    "id": "caroll",
+    "name": "Caroll",
+    "sector": "Mode",
+    "website": "caroll.com",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.caroll.com/on/demandware.static/Sites-CRL_FR_SFRA-Site/-/default/dw0e516705/images/logo.svg (via web.archive.org snapshot 2026-08-31 de caroll.com/fr_fr/)"
+    ],
+    "note": "Logo CAROLL PARIS noir du header (logo.svg), prévu pour fond clair. Fond blanc = header du site ; aucun fond de carte attesté (marque noir et blanc, alternative : noir + logo blanc).",
+    "license": "unknown",
+    "logo": "caroll.svg"
   },
   {
     "id": "carrefour",
     "name": "Carrefour",
     "sector": "Supermarché / Hypermarché",
     "website": "carrefour.fr",
-    "logo": "carrefour.png",
-    "source": "site:og:image",
+    "logo": "carrefour.svg",
     "license": "unknown",
-    "w": 1200,
-    "h": 628,
-    "validated": true,
-    "background": "light",
-    "color": "#0970E6"
+    "color": "#014E9F",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_Carrefour_(2010).svg (couleur #014E9F + logo)"
+    ],
+    "note": "Bleu du logo Commons #014E9F ; logo recoloré : texte et demi-flèche bleue en blanc, demi-flèche rouge #E50011 conservée."
+  },
+  {
+    "id": "cashconverters",
+    "name": "Cash Converters",
+    "sector": "Occasion / Dépôt-vente",
+    "website": "cashconverters.fr",
+    "color": "#3C68FF",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.cashconverters.fr/",
+      "https://www.cashconverters.fr/build/images/logo.53ab4bac.svg"
+    ],
+    "note": "Bleu #3C68FF = header du site cashconverters.fr ; logo blanc actuel (logo.svg du site, fill #FAFAFA) tel que posé sur ce bleu.",
+    "license": "unknown",
+    "logo": "cashconverters.svg"
   },
   {
     "id": "casinoshop",
@@ -437,13 +719,14 @@
     "sector": "Supermarché de proximité",
     "website": "casino.fr",
     "logo": "casinoshop.svg",
-    "source": "site:body-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#E1002B"
+    "color": "#00542D",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Casino_Logo_(2026).svg (couleur + logo)"
+    ],
+    "note": "Vert #00542D du logo Casino 2026 (Commons) ; logo recoloré en blanc."
   },
   {
     "id": "castorama",
@@ -451,14 +734,14 @@
     "sector": "Bricolage / Jardinage",
     "website": "castorama.fr",
     "logo": "castorama.svg",
-    "source": "wikidata:Q966971",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#FFDC00"
+    "color": "#0071B9",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Castorama_-_logo_(France,_2014-).svg"
+    ],
+    "note": "Bleu #0071B9 du logo officiel ; texte passé en blanc, tiret jaune #FFDD00 conservé."
   },
   {
     "id": "cdiscount",
@@ -466,13 +749,14 @@
     "sector": "E-commerce généraliste",
     "website": "cdiscount.com",
     "logo": "cdiscount.svg",
-    "source": "fr-wikipedia:Cdiscount",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#FD5272"
+    "color": "#3732FF",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_CDiscount_2024.svg"
+    ],
+    "note": "Bleu #3732FF du logo Cdiscount 2024 (Commons) ; logo recoloré en blanc."
   },
   {
     "id": "celio",
@@ -480,13 +764,14 @@
     "sector": "Mode",
     "website": "celio.com",
     "logo": "celio.svg",
-    "source": "wikidata:Q1052943",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#010101"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Celio_Logo_2026.svg"
+    ],
+    "note": "Logo noir monochrome sur blanc : marque noir et blanc, fond noir, logo blanc."
   },
   {
     "id": "centrakor",
@@ -494,40 +779,126 @@
     "sector": "Équipement de la maison",
     "website": "centrakor.com",
     "logo": "centrakor.svg",
-    "source": "fr-wikipedia:Centrakor",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null
+    "color": "#50B6B2",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.centrakor.com/ (meta theme-color #50b6b2)",
+      "https://www.centrakor.com/images/logos/primary.svg"
+    ],
+    "note": "Turquoise du theme-color du site ; logo sombre officiel du site tel quel (pas de version blanche trouvée)."
   },
   {
     "id": "cgrcinemas",
     "name": "CGR Cinémas",
     "sector": "Cinéma",
     "website": "cgrcinemas.fr",
-    "logo": "cgrcinemas.png",
-    "source": "site:icon",
+    "logo": "cgrcinemas.svg",
     "license": "unknown",
-    "w": 192,
-    "h": 192,
-    "validated": true,
-    "background": "light",
-    "color": "#E1061B"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.cgrcinemas.fr/ (en-tête et pied de page sur fond blanc ; logo SVG rouge #E1061B + « CINEMAS » bleu #074F69)",
+      "https://cms-assets.webediamovies.pro/.../ce4f9d0601f2b062146b80a22c51dacd.png (icône d'app : CGR rouge sans fond)"
+    ],
+    "note": "Blanc retenu : le logo actuel du site (SVG inline du pied de page) et l'icône d'app sont des CGR rouge/bleu pensés pour fond blanc, aucun fond coloré attesté. Remplace l'ancien cartouche bleu nuit (logo 2013, obsolète)."
+  },
+  {
+    "id": "chaussea",
+    "name": "Chaussea",
+    "sector": "Chaussures",
+    "website": "chaussea.com",
+    "color": "#1D1D1B",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.chaussea.com/themes/chaussea/assets/img/svg/chaussea-magasin-de-chaussures.svg (via web.archive.org 2026, logo de l'en-tête)"
+    ],
+    "note": "Logo vectoriel officiel du site : wordmark blanc + point cyan #00ABC8 sur rectangle de fond #1D1D1B (rectangle retiré, c'est le bg). Remplace le JPG 400 px.",
+    "license": "unknown",
+    "logo": "chaussea.svg"
+  },
+  {
+    "id": "chronodrive",
+    "name": "Chronodrive",
+    "sector": "Supermarché (drive)",
+    "website": "chronodrive.com",
+    "color": "#36A460",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.chronodrive.com/",
+      "https://www.chronodrive.com/img/icons/logo.svg"
+    ],
+    "note": "Vert #36A460 = bandeau principal du site (36 occurrences, pixel #38A762 en rendu). Logo 'full' du sprite SVG du site, blanc (icon-color).",
+    "license": "unknown",
+    "logo": "chronodrive.svg"
+  },
+  {
+    "id": "cleor",
+    "name": "Cléor",
+    "sector": "Bijouterie",
+    "website": "cleor.com",
+    "color": "#151C39",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.cleor.com/",
+      "https://www.cleor.com/media/images/logos/logo_cleor_black.svg"
+    ],
+    "note": "Bleu nuit #151C39 = theme-color déclaré par cleor.com ; logo noir du site (logo_cleor_black.svg) recoloré en blanc. Marque sobre : la couleur de fond vient du theme-color, pas d'une carte.",
+    "license": "unknown",
+    "logo": "cleor.svg"
+  },
+  {
+    "id": "coccimarket",
+    "name": "Coccimarket",
+    "sector": "Supermarché de proximité",
+    "website": "coccimarket.fr",
+    "color": "#76746E",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Coccimarket_logo.png",
+      "https://www.promocatalogues.fr/ (carte Coccinelle)"
+    ],
+    "note": "Seul fichier trouvé : PNG 500x166 (sous 600 px) dont le fond gris #76746E fait partie de l'image ; logo orange/blanc. Date inconnue, site coccimarket.fr injoignable. À remplacer si une meilleure source apparaît.",
+    "license": "unknown",
+    "logo": "coccimarket.png"
+  },
+  {
+    "id": "coiffandco",
+    "name": "Coiff&Co",
+    "sector": "Coiffure",
+    "website": "coiffandco.com",
+    "color": "#FFD100",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.coiffandco.com/",
+      "https://www.coiffandco.com/_next/static/media/LogoCCOMobile.2ce044d9.svg"
+    ],
+    "note": "Jaune #FFD100 = fill du logo (&) et barre de recherche du site ; logo complet actuel du header (SVG), noir avec & jaune cerclé de noir posé sur le jaune de marque.",
+    "license": "unknown",
+    "logo": "coiffandco.svg"
   },
   {
     "id": "columbuscafe",
     "name": "Columbus Café",
     "sector": "Café",
     "website": "columbus-cafe.com",
-    "logo": "columbuscafe.png",
-    "source": "fr-wikipedia:Columbus Café & Co",
+    "logo": "columbuscafe.svg",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#FFAD00"
+    "color": "#F9B000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.columbuscafe.com/wp-content/themes/columbus/dist/assets/main-CV-SBbBo.css (jaune #F9B000, 91 occurrences)",
+      "https://www.columbuscafe.com/wp-content/themes/columbus/proto/app/assets/media/favicon/android-chrome-192x192.png (icône d'app : ours noir sur jaune #F3BB3E)"
+    ],
+    "note": "Jaune Columbus #F9B000 (CSS) ; icône d'app = ours sombre sur jaune. Logo : ours officiel (logo.svg, #1F1617) + mot-symbole officiel (logo-typo-white.svg recoloré #1F1617) assemblés en lockup vertical ; vecteurs du site actuel."
   },
   {
     "id": "conforama",
@@ -535,11 +906,14 @@
     "sector": "Meuble / Déco",
     "website": "conforama.fr",
     "logo": "conforama.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "dark",
-    "color": "#E30613"
+    "color": "#E30613",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Conforama_logo.svg"
+    ],
+    "note": "Rouge #E30613 du logo officiel Commons ; logo recoloré en blanc."
   },
   {
     "id": "cora",
@@ -547,11 +921,31 @@
     "sector": "Hypermarché",
     "website": "cora.fr",
     "logo": "cora.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#0970E6"
+    "color": "#E61845",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.cora.fr/assets/logo-cora-carrefour.svg (logo)",
+      "https://simpleicons.org/?q=cora (rouge #E61845, = fill du mot cora du logo officiel)"
+    ],
+    "note": "Avant : mot 'cora' recoloré en blanc sans l'ovale. Le logo officiel actuel est l'ovale blanc à anneau bleu #111C8B et lettres rouges #E61845, tel quel sur le rouge Cora (partie Cora seule, co-marquage Carrefour retiré)."
+  },
+  {
+    "id": "costco",
+    "name": "Costco",
+    "sector": "Cash & carry (pro)",
+    "website": "costco.fr",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Costco_Wholesale_logo_2010-10-26.svg",
+      "https://www.lsa-conso.fr/ (entrepôts Villebon-sur-Yvette, Pontault-Combault)"
+    ],
+    "note": "Logo Costco Wholesale rouge/bleu tel quel sur blanc (pas de fond de marque ; la carte de membre est blanche). Logo en vigueur depuis 2010 ; seul logo actuel de Costco France. Secteur : club-entrepôt sur adhésion, 2 entrepôts en France.",
+    "license": "unknown",
+    "logo": "costco.svg"
   },
   {
     "id": "courir",
@@ -559,14 +953,14 @@
     "sector": "Sport / Sneakers",
     "website": "courir.com",
     "logo": "courir.svg",
-    "source": "wikidata:Q3001258",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#00629B"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "actif existant du dépôt (logo Courir noir + C orange #EA580C)"
+    ],
+    "note": "Aucune source de fond : identité noir/orange, fond noir, texte blanc, C orange conservé."
   },
   {
     "id": "courtepaille",
@@ -574,15 +968,14 @@
     "sector": "Restauration à table",
     "website": "courtepaille.com",
     "logo": "courtepaille.svg",
-    "source": "fr-wikipedia:Courtepaille",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#C52C32"
+    "color": "#D70A28",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_Courtepaille_-_2019.svg"
+    ],
+    "note": "Rouge #D70A28 du toit du logo 2019 ; toit et texte passés en blanc, contours blancs devenus rouges."
   },
   {
     "id": "cultura",
@@ -590,11 +983,31 @@
     "sector": "Culture / Loisirs créatifs",
     "website": "cultura.com",
     "logo": "cultura.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#FFFFFE"
+    "color": "#004079",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "icône App Store Cultura : fond #004079, logo blanc",
+      "https://commons.wikimedia.org/wiki/File:Cultura_Logo_2021.svg (cartouche #104274)"
+    ],
+    "note": "bg #004079 = icône d'app actuelle (le Commons donne #104274, proche) ; logo 2021 blanc avec baseline, cartouche retiré et rogné. Logo actuel : même wordmark que l'icône d'app."
+  },
+  {
+    "id": "cyrillus",
+    "name": "Cyrillus",
+    "sector": "Mode",
+    "website": "cyrillus.fr",
+    "color": "#324D57",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://cyrillus.fr/ (couleur et logo)",
+      "https://www.pagesjaunes.fr/pros/07577299 (carte de fidélité en boutique)"
+    ],
+    "note": "Bleu-gris du logo actuel (new_logo_def.png, en-tête du site, #324D57) ; logo recoloré en blanc (le site publie aussi une variante blanche mais en 380 px seulement).",
+    "license": "unknown",
+    "logo": "cyrillus.png"
   },
   {
     "id": "damart",
@@ -602,14 +1015,30 @@
     "sector": "Prêt-à-porter",
     "website": "damart.fr",
     "logo": "damart.png",
-    "source": "manuel",
     "license": "unknown",
-    "background": "light",
-    "validated": true,
-    "sourceUrl": "https://www.damart.fr/media/logo/default/Damart_LOGO.png",
-    "w": null,
-    "h": null,
-    "color": "#EE2D23"
+    "color": "#767561",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "https://www.damart.fr/media/logo/default/Damart_LOGO.png (texte #767561, éclair #EF2C23, PNG natif 1614 px)"
+    ],
+    "note": "bg = gris-taupe exact du logo officiel actuel du site (#767561 au lieu de #707060 approximatif) ; texte passé en blanc, éclair rouge conservé. Aucune couleur de fond attestée par carte ou app : faible."
+  },
+  {
+    "id": "darjeeling",
+    "name": "Darjeeling",
+    "sector": "Lingerie",
+    "website": "darjeeling.fr",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.darjeeling.fr/ (couleur et logo)",
+      "https://www.promocatalogues.fr/magasins/darjeeling/catalogues-promotions (programme fidélité)"
+    ],
+    "note": "Marque noir et blanc : wordmark noir du site actuel (logo-darjeeling.svg en-tête, site à dominante #000), recoloré en blanc sur fond noir.",
+    "license": "unknown",
+    "logo": "darjeeling.svg"
   },
   {
     "id": "darty",
@@ -617,27 +1046,29 @@
     "sector": "Électroménager / High-tech",
     "website": "darty.com",
     "logo": "darty.svg",
-    "source": "manuel",
     "license": "unknown",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#DE271D"
+    "color": "#E30613",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Darty_Logo.svg"
+    ],
+    "note": "Logo officiel : carré rouge #E30613 avec disque blanc, bg identique."
   },
   {
     "id": "decathlon",
     "name": "Decathlon",
     "sector": "Sport",
     "website": "decathlon.fr",
-    "logo": "decathlon.png",
-    "source": "manuel",
+    "logo": "decathlon.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#3643BA"
+    "color": "#3642B8",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Decathlon_-_logo_(France,_2024).svg"
+    ],
+    "note": "Bleu #3642B8 du logo 2024 ; logo recoloré en blanc."
   },
   {
     "id": "decitre",
@@ -645,27 +1076,46 @@
     "sector": "Librairie",
     "website": "decitre.fr",
     "logo": "decitre.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#D18E54"
+    "color": "#D21217",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "actif existant du dépôt (carré rouge #D21217 + logo blanc)"
+    ],
+    "note": "Rouge du carré du logo existant, carré retiré ; origine du fichier non sourcée."
+  },
+  {
+    "id": "delarte",
+    "name": "Del Arte",
+    "sector": "Restauration à table",
+    "website": "delarte.fr",
+    "color": "#C30A32",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.delarte.fr/media_1de51b6f0e5ce163cf3f13f731d5e6d525da2f226.svg (logo du header, fills #C30A32 rouge et #538B4D vert)",
+      "https://www.delarte.fr/programme-fidelite"
+    ],
+    "note": "Logo ovale vert/rouge du header actuel de delarte.fr (nov. 2026), s'utilise dans son propre cartouche ; bg = rouge #C30A32 du logo (aucun fond de marque attesté : le site est blanc), SVG contenant un raster embarqué.",
+    "license": "unknown",
+    "logo": "delarte.svg"
   },
   {
     "id": "deneuville",
     "name": "De Neuville",
     "sector": "Chocolatier",
     "website": null,
-    "logo": "deneuville.png",
-    "source": "manuel",
+    "logo": "deneuville.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#D00063"
+    "color": "#D00063",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.chocolat-deneuville.com/themes/antadis/assets/css/styles.css (magenta #D00063 x136)",
+      "https://www.chocolat-deneuville.com/themes/antadis/assets/img/logo_deneuville.svg (logo magenta, fill #d00063)"
+    ],
+    "note": "Magenta #D00063 = couleur principale du CSS et fill du logo SVG officiel du site actuel (monochrome) ; logo passé en blanc."
   },
   {
     "id": "dessange",
@@ -673,13 +1123,30 @@
     "sector": "Coiffure",
     "website": "dessange.com",
     "logo": "dessange.svg",
-    "source": "site:home-link-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#000000"
+    "color": "#161615",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "actif existant du dépôt (logo #161615)"
+    ],
+    "note": "Marque noir et blanc, aucune source de fond : fond noir, logo blanc."
+  },
+  {
+    "id": "devred",
+    "name": "Devred",
+    "sector": "Mode",
+    "website": "devred.com",
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://devred.com/cdn/shop/files/Group_1.svg",
+      "https://www.tiendeo.fr/tomino/devred (carte de fidélité)"
+    ],
+    "note": "Variante blanche (Group_1.svg, v=déc. 2025) du logo 'DEVRED 1902' du lien d'accueil de l'en-tête actuel de devred.com, posée sur noir ; la couleur de fond du site n'a pas pu être lue (aucun theme-color), noir par déduction du logo blanc.",
+    "license": "unknown",
+    "logo": "devred.svg"
   },
   {
     "id": "dominospizza",
@@ -687,13 +1154,14 @@
     "sector": "Restauration rapide",
     "website": "dominos.fr",
     "logo": "dominospizza.svg",
-    "source": "wikidata:Q839466",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#0077AA"
+    "color": "#006491",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "actif existant du dépôt (logo Domino's)"
+    ],
+    "note": "Bleu Domino's #006491 (non vérifié sur source), logo tel quel."
   },
   {
     "id": "douglas",
@@ -701,13 +1169,46 @@
     "sector": "Beauté / Parfumerie",
     "website": "douglas.fr",
     "logo": "douglas.svg",
-    "source": "fr-wikipedia:Douglas Holding",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#BF3E35"
+    "color": "#9ADCD2",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://apps.apple.com/de/app/douglas-beauty-parf%C3%BCm/id394685685 (app officielle Parfumerie Douglas GmbH, MAJ 2026-10-26 : icone DO + DOUGLAS noir #1A1819 sur menthe #9ADCD2 ; captures : fond menthe clair, wordmark DOUGLAS)",
+      "https://apps.apple.com/fr/app/douglas-creator/id1621327496 (meme identite menthe/noir)"
+    ],
+    "note": "Ancien rendu = wordmark blanc sur noir suppose, sans source. L'identite Douglas actuelle est un fond menthe #9ADCD2 (pixel de l'icone officielle) avec le wordmark DOUGLAS (ligature DO) en noir #1A1819. Meme wordmark qu'avant, recolore noir (couleur de l'icone). Le monogramme DO empile n'est pas utilise. En France douglas.fr redirige vers nocibe.fr (403 aux robots) : le site FR n'a pas pu etre consulte, donc confiance moyenne. | actuel : icone et captures App Store Douglas 2026-10"
+  },
+  {
+    "id": "dpam",
+    "name": "Du Pareil au Même",
+    "sector": "Mode enfant",
+    "website": "dpam.com",
+    "color": "#DB4654",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.dpam.com/ (couleur et logo)"
+    ],
+    "note": "Rouge de la marque (CSS site #DB4654 + logo DPAM_LogoLong_2026_Rouge, logo 2026 de l'en-tête actuel), logo 2026 passé en blanc faute de version blanche publiée.",
+    "license": "unknown",
+    "logo": "dpam.png"
+  },
+  {
+    "id": "easycash",
+    "name": "Easy Cash",
+    "sector": "Occasion / Rachat",
+    "website": "easycash.fr",
+    "color": "#FF002C",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://web.archive.org/web/20261005131656im_/https://www.easycash.fr/themes/img/logos/logo_white.svg",
+      "https://web.archive.org/web/20261005131656im_/https://easycash-medias-production.s3.eu-west-3.amazonaws.com/cms/08/logo-easy-cash.png"
+    ],
+    "note": "Logo EASYCASH + coche, variante blanche officielle du site (snapshot 2026-10-05) ; fond = rouge de marque #ff002c (CSS du site, identique au rouge du logo PNG).",
+    "license": "unknown",
+    "logo": "easycash.svg"
   },
   {
     "id": "eleclerc",
@@ -715,25 +1216,29 @@
     "sector": "Hypermarché",
     "website": "e-leclerc.com",
     "logo": "eleclerc.svg",
-    "source": "site:body-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#0066CC"
+    "color": "#0066CC",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "actif existant du dépôt (logo E.Leclerc #0066CC + orange #FF6633)"
+    ],
+    "note": "Bleu du logo ; lettres et anneau passés en blanc, L orange conservé."
   },
   {
     "id": "electrodepot",
     "name": "Electro Dépôt",
     "sector": "Électroménager",
     "website": "electrodepot.fr",
-    "logo": "electrodepot.jpg",
-    "source": "site:og:image",
+    "logo": "electrodepot.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#05171D"
+    "color": "#FAB31E",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_d%27%C3%89lectro_d%C3%A9p%C3%B4t.svg"
+    ],
+    "note": "Jaune #FAB31E du logo, noir et jaune ; logo sombre tel quel."
   },
   {
     "id": "eram",
@@ -741,26 +1246,30 @@
     "sector": "Chaussures",
     "website": "eram.fr",
     "logo": "eram.svg",
-    "source": "site:body-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#ABA30C"
+    "color": "#14141C",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "https://www.eram.fr/ (logo-eram.svg)"
+    ],
+    "note": "Aucune source de fond : noir du logo, texte blanc, accent jaune #FFF200 conservé."
   },
   {
     "id": "espaceculturelleclerc",
     "name": "Espace Culturel Leclerc",
     "sector": "Culture",
     "website": "e-leclerc.com",
-    "logo": "espaceculturelleclerc.jpg",
-    "source": "fr-wikipedia:Espace culturel E. Leclerc",
+    "logo": "espaceculturelleclerc.svg",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#0066CC"
+    "color": "#0078A8",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "logo actuel « espace culturel E.Leclerc » du catalogue (bleu mesuré #0078A8)",
+      "https://commons.wikimedia.org/wiki/File:E.Leclerc_logo.svg (E.Leclerc #0B70B5, différent)"
+    ],
+    "note": "Aucune source de fond : bleu du logo ; le logo est dans son cartouche blanc. Vectorisé (potrace) depuis le PNG/WebP 768 px du dépôt ; le site e.leclerc est une SPA sans logo accessible ; l'ancien logo carré de Commons est obsolète."
   },
   {
     "id": "esso",
@@ -768,29 +1277,29 @@
     "sector": "Carburant / Station-service",
     "website": "esso.fr",
     "logo": "esso.svg",
-    "source": "wikidata:Q867662",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#E2733A"
+    "color": "#0E52A5",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "actif existant du dépôt (ovale Esso #0E52A5)"
+    ],
+    "note": "Bleu du logo, ovale blanc à bordure bleue tel quel."
   },
   {
     "id": "etam",
     "name": "Etam",
     "sector": "Mode",
     "website": "etam.com",
-    "logo": "etam.png",
-    "source": "manuel",
+    "logo": "etam.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#343B6E"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.etam.com/ (LOGO_Etam_White_version.svg, icône app Logo_192.png noire)"
+    ],
+    "note": "Logo blanc officiel du site sur fond noir de l'icône d'app Etam."
   },
   {
     "id": "feuillette",
@@ -798,13 +1307,15 @@
     "sector": "Boulangerie",
     "website": "feuillette.fr",
     "logo": "feuillette.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#B1A174"
+    "color": "#B4A06D",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.feuillette.fr/ (couleur = fill or du logo officiel)",
+      "https://www.feuillette.fr/wp-content/uploads/2026/03/feuillette-logo.svg (logo)"
+    ],
+    "note": "Or #B4A06D = couleur du logo officiel du site ; ovale plein retire, anneaux et F recolores en blanc."
   },
   {
     "id": "feuvert",
@@ -812,13 +1323,14 @@
     "sector": "Entretien auto",
     "website": "feuvert.fr",
     "logo": "feuvert.png",
-    "source": "fr-wikipedia:Feu vert (entreprise)",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#1A3B28"
+    "color": "#007A4C",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:2021_FV_LOGOTYPE_EXE_1000x1000px-02.png (couleur et logo)"
+    ],
+    "note": "Vert #007A4C = couleur du logotype 2021 (Commons) ; logo recolore en blanc (raster, silhouette unie). Le feuvert.fr bloque les robots."
   },
   {
     "id": "fitnesspark",
@@ -826,13 +1338,45 @@
     "sector": "Salle de sport",
     "website": "fitnesspark.fr",
     "logo": "fitnesspark.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "dark",
-    "color": "#F9D849"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.fitnesspark.fr/ (logo WHITE_2020 officiel, jaune #FFD600 en accent)"
+    ],
+    "note": "Avant : logo recoloré en noir sur jaune. Le site fournit la version officielle blanche (texte blanc + soulignement jaune #FFD600) prévue pour fond sombre ; bg noir (identité noir/jaune, fond sombre du totem), nuance exacte du noir non attestée."
+  },
+  {
+    "id": "fiveguys",
+    "name": "Five Guys",
+    "sector": "Restauration rapide",
+    "website": "fiveguys.fr",
+    "color": "#C92027",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Five_Guys_logo.svg (couleur #c92027 et logo)",
+      "https://presseagence.fr/paris-restauration-rapide-five-guys-lance-five-guys-rewards-son-premier-programme-de-fidelite/"
+    ],
+    "note": "Rouge = fill du logo Wikimedia (site fiveguys.fr en 403, non vérifiable) ; wordmark FIVE GUYS BURGERS and FRIES recoloré en blanc (vecteur rouge officiel). « Actuel » : logo Commons non daté, wordmark inchangé depuis 1986, non confronté au site.",
+    "license": "unknown",
+    "logo": "fiveguys.svg"
+  },
+  {
+    "id": "flunch",
+    "name": "Flunch",
+    "sector": "Restauration à table",
+    "website": "flunch.fr",
+    "color": "#DF2211",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.flunch.fr/wp-content/uploads/2023/03/logo-flunch-resize.svg"
+    ],
+    "note": "SVG du header actuel de flunch.fr (cartouche rouge #df2211, lettres blanches, charte 2023, la même que le visuel Fidélité 2023 du site).",
+    "license": "unknown",
+    "logo": "flunch.svg"
   },
   {
     "id": "fnac",
@@ -840,11 +1384,15 @@
     "sector": "Culture / High-tech",
     "website": "fnac.com",
     "logo": "fnac.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#F5B027"
+    "color": "#232323",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "icône App Store FNAC : fond #232323, logo jaune #F5B027",
+      "https://commons.wikimedia.org/wiki/File:Fnac_Logo.svg (carré incliné, lettres évidées)"
+    ],
+    "note": "Fond anthracite #232323 et jaune #F5B027 pris sur l'icône d'app actuelle ; logo officiel (carré jaune incliné, lettres évidées laissant voir le fond) recoloré du jaune Commons #EBB300 au jaune de l'app. Remplace le carré noir sur jaune."
   },
   {
     "id": "footlocker",
@@ -852,15 +1400,30 @@
     "sector": "Chaussures / Sport",
     "website": "footlocker.fr",
     "logo": "footlocker.svg",
-    "source": "wikidata:Q63335",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#0E1111"
+    "color": "#040606",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Foot_Locker_2020_Wordmark_Logo.svg (couleur et logo)"
+    ],
+    "note": "Wordmark 2020 : lettres blanches dans un cartouche noir #040606 (retire, identique a bg)."
+  },
+  {
+    "id": "fragonard",
+    "name": "Fragonard",
+    "sector": "Beauté / Parfumerie",
+    "website": "fragonard.com",
+    "color": "#EBE7DF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.fragonard.com/fr-fr/ximg/logo_fr.svg",
+      "https://www.fragonard.com/fr"
+    ],
+    "note": "Logo cartouche rubans noir/blanc de l'en-tête fragonard.com 2026 ; bg = theme-color #EBE7DF du site (crème), pas de couleur de fond de marque plus forte attestée.",
+    "license": "unknown",
+    "logo": "fragonard.svg"
   },
   {
     "id": "franckprovost",
@@ -868,54 +1431,60 @@
     "sector": "Coiffure",
     "website": "franckprovost.com",
     "logo": "franckprovost.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#000000"
+    "color": "#222221",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.franckprovost.com/ (logo mobile, fill #222221)"
+    ],
+    "note": "Noir de marque #222221 = fill du logo officiel du site ; logo recolore en blanc."
   },
   {
     "id": "franprix",
     "name": "Franprix",
     "sector": "Supermarché de proximité",
     "website": "franprix.fr",
-    "logo": "franprix.png",
-    "source": "site:og:image",
+    "logo": "franprix.svg",
     "license": "unknown",
-    "w": 1200,
-    "h": 630,
-    "validated": true,
-    "background": "light",
-    "color": "#EC6237"
+    "color": "#EC6237",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_Franprix_-_2015.svg (couleur #ec6237 et logo)",
+      "https://cdn.jsdelivr.net/npm/simple-icons/icons/franprix.svg (EC6237)"
+    ],
+    "note": "Orange #EC6237 (fill du logo Commons = Simple Icons) ; logo officiel recolore en blanc."
   },
   {
     "id": "furetdunord",
     "name": "Furet du Nord",
     "sector": "Librairie",
     "website": "furet.com",
-    "logo": "furetdunord.png",
-    "source": "fr-wikipedia:Furet du Nord",
+    "logo": null,
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#F6CE5A"
+    "color": "#E30613",
+    "logoVariant": "aucun",
+    "confidence": "faible",
+    "sources": [
+      "https://web.archive.org/web/2025/https://www.furet.com/"
+    ],
+    "note": "La patte était le favicon, pas le logo. Le logo actuel du site est le mot 'Furet du nord' blanc sur rouge, mais seul un PNG de 115 px est disponible (pas de SVG, rien sur Commons/Play, Wikimedia en 429) ; la patte en place est le favicon (monogramme), pas le logo complet. Une fois un fichier >= 600 px trouvé, mettre le mot blanc sur #E30613. Source brute : audit/dl/furetdunord/logo.png : pastille à initiales en attendant un fichier exploitable."
   },
   {
     "id": "galerieslafayette",
     "name": "Galeries Lafayette",
     "sector": "Grand magasin",
     "website": "galerieslafayette.com",
-    "logo": "galerieslafayette.jpg",
-    "source": "fr-wikipedia:Galeries Lafayette",
+    "logo": "galerieslafayette.png",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_galeries_lafayette.jpg (logo)"
+    ],
+    "note": "Marque noir et blanc, aucun fond colore atteste ; signature manuscrite noire passee en blanc (raster, luminance vers alpha)."
   },
   {
     "id": "gammvert",
@@ -923,11 +1492,47 @@
     "sector": "Jardinerie",
     "website": "gammvert.fr",
     "logo": "gammvert.png",
-    "source": "site:body-img",
     "license": "unknown",
-    "validated": true,
-    "background": "dark",
-    "color": "#006C50"
+    "color": "#0E664E",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Gamm_vert_Logo_officiel.png (couleur #0e664e et logo)"
+    ],
+    "note": "Vert #0E664E echantillonne dans le logo officiel (Commons, 2100 px) ; logo recolore en blanc. Site gammvert.fr bloque les robots."
+  },
+  {
+    "id": "gedimat",
+    "name": "Gedimat",
+    "sector": "Matériaux de construction",
+    "website": "gedimat.fr",
+    "color": "#CE1632",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.gedimat.fr/images/logo-gedimat.svg (rouge #ce1632, fill du logo)",
+      "https://www.gedimat.fr/images/logo-gedimat-white.svg (logo)",
+      "https://www.forumconstruire.com/guides/guide-carte-fidelite/carte-fidelite-gedimat.php (fidélité)"
+    ],
+    "note": "Logo blanc officiel (logo-gedimat-white.svg) servi par le header/pop-up du site gedimat.fr en nov. 2026, identique à la version couleur de l'en-tête actuel ; bg = rouge du logo officiel. Existence de la carte attestée seulement par un guide tiers non daté : confiance moyenne.",
+    "license": "unknown",
+    "logo": "gedimat.svg"
+  },
+  {
+    "id": "gemo",
+    "name": "Gémo",
+    "sector": "Mode",
+    "website": "gemo.fr",
+    "color": "#6ECEB2",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.gemo.fr/Assets/276832/Theme/Project/Gemotheme/img/logo-gemo--negative.svg",
+      "https://www.gemo.fr"
+    ],
+    "note": "Logo blanc 'negative' du thème gemo.fr 2026 (signature CHAUSSURES & VÊTEMENTS) ; bg = msapplication-TileColor / mask-icon #6ECEB2 du site.",
+    "license": "unknown",
+    "logo": "gemo.svg"
   },
   {
     "id": "generaledoptique",
@@ -935,39 +1540,78 @@
     "sector": "Optique",
     "website": "generale-optique.com",
     "logo": "generaledoptique.svg",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#BB4F07"
+    "color": "#00402F",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.generale-optique.com/ (logo horizontal_payoff, vert #004030 et orange #ED722C)"
+    ],
+    "note": "Vert fonce de marque #00402F ; texte et iris verts passes en blanc, points orange conserves."
   },
   {
     "id": "gibertjoseph",
     "name": "Gibert Joseph",
     "sector": "Librairie",
     "website": "gibertjoseph.com",
-    "logo": "gibertjoseph.png",
-    "source": "fr-wikipedia:Gibert Joseph",
+    "logo": "gibertjoseph.svg",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#194285"
+    "color": "#004389",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20251118162147/https://www.gibertjoseph.com/ (en-tête : logo « GiBERT » blanc sur bleu, titre « Gibert », CSS #004389)",
+      "https://media.gibert.com/media/logo/stores/1/logo-gibert.png (logo)"
+    ],
+    "note": "Logo actuel du site (déc. 2025, enseigne devenue « Gibert ») : lettres blanches + accent jaune sur bleu #004389 ; source 200x40 px vectorisée (potrace) car aucun SVG publié. Remplace l'ancien logo « Gibert Joseph » à carte de France (Wikipédia, bleu #364D99)."
+  },
+  {
+    "id": "gifi",
+    "name": "Gifi",
+    "sector": "Bazar / Discount",
+    "website": "gifi.fr",
+    "color": "#DB001D",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.gifi.fr/on/demandware.static/-/Sites-GIFI_FR-Library/default/dw981c89f5/images/footer/footer-logo.svg",
+      "https://fr.wikipedia.org/wiki/Gifi"
+    ],
+    "note": "Fond = fill #DB001D du logo officiel (cartouche rouge, triangle jaune #FFDC00) ; logo actuel = celui du pied de page de gifi.fr en 2026, qui correspond au 'Logo Gifi - 2020' de Wikipédia FR.",
+    "license": "unknown",
+    "logo": "gifi.svg"
+  },
+  {
+    "id": "giphar",
+    "name": "Giphar",
+    "sector": "Pharmacie",
+    "website": "giphar.fr",
+    "color": "#00442A",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.giphar.fr/ (logo header + couleur)",
+      "https://www.giphar.fr/programme-fidelite-giphar-et-moi.html (carte verte)"
+    ],
+    "note": "Vert foncé du logo officiel actuel (#00442a, SVG du header giphar.fr téléversé en 2026) = fond de la carte Giphar & Moi ; logo vert recoloré en blanc comme sur la carte.",
+    "license": "unknown",
+    "logo": "giphar.svg"
   },
   {
     "id": "godiva",
     "name": "Godiva",
     "sector": "Chocolatier",
     "website": "godiva.com",
-    "logo": "godiva.png",
-    "source": "site:body-img",
+    "logo": "godiva.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "dark",
-    "color": "#D5B476"
+    "color": "#DCC193",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.godiva.com/cdn/shop/files/GDVA-favicon-03.png (couleur or #DCC193)",
+      "https://www.godiva.com/cdn/shop/files/39086_godiva-logo-svg.svg (logo)"
+    ],
+    "note": "Or #DCC193 = fond de l'icone officielle du site ; logo officiel fonce #212121 pose dessus."
   },
   {
     "id": "gosport",
@@ -975,13 +1619,15 @@
     "sector": "Sport",
     "website": "go-sport.com",
     "logo": "gosport.png",
-    "source": "wikidata:Q3117422",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#B1BB1E"
+    "color": "#B2BB1E",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20251229024224/https://www.go-sport.com/ (logo192.png du site actuel, 789x636, pixels #B2BB1E et #061922)",
+      "ancien catalogue #B1BB1E (concordant)"
+    ],
+    "note": "Logo actuel (site go-sport.com fin 2025) : cartouche marine #061922, GO SPORT blanc, bandes lime #B2BB1E ; fond lime = couleur de ses bandes, concordant avec l'ancienne valeur du catalogue. Remplace l'ancien cercle noir. Raster natif 789 px."
   },
   {
     "id": "grandfrais",
@@ -989,11 +1635,15 @@
     "sector": "Supermarché frais",
     "website": "grandfrais.com",
     "logo": "grandfrais.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#BDD642"
+    "color": "#BDD642",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.grandfrais.com/charte/recrutement/logo_sans_baseline.svg (logo, vert #BDD642 et rouge #ED2D2F)",
+      "https://cdn.jsdelivr.net/npm/simple-icons/icons/grandfrais.svg (ED2D2F)"
+    ],
+    "note": "Le logo est un badge rond (rouge/vert) tel quel ; fond = vert du badge."
   },
   {
     "id": "grandoptical",
@@ -1001,15 +1651,14 @@
     "sector": "Optique",
     "website": "grandoptical.com",
     "logo": "grandoptical.svg",
-    "source": "fr-wikipedia:GrandOptical",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#C0A475"
+    "color": "#002F72",
+    "logoVariant": "officiel-inverse",
+    "confidence": "faible",
+    "sources": [
+      "https://www.grandoptical.com/ (logo blanc du header/footer ; mask-icon #002f72)"
+    ],
+    "note": "Logo blanc officiel du site ; bleu #002F72 = mask-icon du gabarit GrandVision, fond reel du header non confirme."
   },
   {
     "id": "haagendazs",
@@ -1017,13 +1666,14 @@
     "sector": "Glacier",
     "website": "haagendazs.fr",
     "logo": "haagendazs.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "dark",
-    "color": "#581125"
+    "color": "#6C172F",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:H%C3%A4agen-Dazs_Logo.svg (fill #6c172f et logo)"
+    ],
+    "note": "Bordeaux #6C172F = fill du logo Commons ; logo recolore en blanc."
   },
   {
     "id": "habitat",
@@ -1031,26 +1681,46 @@
     "sector": "Meuble / Déco",
     "website": "habitat.fr",
     "logo": "habitat.svg",
-    "source": "wikidata:Q689059",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "https://www.habitat.fr/ (logo noir ; msapplication-TileColor #ff0033)"
+    ],
+    "note": "Marque noir et blanc d'apres son logo noir ; le site declare aussi un TileColor rouge #FF0033 non retenu. Logo noir du depot passe en blanc."
   },
   {
     "id": "hippopotamus",
     "name": "Hippopotamus",
     "sector": "Restauration à table",
     "website": "hippopotamus.fr",
-    "logo": "hippopotamus.png",
-    "source": "site:header-img",
+    "logo": "hippopotamus.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#8D231B"
+    "color": "#AD1411",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.hippopotamus.fr/ (CSS --color-hippo-red:#ad1411)",
+      "https://a.storyblok.com/f/333792/304x160/3e499ce5bf/logo_hippo_blanc.png (logo blanc du site, « HIPPOPOTAMUS 1968 »)"
+    ],
+    "note": "Rouge hippo du CSS du site ; logo blanc actuel du site, vectorisé (potrace) depuis le PNG 304 px natif (pas de SVG publié)."
+  },
+  {
+    "id": "histoiredor",
+    "name": "Histoire d'Or",
+    "sector": "Bijouterie",
+    "website": "histoiredor.com",
+    "color": "#901634",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.histoiredor.com/",
+      "https://www.histoiredor.com/on/demandware.static/Sites-HO-COM-Site/-/default/dw81619a7a/images/logo-white.svg"
+    ],
+    "note": "Bordeaux #901634 = bandeau de navigation du site (10 occurrences) ; logo du footer actuel (logo-white.svg, bordeaux #A11E2F) recoloré en blanc.",
+    "license": "unknown",
+    "logo": "histoiredor.svg"
   },
   {
     "id": "hm",
@@ -1058,13 +1728,14 @@
     "sector": "Mode",
     "website": "hm.com",
     "logo": "hm.svg",
-    "source": "wikidata:Q188326",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#E50010"
+    "color": "#E50010",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://cdn.jsdelivr.net/npm/simple-icons/icons/handm.svg (couleur #E50010 et silhouette)"
+    ],
+    "note": "Rouge H&M (Simple Icons) ; silhouette officielle passee en blanc."
   },
   {
     "id": "ikea",
@@ -1072,13 +1743,29 @@
     "sector": "Meuble / Déco",
     "website": "ikea.com",
     "logo": "ikea.svg",
-    "source": "manuel",
     "license": "unknown",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#FFDB00"
+    "color": "#0058A3",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.ikea.com/global/assets/logos/brand/ikea.svg (couleur et logo)"
+    ],
+    "note": "Logo officiel du site : ovale jaune dans un cartouche bleu #0058A3 (le rectangle bleu est retire, identique a bg)."
+  },
+  {
+    "id": "ikks",
+    "name": "IKKS",
+    "sector": "Mode",
+    "website": "ikks.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.ikks.com/ (logo en-tête)"
+    ],
+    "note": "Marque noir et blanc ; logo = symbole svgicon-logo du sprite SVG de l'en-tête actuel ikks.com, recoloré en blanc sur noir.",
+    "license": "unknown",
+    "logo": "ikks.svg"
   },
   {
     "id": "intermarche",
@@ -1086,11 +1773,14 @@
     "sector": "Supermarché",
     "website": "intermarche.com",
     "logo": "intermarche.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#E2001A"
+    "color": "#E2001A",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://cdn.jsdelivr.net/npm/simple-icons/icons/intermarche.svg (couleur #E2001A et silhouette)"
+    ],
+    "note": "Rouge Intermarche (Simple Icons) ; silhouette officielle passee en blanc."
   },
   {
     "id": "intersport",
@@ -1098,29 +1788,77 @@
     "sector": "Sport",
     "website": "intersport.fr",
     "logo": "intersport.svg",
-    "source": "wikidata:Q666888",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#164194"
+    "color": "#11448F",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "logo existant du depot (fills #11448f et #e30f1b)"
+    ],
+    "note": "Bleu #11448F = bleu du logo ; lettres bleues passees en blanc, rouge conserve."
+  },
+  {
+    "id": "intimissimi",
+    "name": "Intimissimi",
+    "sector": "Lingerie",
+    "website": "intimissimi.com",
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.intimissimi.com/fr/ (logo)",
+      "https://www.intimissimi.com/on/demandware.static/-/Library-Sites-IntimissimiContentLibrary/default/dw875d2b77/images/legalArea/INT_20260605_myintimissimi-regulation_FR.pdf (programme My Intimissimi, 2026)"
+    ],
+    "note": "Marque noir et blanc : logo blanc encadré actuel du site intimissimi.com/fr (intimissimi-logo.svg, page d'accueil 2026) sur fond noir ; couleur non publiée dans une charte, déduite du noir/blanc de la marque.",
+    "license": "unknown",
+    "logo": "intimissimi.svg"
+  },
+  {
+    "id": "jacadi",
+    "name": "Jacadi",
+    "sector": "Mode enfant",
+    "website": "jacadi.fr",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/2026/https://www.jacadi.fr/ (SVG inline du header, fill #576EA5, snapshot 2026-10-02)"
+    ],
+    "note": "Logo actuel jacadi PARIS bleu #576EA5 en script, vecteur inline du header de jacadi.fr, sur header blanc. L'ancien #353A49 (teinte CSS) n'est pas un fond de marque ; l'app trouvée est serbe (non utilisée). Pas de variante blanche trouvée, donc fond blanc ; aucun fond de carte attesté.",
+    "license": "unknown",
+    "logo": "jacadi.svg"
   },
   {
     "id": "jardiland",
     "name": "Jardiland",
     "sector": "Jardinerie",
     "website": "jardiland.com",
-    "logo": "jardiland.jpg",
-    "source": "wikidata:Q3162276",
+    "logo": "jardiland.svg",
     "license": "CC BY-SA 4.0",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#D14800"
+    "color": "#D14800",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260106195700/https://www.jardiland.com/ (orange #D14800 dans le CSS du site)",
+      "https://images.ctfassets.net/b85ozb2q358o/47xEB72acFrVVv6D5T7fIw/.../logo-jardiland-signature-main.png (logo signature, orange #D14800)"
+    ],
+    "note": "Orange #D14800 = couleur du logo signature actuel (« Cultivez votre bien-être ») et du CSS du site ; logo passé en blanc, vectorisé (potrace) depuis le PNG 269 px natif (pas de SVG publié)."
+  },
+  {
+    "id": "jdsports",
+    "name": "JD Sports",
+    "sector": "Sport / Sneakers",
+    "website": "jdsports.fr",
+    "color": "#000000",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.jdsports.fr/ (logo en-tête)",
+      "https://www.lsa-conso.fr/jd-sports-lance-son-application-de-fidelite-en-france,456739"
+    ],
+    "note": "Pastille JD (logo 'Logo JD' en ligne dans l'en-tête actuel de jdsports.fr, version sans slogan 'Forever Forward'), posée sur le noir du bandeau du site (bg-black).",
+    "license": "unknown",
+    "logo": "jdsports.svg"
   },
   {
     "id": "jeanlouisdavid",
@@ -1128,11 +1866,14 @@
     "sector": "Coiffure",
     "website": "jeanlouisdavid.com",
     "logo": "jeanlouisdavid.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "dark",
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.jeanlouisdavid.com/ (JLD-logo-negative-v2.svg)"
+    ],
+    "note": "Logo officiel 'negative' blanc du site ; fond noir de marque (non mesure sur le site)."
   },
   {
     "id": "jeffdebruges",
@@ -1140,27 +1881,31 @@
     "sector": "Chocolatier",
     "website": "jeffdebruges.com",
     "logo": "jeffdebruges.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#2A1A0F"
+    "color": "#2D190D",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.jeff-de-bruges.com/ (theme-color #2d190d)",
+      "https://www.jeff-de-bruges.com/Assets/276172/Theme/Project/Theme/img/logo-jdb.svg (logo)"
+    ],
+    "note": "Brun #2D190D = theme-color du site et fill du logo ; logo officiel passe en blanc."
   },
   {
     "id": "jennyfer",
     "name": "Jennyfer",
     "sector": "Mode",
     "website": "jennyfer.com",
-    "logo": "jennyfer.png",
-    "source": "fr-wikipedia:Jennyfer",
+    "logo": "jennyfer.svg",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/2025/https://www.jennyfer.com/images/logo_jennyfer.webp (logo noir #231F20, 1421 px)",
+      "https://web.archive.org/web/2025/https://www.go-sport.com/ (non lié)"
+    ],
+    "note": "Marque noir et blanc : seul logo publié = wordmark noir #231F20 ; fond noir, wordmark passé en blanc ; vectorisé (potrace) depuis le WebP 1421 px du site 2025 (identique au logo 2024 de Wikipédia). Aucune couleur de fond sourcée."
   },
   {
     "id": "joueclub",
@@ -1168,13 +1913,15 @@
     "sector": "Jouets",
     "website": "joueclub.fr",
     "logo": "joueclub.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#EC1117"
+    "color": "#244296",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.joueclub.fr/ (TileColor/mask-icon #21409a)",
+      "logo existant du depot (fill #244296)"
+    ],
+    "note": "Bleu #244296 (logo, site #21409A) ; logo rouge/bleu passe en blanc."
   },
   {
     "id": "jules",
@@ -1182,13 +1929,30 @@
     "sector": "Mode",
     "website": "jules.com",
     "logo": "jules.svg",
-    "source": "site:og:image",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#006451"
+    "color": "#006451",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.jules.com/on/demandware.static/-/Sites/fr_FR/dw42087894/logo-jules/logo-Jules-L.svg (logo vert #006451)"
+    ],
+    "note": "Vert #006451 = couleur du logo officiel (icone PWA en vert sur blanc) ; logo passe en blanc."
+  },
+  {
+    "id": "juliendorcel",
+    "name": "Julien d'Orcel",
+    "sector": "Bijouterie",
+    "website": "juliendorcel.com",
+    "color": "#80284B",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.juliendorcel.com/ (couleur + logo)",
+      "https://www.juliendorcel.com/content/programme-fidelite-15 (programme)"
+    ],
+    "note": "Bordeaux #80284b des bandeaux/boutons de juliendorcel.com (CSS du site). Logo actuel du header (julien-d-orcel-logo, noir + point magenta) recoloré en blanc ; seul fichier disponible : PNG transparent de 367 px de large (pas de SVG trouvé, ni sur le site ni sur Wikimedia), donc raster sous 600 px.",
+    "license": "unknown",
+    "logo": "juliendorcel.png"
   },
   {
     "id": "keepcool",
@@ -1196,13 +1960,15 @@
     "sector": "Salle de sport",
     "website": "keepcool.fr",
     "logo": "keepcool.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#40654E"
+    "color": "#171F2B",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.keepcool.fr/ (Logo-Kc.svg du header ; CSS : #171F2B couleur dominante (38 occurrences), #66CC99 accent vert menthe (17))",
+      "https://apps.apple.com/fr/app/keepcool/id1582437445 (icone : boucle bicolore sombre/menthe)"
+    ],
+    "note": "Rendu precedent rejete (fond #F5F5F5, logo minuscule, o vert perdu). Nouveau : fond bleu nuit #171F2B (couleur de marque dominante du site), wordmark officiel Logo-Kc.svg (avec SOCIAL SPORTS CLUB) en blanc, boucle 'oo' bicolore blanc + menthe #66CC99 comme l'icone d'app officielle ; viewBox serre sur 117x31 (ratio plus large, logo plus grand). Fond sombre non vu sur une carte physique. | actuel : site keepcool.fr 2026 + icone App Store 2025-06"
   },
   {
     "id": "kfc",
@@ -1210,11 +1976,14 @@
     "sector": "Restauration rapide",
     "website": "kfc.fr",
     "logo": "kfc.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#E4002B"
+    "color": "#F5002B",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://fr.wikipedia.org/wiki/Fichier:Logo_KFC_(2026).svg"
+    ],
+    "note": "Rouge #F5002B = fill .st1 du logo KFC 2026 ; seau + Colonel officiel, partie blanche posée sur le rouge"
   },
   {
     "id": "kiabi",
@@ -1222,13 +1991,14 @@
     "sector": "Mode",
     "website": "kiabi.com",
     "logo": "kiabi.svg",
-    "source": "wikidata:Q3196299",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#040037",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://media.kiabi.com/common/svg/logo-kiabi.svg (couleur #040037 et logo)"
+    ],
+    "note": "Logo actuel Kiabi = monogramme K + mot KIABI sans baseline (ancien logo avec 'la mode à petits prix' périmé) ; marine #040037 = fill du SVG officiel du site ; inverse blanc sur fond marine."
   },
   {
     "id": "kikomilano",
@@ -1236,14 +2006,31 @@
     "sector": "Beauté / Cosmétique",
     "website": "kikocosmetics.com",
     "logo": "kikomilano.svg",
-    "source": "wikidata:Q3812045",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#252B2E"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.kikocosmetics.com/ (identité noir et blanc)"
+    ],
+    "note": "Marque noir et blanc (boutiques noires) ; logo KIKO MILANO officiel recoloré en blanc ; aucune source de couleur explicite trouvée"
+  },
+  {
+    "id": "kinepolis",
+    "name": "Kinepolis",
+    "sector": "Cinéma",
+    "website": "kinepolis.fr",
+    "color": "#11334E",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20261017134214/https://kinepolis.com/ (logo.png blanc du header)",
+      "https://web.archive.org/web/20261024014022/https://kinepolis.fr/ (header : étoile + KINEPOLIS blancs)",
+      "App Store « Kinepolis » (Kinepolis Group) : icône étoile blanche sur #11334E"
+    ],
+    "note": "Logo actuel à plat : étoile-pellicule + KINEPOLIS en blanc (l'ancien logo glossy bleu/rouge de Commons est périmé). bg #11334E = fond de l'icône d'app officielle (l'en-tête du site utilise un bleu plus clair #3782A3). Raster natif 430x84, PNG blanc transparent : sous 600 px, aucun vecteur trouvé.",
+    "license": "unknown",
+    "logo": "kinepolis.png"
   },
   {
     "id": "kingjouet",
@@ -1251,14 +2038,14 @@
     "sector": "Jouets",
     "website": "king-jouet.com",
     "logo": "kingjouet.svg",
-    "source": "fr-wikipedia:King Jouet",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#004443"
+    "color": "#00706E",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.king-jouet.com/ (bandeau #00706E, logo inline du header)"
+    ],
+    "note": "Vert-bleu #00706E = bandeau du site king-jouet.com ; logo officiel du header dont seul le texte #004443 passe en blanc (lion multicolore conservé)"
   },
   {
     "id": "krys",
@@ -1266,42 +2053,78 @@
     "sector": "Optique",
     "website": "krys.com",
     "logo": "krys.svg",
-    "source": "site:body-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#FE645C"
+    "color": "#1B64D7",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "logo Krys (SVG du cartouche bleu, fill #1b64d7)"
+    ],
+    "note": "Bleu #1B64D7 = fill du cartouche du logo Krys ; on retire le cartouche et on garde le mot blanc Krys sur le bleu"
+  },
+  {
+    "id": "kusmitea",
+    "name": "Kusmi Tea",
+    "sector": "Thé / Épicerie fine",
+    "website": "kusmitea.com",
+    "color": "#303030",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.kusmitea.com/cdn/shop/files/logo_black.svg",
+      "https://www.kusmitea.com/fr"
+    ],
+    "note": "Logo noir #303030 de l'en-tête (kusmitea.com 2026) recoloré en crème #FBFBF6 (--color-white du thème) sur fond --color-black #303030 du thème ; pas de variante inversée trouvée, la marque n'a pas de couleur de fond unique attestée.",
+    "license": "unknown",
+    "logo": "kusmitea.svg"
   },
   {
     "id": "laboucherie",
     "name": "La Boucherie",
     "sector": "Restauration",
     "website": "la-boucherie.fr",
-    "logo": "laboucherie.png",
-    "source": "fr-wikipedia:La Boucherie (restaurant)",
+    "logo": "laboucherie.svg",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "color": "#CD1013"
+    "color": "#CD1719",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.la-boucherie.fr/wp-content/uploads/2024/02/Menu-Site-web_Blanc-et-rouge.svg"
+    ],
+    "note": "Logo blanc/rouge du menu du site officiel ; rouge #CD1719 = fill du fichier (site : #D10F1C) ; le mot RESTAURANT, rouge sur rouge, s'efface"
+  },
+  {
+    "id": "lacoste",
+    "name": "Lacoste",
+    "sector": "Mode",
+    "website": "lacoste.com",
+    "color": "#06532A",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_Lacoste_2026.svg",
+      "https://zm.fashionnetwork.com/news/Lacoste-unveils-new-visual-identity,1825554.html (rebrand 2026)"
+    ],
+    "note": "Logo 2026 (nouvelle identité d'avril 2026 : wordmark serif + crocodile, Commons 'Logo Lacoste 2026.svg') ; vert #06532A = fill du crocodile du fichier. Wordmark et crocodile passés en blanc (version inversée), langue rouge d'origine, écailles en creux.",
+    "license": "unknown",
+    "logo": "lacoste.svg"
   },
   {
     "id": "lacoupole",
     "name": "La Coupole",
     "sector": "Centre commercial (Nîmes)",
     "website": "coupoledeshalles.fr",
-    "logo": "lacoupole.png",
-    "source": "manuel",
+    "logo": "lacoupole.svg",
     "license": "unknown",
-    "background": "light",
-    "validated": true,
-    "sourceUrl": "https://www.coupoledeshalles.fr/themes/default/images/logo.png",
-    "w": null,
-    "h": null,
-    "color": "#009E77"
+    "color": "#009F77",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://coupole-nimes.fr/wp-content/uploads/elementor/css/post-26.css (--e-global-color-primary:#009F77)",
+      "https://coupole-nimes.fr/wp-content/uploads/2026/03/favicon.svg (fill #009f77)",
+      "https://coupole-nimes.fr/wp-content/uploads/2026/03/logo_la_coupole_nimes-copie.svg (logo, feuille #009F77)"
+    ],
+    "note": "Vert #009F77 : couleur primaire du kit du site, fill du favicon et de la feuille du logo (trois sources) ; logo actuel (fichiers de mars 2026) passé en blanc. Fond de carte physique non vu."
   },
   {
     "id": "lacuregourmande",
@@ -1309,11 +2132,14 @@
     "sector": "Confiserie",
     "website": "curegourmande.com",
     "logo": "lacuregourmande.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#795E29"
+    "color": "#FDB934",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://www.curegourmande.fr/img/cms/Univers-accueil/LOGO-1%20LIGNE-1989-BASELINE.png"
+    ],
+    "note": "Or #FDB934 = bandeau du logo officiel (curegourmande.fr) ; aucune source ne donne un fond de carte ; la bannière se fond dans l'or, texte rouge et script bleu restent lisibles"
   },
   {
     "id": "lafoirfouille",
@@ -1321,13 +2147,14 @@
     "sector": "Équipement de la maison",
     "website": "lafoirfouille.fr",
     "logo": "lafoirfouille.svg",
-    "source": "fr-wikipedia:La Foir'Fouille",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "color": "#DB150F"
+    "color": "#D5130D",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.lafoirfouille.fr/ (logo-la-foir-fouille.svg)"
+    ],
+    "note": "Rouge #D5130D = bulle 'La Foir' du logo officiel (SVG du site) ; le logo à liseré blanc/orange se pose sur le rouge"
   },
   {
     "id": "lagranderecre",
@@ -1335,27 +2162,30 @@
     "sector": "Jouets",
     "website": "lagranderecre.fr",
     "logo": "lagranderecre.png",
-    "source": "site:home-link-img",
     "license": "unknown",
-    "w": 746,
-    "h": 504,
-    "validated": true,
-    "background": "light",
-    "color": "#222E50"
+    "color": "#0D4884",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.lagranderecre.fr/ (meta theme-color #0d4884)",
+      "https://lagranderecre-lagranderecre-fr-storage.omn.proximis.com/Imagestorage/images/2560/1600/6486ec3c097a1_Logo_LGR.png (logo de l'en-tête, 746x504)"
+    ],
+    "note": "Ovale bleu actuel de l'en-tête du site ; fond = theme-color du site #0D4884 ; PNG 746 px natif (le site ne publie pas de SVG)."
   },
   {
     "id": "lahalle",
     "name": "La Halle",
     "sector": "Mode",
     "website": "lahalle.com",
-    "logo": "lahalle.png",
-    "source": "fr-wikipedia:La Halle (entreprise)",
+    "logo": "lahalle.svg",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#010101"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/2026/https://www.lahalle.com/ (en-tête actuel : lha-logo-baselinev2.svg, header blanc)"
+    ],
+    "note": "PERIME : le logo du catalogue (LA HALLE « Chaussures et Vêtements » + 4 pictos de produits) est l'ancien. Logo actuel = lha-logo-baselinev2.svg de lahalle.com (snapshot 2026) : LA HALLE noir + 4 pastilles vert/orange/rose #E81F76/bleu + « Habille la vie », pensé pour fond blanc. Fond blanc = header du site ; le rose #E81F76 est la couleur promo mais le logo coloré n'est pas prévu dessus."
   },
   {
     "id": "lamiecaline",
@@ -1363,65 +2193,93 @@
     "sector": "Boulangerie / Café",
     "website": "lamiecaline.com",
     "logo": "lamiecaline.svg",
-    "source": "site:body-img",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#F8D460"
+    "color": "#FFD244",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://fr.wikipedia.org/wiki/Fichier:Logo_la_mie_caline_2023.svg"
+    ],
+    "note": "Jaune #FFD244 = coeur du logo officiel (Wikipedia FR) ; logo recoloré en brun #503529 d'une seule teinte pour se lire sur le jaune"
   },
   {
     "id": "lapanetiere",
     "name": "La Panetière",
     "sector": "Boulangerie",
     "website": null,
-    "logo": null,
-    "source": null,
+    "logo": "lapanetiere.svg",
     "license": null,
-    "color": "#B32629"
+    "color": "#B32629",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://lapanetiere.fr/wp-content/uploads/2022/11/panetiere-logo.svg"
+    ],
+    "note": "Rouge #B32629 = cartouche du logo officiel du site lapanetiere.fr (également variable CSS du site) ; logo crème sur son cartouche rouge"
+  },
+  {
+    "id": "lapataterie",
+    "name": "La Pataterie",
+    "sector": "Restauration à table",
+    "website": "lapataterie.fr",
+    "color": "#AAAD42",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.lapataterie.fr/ (couleur + logo header)",
+      "https://www.lapataterie.fr/carte-de-fidelite/ (programme)"
+    ],
+    "note": "Vert olive du bandeau d'en-tête de lapataterie.fr (#AAAD42 relevé au rendu), où s'affiche le logo blanc actuel (fichier LOGO-1996 blanc, site 2024-2026, 'Depuis 1996'), version 600 px.",
+    "license": "unknown",
+    "logo": "lapataterie.png"
   },
   {
     "id": "lavieclaire",
     "name": "La Vie Claire",
     "sector": "Supermarché bio",
     "website": "lavieclaire.com",
-    "logo": "lavieclaire.svg",
-    "source": "site:body-img",
+    "logo": "lavieclaire.png",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#378473"
+    "color": "#4A8270",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.lavieclaire.com/ (--wp--preset--color--green-base)",
+      "https://www.lavieclaire.com/wp-content/uploads/2026/07/Logo-LVC.png"
+    ],
+    "note": "Vert #4A8270 = variable --green-base du site ; logo blanc officiel du site (Logo-LVC.png, 600 px, fond transparent)"
   },
   {
     "id": "leondebruxelles",
     "name": "Léon de Bruxelles",
     "sector": "Restauration à table",
     "website": "leon-de-bruxelles.fr",
-    "logo": "leondebruxelles.webp",
-    "source": "manuel",
+    "logo": "leondebruxelles.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#1E4A57"
+    "color": "#024B58",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.restaurantleon.fr/ (CSS --color-leon-blue:#024b58)",
+      "https://a.storyblok.com/f/339489/144x104/7aeb5a656d/logo-leon-blanc.png (logo-leon-blanc)"
+    ],
+    "note": "Site actuel de l'enseigne (restaurantleon.fr ; leon-de-bruxelles.fr a été détourné) : bleu Léon #024B58 ; logo « LÉON » blanc du site, vectorisé (potrace) depuis un PNG 144 px ; l'ancien logo à cadre « Léon de Bruxelles » est abandonné."
   },
   {
     "id": "leonidas",
     "name": "Léonidas",
     "sector": "Chocolatier",
     "website": "leonidas.com",
-    "logo": "leonidas.webp",
-    "source": "manuel",
+    "logo": "leonidas.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#EDBF00"
+    "color": "#06255B",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260104202020/https://www.leonidas.com/ (CSS du site : #06255B x391)",
+      "https://www.leonidas.com/themes/custom/leonidas_theme/logo-leonidas-new.svg (logo blanc, en-tête)"
+    ],
+    "note": "Marine #06255B = couleur dominante du CSS du site (le cartouche de l'ancien PNG était #031654) ; logo SVG blanc officiel du site (version « new », archive janv. 2026)."
   },
   {
     "id": "leroymerlin",
@@ -1429,11 +2287,15 @@
     "sector": "Bricolage / Jardinage",
     "website": "leroymerlin.fr",
     "logo": "leroymerlin.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#7BB51C"
+    "color": "#78BE20",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://simpleicons.org/?q=leroy+merlin (couleur 78BE20)",
+      "https://fr.wikipedia.org/wiki/Fichier:Leroy_Merlin_-_logo_(France,_1995-).svg (vert #7BB51C)"
+    ],
+    "note": "Vert #78BE20 = couleur Leroy Merlin (Simple Icons) ; logo officiel en monochrome blanc (version inversée des enseignes)"
   },
   {
     "id": "les3brasseurs",
@@ -1441,14 +2303,30 @@
     "sector": "Restauration",
     "website": "3brasseurs.com",
     "logo": "les3brasseurs.png",
-    "source": "manuel",
     "license": "unknown",
-    "background": "light",
-    "validated": true,
-    "sourceUrl": "https://www.3brasseurs.com/wp-content/uploads/2024/03/logo.png",
-    "w": null,
-    "h": null,
-    "color": "#FDB135"
+    "color": "#F8B82A",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.3brasseurs.com/wp-content/uploads/elementor/css/post-6.css (kit couleurs : jaune #F8B82A, rouge #C2372E, vert foncé #0B272B)",
+      "ancien catalogue (#FDB135, jaune)"
+    ],
+    "note": "Retour au jaune : le jaune #F8B82A est une couleur de marque du kit du site et concorde avec l'ancienne valeur du catalogue (#FDB135) ; le rouge #F41808 de la passe 1 n'était que le liseré du logo. Logo actuel du site (téléversé août 2025, 2175 px) : bannière noire à liseré rouge, lisible sur le jaune. Aucune source ne montre la carte physique."
+  },
+  {
+    "id": "levis",
+    "name": "Levi's",
+    "sector": "Mode",
+    "website": "levi.com",
+    "color": "#C41230",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Levi%27s_logo.svg"
+    ],
+    "note": "Rouge batwing #C41230 (fill du SVG Commons 'Levi's logo.svg', logo 2011 toujours en vigueur) ; batwing passé en blanc, lettres en creux rouges.",
+    "license": "unknown",
+    "logo": "levis.svg"
   },
   {
     "id": "lidl",
@@ -1456,25 +2334,30 @@
     "sector": "Hard discount",
     "website": "lidl.fr",
     "logo": "lidl.svg",
-    "source": "manuel",
     "license": "unknown",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#0050AA"
+    "color": "#0050AA",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.lidl.fr/ (logo + couleur)",
+      "https://www.lidl.fr/cdn/assets/logos/1.0.0/logo.svg"
+    ],
+    "note": "Pastille Lidl officielle (SVG du site lidl.fr) sans son carré bleu de fond, bleu #0050AA = fill du carré du logo"
   },
   {
     "id": "lissac",
     "name": "Lissac",
     "sector": "Optique",
     "website": "lissac.fr",
-    "logo": "lissac.png",
-    "source": "site:body-img",
+    "logo": "lissac.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#E4364C"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.lissac.fr/ (logo.svg + CSS, noir dominant)"
+    ],
+    "note": "Nouveau logo MAISON LISSAC du site lissac.fr, noir (#1d1d1b) sur blanc ; marque en noir et blanc -> fond noir, logo recoloré blanc ; l'ancien rouge du catalogue (#E4364C) n'est plus celui du site"
   },
   {
     "id": "loccitaneenprovence",
@@ -1482,13 +2365,14 @@
     "sector": "Beauté / Cosmétique",
     "website": "loccitane.com",
     "logo": "loccitaneenprovence.png",
-    "source": "site:body-img",
     "license": "unknown",
-    "w": 2000,
-    "h": 457,
-    "validated": true,
-    "background": "light",
-    "color": "#FBF9F6"
+    "color": "#FFD03C",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:L'Occitane_en_Provence_logo_2013.png"
+    ],
+    "note": "Jaune #FFD03C = cartouche du logo officiel L'Occitane (Commons 2013, PNG 270 px suréchantillonné x3) ; texte marine conservé"
   },
   {
     "id": "longlerie",
@@ -1496,26 +2380,30 @@
     "sector": "Institut / Onglerie",
     "website": "onglerie.com",
     "logo": null,
-    "source": null,
     "license": null,
-    "w": null,
-    "h": null,
-    "color": "#DFBDAE"
+    "color": "#FFFFFF",
+    "logoVariant": "aucun",
+    "confidence": "faible",
+    "sources": [
+      "https://www.longlerie.com/ (via archive, en-tête : logo-1701874620.png 200x112 px, rose clair sur blanc)"
+    ],
+    "note": "Le mauve #A56F90 n'est pas un fond de marque attesté ; le logo officiel (picto 4 ongles + L'Onglerie, rose poudré) est posé sur fond blanc sur le site. Seul fichier : PNG 200 px (< 600 px), pas de vecteur, pas d'app (App Store / Play Store sans résultat). Pastille : bg mauve #A56F90 non sourcé -> blanc (fond du logo sur le site) ; logo : seul un PNG 200x112 existe (téléchargé dans audit/dl/a6/ong/logo.png), pas de vecteur ni raster >= 600 px, donc pastille à initiales"
   },
   {
     "id": "lorangebleue",
     "name": "L'Orange Bleue",
     "sector": "Salle de sport",
     "website": "orangebleue.fr",
-    "logo": "lorangebleue.png",
-    "source": "manuel",
+    "logo": "lorangebleue.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "sourceUrl": "/Users/jerome/Projects/FidCards/brands/missing/lorangebleue/logo.png",
-    "validated": true,
-    "background": "light",
-    "color": "#100F3B"
+    "color": "#10113C",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.lorangebleue.fr/wp-content/themes/m4e-skin/assets/css/styles.min.css (marine #10113C : pied de page, boutons, 161 occurrences)",
+      "https://www.lorangebleue.fr/wp-content/themes/m4e-skin/assets/img/logo-ob-new-white-square.svg (logo blanc, en-tête)"
+    ],
+    "note": "Marine #10113C = couleur primaire du site (concorde avec #1C1B39 du logo couleur et le catalogue) ; logo SVG blanc officiel du site actuel (identité « mon coach Fitness »)."
   },
   {
     "id": "maisonsdumonde",
@@ -1523,13 +2411,46 @@
     "sector": "Meuble / Déco",
     "website": "maisonsdumonde.com",
     "logo": "maisonsdumonde.svg",
-    "source": "wikidata:Q3280364",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#D6403F"
+    "color": "#393536",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "logo Maisons du Monde (SVG, cartouche #393536)"
+    ],
+    "note": "Gris anthracite #393536 = fill du cartouche du logo officiel Maisons du Monde ; cartouche retiré, lettres blanches conservées"
+  },
+  {
+    "id": "mango",
+    "name": "Mango",
+    "sector": "Mode",
+    "website": "mango.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Mango_logo.svg",
+      "https://uk.fashionnetwork.com/news/Mango-renews-its-image-with-a-new-logo,512486.html"
+    ],
+    "note": "Marque noir et blanc ; wordmark MANGO de la refonte de 2011, toujours en vigueur (Commons 'Mango logo.svg', presse FashionNetwork 2011), recoloré en blanc sur noir. Écarté : l'ancien logo à pavés 'Mango Logo.svg'.",
+    "license": "unknown",
+    "logo": "mango.svg"
+  },
+  {
+    "id": "marcorian",
+    "name": "Marc Orian",
+    "sector": "Bijouterie",
+    "website": "marc-orian.com",
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.marc-orian.com/fr_FR (couleur + logo)",
+      "https://www.marc-orian.com/fr_FR (liens Conditions du Programme de Fidélité)"
+    ],
+    "note": "Noir du bandeau d'en-tête de marc-orian.com (relevé au rendu, thème noir) ; logo blanc officiel du header actuel (images/logo-white.svg du site, 2026).",
+    "license": "unknown",
+    "logo": "marcorian.svg"
   },
   {
     "id": "marieblachere",
@@ -1537,40 +2458,45 @@
     "sector": "Boulangerie",
     "website": "marieblachere.com",
     "logo": "marieblachere.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#63220B"
+    "color": "#6C1B00",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.marieblachere.com/wp-content/uploads/2023/09/MB_Logo_2022_Quadri-copy.png"
+    ],
+    "note": "Brun #6C1B00 = anneau du médaillon officiel (PNG 2167 px du site marieblachere.com) ; l'anneau se fond dans le fond, disque noir conservé ; fond de carte non attesté"
   },
   {
     "id": "mariette",
     "name": "Mariette",
     "sector": "Boulangerie",
     "website": null,
-    "logo": "mariette.png",
-    "source": "manuel",
+    "logo": "mariette.svg",
     "license": "unknown",
-    "sourceUrl": "/Users/jerome/Projects/FidCards/brands/missing/mariette/logo.png",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#0F1C87"
+    "color": "#0C1C8C",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://mariette-pains-patisseries.fr/ (kit Elementor : couleur secondaire #0C1C8C, logo « couleurs » #0C1C8D)",
+      "https://mariette-pains-patisseries.fr/wp-content/uploads/2025/08/Logo-Mariette-pains-patisseries-blanc.webp (logo blanc officiel)"
+    ],
+    "note": "Site officiel 2025 : bleu #0C1C8C ; logo version blanche (points rouges) du site, vectorisé (potrace) depuis le WebP 567 px."
   },
   {
     "id": "marionnaud",
     "name": "Marionnaud",
     "sector": "Beauté / Parfumerie",
     "website": "marionnaud.fr",
-    "logo": "marionnaud.png",
-    "source": "wikidata:Q1129073",
+    "logo": "marionnaud.svg",
     "license": "Public domain",
-    "w": 960,
-    "h": 238,
-    "background": "light",
-    "validated": true,
-    "color": "#7B1F6D"
+    "color": "#631B4B",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_Marionnaud.svg"
+    ],
+    "note": "Prune #631B4B = fill du logo officiel Marionnaud (Commons) ; logo recoloré en blanc ; site 403, pas de charte vue"
   },
   {
     "id": "match",
@@ -1578,37 +2504,44 @@
     "sector": "Supermarché",
     "website": "supermarches-match.com",
     "logo": "match.png",
-    "source": "wikidata:Q513977",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#C8282D"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Supermarché_Match_logo_France.png"
+    ],
+    "note": "Logo officiel Supermarché Match (Commons, PNG 4149 px réduit) multicolore vert/rouge pensé pour fond clair : aucune couleur de fond attestée -> blanc"
   },
   {
     "id": "maxitoys",
     "name": "Maxi Toys",
     "sector": "Jouets",
     "website": "maxitoys.fr",
-    "logo": null,
-    "source": null,
+    "logo": "maxitoys.svg",
     "license": null,
-    "color": "#CC5200"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20240823123810/https://www.maxitoys.fr/ (header-logo.svg)"
+    ],
+    "note": "Logo vectoriel multicolore (lettres colorées + ours) du header de maxitoys.fr, sur fond blanc du site. Dernier snapshot disponible : août 2024 (site 403 en direct), pas de refonte connue depuis. Blanc faute de fond de marque : confiance moyenne. L'orange #CC5200 du catalogue est la couleur de l'ours, pas un fond."
   },
   {
     "id": "maxizoo",
     "name": "Maxi Zoo",
     "sector": "Animalerie",
     "website": "maxizoo.fr",
-    "logo": "maxizoo.jpg",
-    "source": "manuel",
+    "logo": "maxizoo.png",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#EE2F24"
+    "color": "#196428",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "https://www.maxizoo.fr (mask-icon color, CSS)"
+    ],
+    "note": "Vert #196428 = mask-icon et fonds du site maxizoo.fr ; logo = raster du catalogue (512 px) converti en silhouette blanche et agrandi x2 ; « actuel » non vérifié : aucun SVG officiel trouvé, logo daté non confirmé"
   },
   {
     "id": "mcdonalds",
@@ -1616,39 +2549,61 @@
     "sector": "Restauration rapide",
     "website": "mcdonalds.fr",
     "logo": "mcdonalds.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#FFCC00"
+    "color": "#DB0007",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:McDonald's_square_2020.svg"
+    ],
+    "note": "Rouge du carré officiel McDonald's 2020 (Commons) ; arches dorées #FFBC0D extraites du même fichier | actuel : arches du carré officiel 2020 (Commons), identité en vigueur"
+  },
+  {
+    "id": "megarama",
+    "name": "Mégarama",
+    "sector": "Cinéma",
+    "website": "megarama.fr",
+    "color": "#121212",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://images.monnaie-services.com/site_logo/x75/CHN0042.png (logo du header de megarama.fr, nov. 2026)",
+      "https://apps.apple.com/fr/app/megarama-cin%C3%A9mas (icône M jaune #FFCC00 sur #121212)"
+    ],
+    "note": "Wordmark MEGARAMA CINÉMAS jaune sur fond noir, tel que servi par le header actuel de megarama.fr, cohérent avec l'icône d'app (#FFCC00 / #121212). Raster natif 220x75 (seule taille servie, pas de vecteur) : sous le seuil de 600 px, rendu un peu mou sur grande tuile.",
+    "license": "unknown",
+    "logo": "megarama.png"
   },
   {
     "id": "metro",
     "name": "Metro",
     "sector": "Cash & carry (pro)",
     "website": "metro.fr",
-    "logo": "metro.jpg",
-    "source": "manuel",
+    "logo": "metro.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#FFE500"
+    "color": "#003B7E",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Metro_Wholesale_%26_Food_Specialist_logo.svg",
+      "https://commons.wikimedia.org/wiki/File:Logo_METRO.svg"
+    ],
+    "note": "Bleu Metro #003B7E (fill du logo Metro Wholesale & Food Specialist) ; wordmark jaune du logo cartouche Commons, rectangle bleu retiré | actuel non confirmé : logo cartouche Commons (Logo METRO.svg, date inconnue)"
   },
   {
     "id": "micromania",
     "name": "Micromania",
     "sector": "Jeux vidéo",
     "website": "micromania.fr",
-    "logo": "micromania.webp",
-    "source": "manuel",
+    "logo": "micromania.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#52AE32"
+    "color": "#164194",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_de_Micromania-Zing.svg"
+    ],
+    "note": "Bleu #164194 = côté bleu du logo officiel Micromania-Zing (cartouche bleu/vert conservé tel quel) | actuel : logo Micromania-Zing, fusion de 2019 (Commons)"
   },
   {
     "id": "midas",
@@ -1656,13 +2611,61 @@
     "sector": "Entretien auto",
     "website": "midas.fr",
     "logo": "midas.png",
-    "source": "fr-wikipedia:Midas (entreprise)",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#FFD500"
+    "color": "#FFE600",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Midas_Logo.png"
+    ],
+    "note": "Ovale jaune #FFE600 / liseré rouge / texte noir du logo officiel (Commons Midas_Logo.png, fond transparent) ; fond jaune = jaune de l'ovale ; PNG source de 287 px seulement (pas de vecteur trouvé) | actuel non confirmé : logo Commons Midas_Logo.png, date inconnue"
+  },
+  {
+    "id": "monceaufleurs",
+    "name": "Monceau Fleurs",
+    "sector": "Fleuriste",
+    "website": "monceaufleurs.com",
+    "color": "#003A5E",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.monceaufleurs.com/ (styles.css : #003a5e ; glyphe logo de la police icomoon)"
+    ],
+    "note": "Glyphe du logo extrait de l'icon-font du site actuel ; blanc sur la page d'accueil (header transparent), bleu #003a5e au survol : bg = #003A5E.",
+    "license": "unknown",
+    "logo": "monceaufleurs.svg"
+  },
+  {
+    "id": "mondialtissus",
+    "name": "Mondial Tissus",
+    "sector": "Mercerie / Tissus",
+    "website": "mondialtissus.fr",
+    "color": "#B71822",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.mondialtissus.fr/ (logo header + couleur)",
+      "https://www.mondialtissus.fr/programme-de-fidelite (programme)"
+    ],
+    "note": "Rouge #B71822 du logo actuel et du bandeau du site mondialtissus.fr (logo du header, build 2026). Pas de version inversée officielle trouvée : couleurs du SVG officiel permutées (Mondial en blanc, bandeau blanc, TISSUS en rouge).",
+    "license": "unknown",
+    "logo": "mondialtissus.svg"
+  },
+  {
+    "id": "monmagasinvert",
+    "name": "Mon Magasin Vert (Point Vert)",
+    "sector": "Jardinerie",
+    "website": "monmagasinvert.fr",
+    "color": "#404D49",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.monmagasinvert.fr/ (logo + sprite icons.svg)",
+      "https://www.monmagasinvert.fr/ (Programme de fidélité, offres fidélissimes)"
+    ],
+    "note": "Gris-vert foncé #404D49 = couleur du logo actuel (symbole « logo-double » Point Vert | Magasin Vert du sprite du site, 2026) et des enseignes de façade des magasins ; logo inversé (texte blanc, feuille verte #B6CA4A conservée). Variante blanche reconstruite à partir du SVG officiel du site (pas de fichier blanc publié).",
+    "license": "unknown",
+    "logo": "monmagasinvert.svg"
   },
   {
     "id": "monoprix",
@@ -1670,14 +2673,31 @@
     "sector": "Supermarché urbain",
     "website": "monoprix.fr",
     "logo": "monoprix.svg",
-    "source": "wikidata:Q3321241",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#E41F13"
+    "color": "#D20824",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://fr.wikipedia.org/wiki/Fichier:Logo_Monoprix_2026.svg (logo Monoprix depuis juillet 2026, source communique de presse entreprise.monoprix.fr)",
+      "https://fr.wikipedia.org/wiki/Fichier:Apostrophe_Monoprix_2026.svg (apostrophe #D20824)",
+      "https://apps.apple.com/fr/app/m-monoprix/id480953369 (captures : fond rouge marque, carte M' )"
+    ],
+    "note": "Refonte de juillet 2026 : wordmark MONOPRIX redessine, rouge officiel #D20824 (fill du SVG 2026, remplace l'ancien #E30613 de 2013). Wordmark 2026 recolore en blanc sur ce rouge ; l'app et le marketing 2026 utilisent le fond rouge. La carte de fidelite en app est un M' noir/rouge sur blanc (monogramme, pas retenu). Fond rouge non vu sur une carte physique. | actuel : logo 2026 Wikipedia FR + icone/captures App Store 2026-09"
+  },
+  {
+    "id": "morgan",
+    "name": "Morgan",
+    "sector": "Mode",
+    "website": "morgandetoi.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260825150912im_/https://www.morgandetoi.fr/on/demandware.static/Sites-M2T_FR_SFRA-Site/-/default/dw8976784f/images/logo.svg"
+    ],
+    "note": "Logo actuel MORGAN (header morgandetoi.fr, snapshot août 2026 ; pastille O rouge #d9000d) : texte #161615 recoloré en blanc, O rouge conservé. Marque noir et blanc, fond noir non attesté par une charte (moyenne). L'app MyMorgan (icône orange) est une app distincte du groupe, non utilisée.",
+    "license": "unknown",
+    "logo": "morgan.svg"
   },
   {
     "id": "mrbricolage",
@@ -1685,13 +2705,14 @@
     "sector": "Bricolage",
     "website": "mr-bricolage.fr",
     "logo": "mrbricolage.svg",
-    "source": "wikidata:Q3141657",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#EB0029"
+    "color": "#EB0029",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.mr-bricolage.fr"
+    ],
+    "note": "Rouge #EB0029 = fill du logo officiel du site ; wordmark en blanc, point vert conservé | actuel : logo du header de mr-bricolage.fr (catalogue), non re-daté"
   },
   {
     "id": "natalys",
@@ -1699,25 +2720,46 @@
     "sector": "Puériculture",
     "website": "natalys.com",
     "logo": "natalys.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#2C2C2C"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "https://www.natalys.com (CSS --textcolor:#000000)"
+    ],
+    "note": "Marque noir et blanc (CSS --textcolor #000000, logo noir) : fond noir, logo script en blanc ; aucune source ne donne un fond de marque explicite | actuel : logo Natalys Paris du site (catalogue), non re-daté"
   },
   {
     "id": "naturalia",
     "name": "Naturalia",
     "sector": "Supermarché bio",
     "website": "naturalia.fr",
-    "logo": "naturalia.jpg",
-    "source": "site:og:image",
+    "logo": "naturalia.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#BD2B0B"
+    "color": "#BD2B0B",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Logo_Naturalia.svg",
+      "https://static.naturalia.fr/static/version1793787037/frontend/Naturalia/default/fr_FR/images/header-main_logo.png"
+    ],
+    "note": "Rouge brique #BD2B0B = couleur unique du logo officiel (Commons et header naturalia.fr) ; logo recoloré en blanc ; fond non vu sur une carte | actuel : même logo que header-main_logo.png du site naturalia.fr"
+  },
+  {
+    "id": "naturedecouvertes",
+    "name": "Nature & Découvertes",
+    "sector": "Culture / Loisirs créatifs",
+    "website": "natureetdecouvertes.com",
+    "color": "#215331",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.natureetdecouvertes.com/fstrz/r/s/cache.natureetdecouvertes.com/wwwStaticContent/ned/PrismicImage/ndecommerce/86241c47-7d16-4f33-82b9-8e5e8b45ef57_logo_nd.svg",
+      "https://www.natureetdecouvertes.com"
+    ],
+    "note": "Logo vert #215331 de l'en-tête (site 2026) recoloré en blanc sur le vert du site (--bg-mobile-color #215331, texte #FFFFFF) ; logo monochrome vert donc silhouette, mais pas de variante blanche officielle trouvée.",
+    "license": "unknown",
+    "logo": "naturedecouvertes.svg"
   },
   {
     "id": "neoness",
@@ -1725,13 +2767,15 @@
     "sector": "Salle de sport",
     "website": "neoness.fr",
     "logo": "neoness.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#63181C"
+    "color": "#D71730",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.neoness.fr (CSS, webclip)",
+      "https://cdn.prod.website-files.com/698a13c93105d767cbdfa9c7/69909def7645f3b6b561b77c_webclip-neoness.png"
+    ],
+    "note": "Rouge #D71730 = fond de l'icône webclip du site et CSS neoness.fr ; logo vecteur du site passé en blanc (version blanche visible sur le webclip) | actuel : logo du site neoness.fr (webflow 2026), cohérent avec l'icône webclip"
   },
   {
     "id": "nespresso",
@@ -1739,13 +2783,14 @@
     "sector": "Café / Boutique spécialisée",
     "website": "nespresso.com",
     "logo": "nespresso.svg",
-    "source": "wikidata:Q301301",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#987002"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.nespresso.com/ecom/medias/sys_master/public/10698362454046/logo-white.svg"
+    ],
+    "note": "Logo blanc officiel du site nespresso.com (logo-white.svg) ; fond noir de la marque, non confirmé par une carte | actuel : logo-white.svg servi par nespresso.com"
   },
   {
     "id": "netto",
@@ -1753,13 +2798,47 @@
     "sector": "Hard discount",
     "website": "netto.fr",
     "logo": "netto.svg",
-    "source": "manuel",
     "license": "unknown",
-    "background": "light",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "color": "#EC6608"
+    "color": "#E00018",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://apps.apple.com/fr/app/netto-france/id6451206956 (app officielle Netto France / Mousquetaires, MAJ 2026-10-09 : icone logo blanc + equerres sur rouge, capture 'ma carte Netto' = carte rouge logo blanc)",
+      "https://commons.wikimedia.org/wiki/File:French_Netto_logo_2019.svg (rouge #E00018, logo 2019 toujours en vigueur)"
+    ],
+    "note": "Le logo 2019 est bien le logo actuel, mais la carte de fidelite et l'icone de l'app 'Netto France' sont rouge avec le logo (lettres + equerres) en blanc, pas rouge sur blanc. bg = rouge #E00018 du logo officiel ; logo 2019 recolore integralement en blanc (equerres incluses, comme sur la carte). Le rouge reel de la carte est un degrade proche. | actuel : app Netto France 2026-10 + Commons 2019"
+  },
+  {
+    "id": "nicolas",
+    "name": "Nicolas",
+    "sector": "Caviste",
+    "website": "nicolas.com",
+    "color": "#94292E",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.nicolas.com/css/main.css (--logo-color-initial-1 #94292e, variante transparente #fff)",
+      "https://www.nicolas.com/svg/logo_mn_full.svg (logo)",
+      "https://www.nicolas.com/ (header nov. 2026)"
+    ],
+    "note": "Actuel = logo « Maison Nicolas depuis 1822 » (masque CSS logo_mn_full.svg du header nicolas.com en nov. 2026, site rebaptisé Maison Nicolas) ; bg = bordeaux #94292e, logo en blanc comme sur le header transparent.",
+    "license": "unknown",
+    "logo": "nicolas.svg"
+  },
+  {
+    "id": "nike",
+    "name": "Nike",
+    "sector": "Sport / Sneakers",
+    "website": "nike.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/nike.svg"
+    ],
+    "note": "Marque noir et blanc, swoosh seul (logo actuel, pas de wordmark) ; vecteur Simple Icons recoloré en blanc sur noir.",
+    "license": "unknown",
+    "logo": "nike.svg"
   },
   {
     "id": "nocibe",
@@ -1767,13 +2846,14 @@
     "sector": "Beauté / Parfumerie",
     "website": "nocibe.fr",
     "logo": "nocibe.svg",
-    "source": "wikidata:Q3342592",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#BF3E35"
+    "color": "#E10054",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.nocibe.fr"
+    ],
+    "note": "Rose #E10054 = fill du logo officiel du site ; recoloré en blanc | actuel : logo du site nocibe.fr (catalogue), non re-daté"
   },
   {
     "id": "norauto",
@@ -1781,27 +2861,29 @@
     "sector": "Entretien auto",
     "website": "norauto.fr",
     "logo": "norauto.svg",
-    "source": "wikidata:Q3317698",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#002B6F"
+    "color": "#002B6F",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.norauto.fr"
+    ],
+    "note": "Bleu #002B6F = cartouche du logo officiel ; logo blanc avec le o jaune | actuel : logo du site norauto.fr (catalogue), non re-daté"
   },
   {
     "id": "okaidi",
     "name": "Okaïdi",
     "sector": "Mode enfant",
     "website": "okaidi.fr",
-    "logo": "okaidi.png",
-    "source": "manuel",
+    "logo": "okaidi.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#16216A",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.okaidi.fr (meta theme-color, manifest, header)"
+    ],
+    "note": "Bleu marine #16216A = theme-color et theme_color du manifest du site okaidi.fr ; logo blanc = logo SVG inline du header du site | actuel : logo SVG inline du header okaidi.fr (archive jan. 2026)"
   },
   {
     "id": "optic2000",
@@ -1809,13 +2891,15 @@
     "sector": "Optique",
     "website": "optic2000.fr",
     "logo": "optic2000.svg",
-    "source": "fr-wikipedia:Optic 2000",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#0828F2"
+    "color": "#000000",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.optic2000.com",
+      "https://www.optic2000.com/media/logo/stores/1/LOGO_BLANC_O2.svg"
+    ],
+    "note": "Fond noir (CSS optic2000.com : header background #000000) ; logo blanc officiel du site (LOGO_BLANC_O2.svg) | actuel : LOGO_BLANC_O2.svg servi par optic2000.com"
   },
   {
     "id": "opticalcenter",
@@ -1823,11 +2907,14 @@
     "sector": "Optique",
     "website": "optical-center.fr",
     "logo": "opticalcenter.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#C93A2E"
+    "color": "#DA2621",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.optical-center.fr"
+    ],
+    "note": "Rouge #DA2621 = losange du logo officiel ; logo inversé (losange blanc, texte blanc) | actuel : logo du site optical-center.fr (catalogue), non re-daté"
   },
   {
     "id": "orchestra",
@@ -1835,42 +2922,76 @@
     "sector": "Mode enfant",
     "website": "orchestra.fr",
     "logo": "orchestra.svg",
-    "source": "site:svg-inline",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#D81E2E"
+    "color": "#E40E20",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.orchestra.fr"
+    ],
+    "note": "Rouge #E40E20 = fill du logo officiel du site ; recoloré en blanc | actuel : logo du site orchestra.fr (catalogue), non re-daté"
   },
   {
     "id": "otacos",
     "name": "O'Tacos",
     "sector": "Restauration rapide",
     "website": "otacos.com",
-    "logo": "otacos.png",
-    "source": "manuel",
+    "logo": "otacos.svg",
     "license": "unknown",
-    "sourceUrl": "/Users/jerome/Projects/FidCards/brands/missing/otacos/logo.png",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#EE7B30"
+    "color": "#FF7200",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20251220062449/https://o-tacos.com/fr (logo inline du header, fill #FF7200, snapshot 12/2025)"
+    ],
+    "note": "Le catalogue n'avait aucun logo (le précédent travail avait pris otacos.com, site japonais). Le vrai site est o-tacos.com : wordmark O'TACOS orange #FF7200 recoloré en blanc sur fond #FF7200 (pas de version inversée officielle trouvée)."
+  },
+  {
+    "id": "oxybul",
+    "name": "Oxybul éveil et jeux",
+    "sector": "Jouets",
+    "website": "oxybul.com",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20261001223412im_/https://idgroupe.dam-broadcast.com/pm_10541_1612_1612918-xet9ulihfl.svg"
+    ],
+    "note": "Logo Oxybul éveil et jeux actuel (SVG du header oxybul.com 2026, cube rouge/vert/jaune dans anneau gris #686b6e). Fond blanc : le logo est conçu pour fond clair (header blanc, theme-color #ffffff), pas de couleur de fond de marque (moyenne).",
+    "license": "unknown",
+    "logo": "oxybul.svg"
+  },
+  {
+    "id": "pandora",
+    "name": "Pandora",
+    "sector": "Bijouterie",
+    "website": "pandora.net",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://fr.pandora.net/",
+      "https://commons.wikimedia.org/wiki/File:Pandora_Logo_2019.svg"
+    ],
+    "note": "Marque noir et blanc : wordmark noir avec couronne (Pandora Logo 2019, identique à celui du header actuel de fr.pandora.net, affiché en blanc) recoloré en blanc sur noir. Site fr.pandora.net protégé par Cloudflare, fichier du site non téléchargé.",
+    "license": "unknown",
+    "logo": "pandora.svg"
   },
   {
     "id": "parashop",
     "name": "Parashop",
     "sector": "Parapharmacie",
     "website": "parashop.com",
-    "logo": "parashop.png",
-    "source": "manuel",
+    "logo": "parashop.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#ECAD39"
+    "color": "#4D7F71",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.parashop.com/img/logo.svg",
+      "https://www.parashop.com/img/logo-white.svg"
+    ],
+    "note": "Vert #4D7F71 = couleur du logo officiel parashop.com (logo.svg) ; logo blanc officiel utilisé dans le header (logo-white.svg) ; fond du header non lu directement | actuel : logo-white.svg du header parashop.com (archive déc. 2025)"
   },
   {
     "id": "pathegaumont",
@@ -1878,13 +2999,15 @@
     "sector": "Cinéma",
     "website": "cinemasgaumontpathe.com",
     "logo": "pathegaumont.svg",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#1E8D7A"
+    "color": "#000000",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260101005041/https://www.pathe.fr/ (logo header media.pathe.fr/files/logo/logo.svg, snapshot 01/2026)",
+      "https://en.wikipedia.org/wiki/Pathé_Cinémas (marque Gaumont retirée des cinémas en 2023)"
+    ],
+    "note": "Ancien 'Gaumont Pathé' périmé : les cinémas sont 'Pathé' depuis 2023. Logo bulle PATHÉ + coq blanc du header actuel de pathe.fr (bonnet de Noël du snapshot retiré), blanc sur fond noir (fond du site #040404/#0f091c, noir de la marque)."
   },
   {
     "id": "paul",
@@ -1892,11 +3015,61 @@
     "sector": "Boulangerie / Café",
     "website": "paul.fr",
     "logo": "paul.png",
-    "source": "site:body-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#3552D6"
+    "color": "#FEF7EE",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://web.archive.org/web/20260106215544/https://www.paul.fr/ (header : 'PAUL depuis 1889' ; footer : cartouche noir cadre crème)"
+    ],
+    "note": "Logo actuel « PAUL depuis 1889 » du header de paul.fr (archive 2026-01), sombre sur le crème #FEF7EE du site ; raster natif 340 px seulement, aucun vecteur trouvé."
+  },
+  {
+    "id": "petitbateau",
+    "name": "Petit Bateau",
+    "sector": "Mode enfant",
+    "website": "petit-bateau.fr",
+    "color": "#15284B",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.petit-bateau.fr/ (couleur et logo)"
+    ],
+    "note": "Bleu marine du logo actuel (logo-petit-bateau.svg de l'en-tête du site, fill #15284B ; CSS site #002E5E proche) ; logo recoloré en blanc.",
+    "license": "unknown",
+    "logo": "petitbateau.svg"
+  },
+  {
+    "id": "pharmacielafayette",
+    "name": "Pharmacie Lafayette",
+    "sector": "Pharmacie",
+    "website": "pharmacielafayette.com",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.pharmacielafayette.com/ (logo.svg du header)",
+      "https://www.lequotidiendupharmacien.fr/exercice-pro/une-frequentation-en-hausse-de-25-pour-les-pharmacies-lafayette"
+    ],
+    "note": "Logo = logo.svg actuel du header du site (croix occitane orange #FE5800 / vert #74CFA3, détourée noir), tel quel sur blanc : logo multicolore auto-contenu, pas de fond de marque.",
+    "license": "unknown",
+    "logo": "pharmacielafayette.svg"
+  },
+  {
+    "id": "pharmactiv",
+    "name": "Pharmactiv",
+    "sector": "Pharmacie",
+    "website": "pharmactiv.fr",
+    "color": "#004841",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://pharmactiv.fr/ (logo SVG header + couleur primaire)",
+      "https://pharmactiv.fr/ (« Votre carte avantage », carte de fidélité)"
+    ],
+    "note": "Vert foncé #004841 = couleur primaire et fill du logo SVG actuel du header de pharmactiv.fr (site refait fin 2025/2026) ; logo recoloré en blanc sur ce fond.",
+    "license": "unknown",
+    "logo": "pharmactiv.svg"
   },
   {
     "id": "picard",
@@ -1904,13 +3077,15 @@
     "sector": "Surgelés",
     "website": "picard.fr",
     "logo": "picard.svg",
-    "source": "manuel",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "validated": true,
-    "background": "light",
-    "color": "#000BF7"
+    "color": "#000BF7",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.picard.fr",
+      "https://www.picard.fr/on/demandware.static/-/Sites-picard-Library/default/dwe7bc9519/images/SFRA/logo-picard-desktop.svg"
+    ],
+    "note": "Bleu #000BF7 = fill du logo officiel de picard.fr (SI indique 2D4999) ; logo recoloré en blanc (flocon+wordmark) | actuel : logo-picard-desktop.svg du header picard.fr"
   },
   {
     "id": "pimkie",
@@ -1918,15 +3093,14 @@
     "sector": "Mode",
     "website": "pimkie.fr",
     "logo": "pimkie.svg",
-    "source": "fr-wikipedia:Pimkie",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#1D1D1B"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "faible",
+    "sources": [
+      "https://www.pimkie.fr"
+    ],
+    "note": "Logo monochrome noir (icône P) : fond noir, logo blanc ; fond de marque non attesté par une source | actuel : logo du site pimkie.fr (catalogue), non re-daté"
   },
   {
     "id": "pizzahut",
@@ -1934,27 +3108,29 @@
     "sector": "Restauration rapide",
     "website": "pizzahut.fr",
     "logo": "pizzahut.svg",
-    "source": "wikidata:Q191615",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#D63736"
+    "color": "#EA1C24",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Pizza_Hut_2025.svg"
+    ],
+    "note": "Rouge #EA1C24 = fill du logo Pizza Hut 2025 (Commons) ; logo toit+script recoloré en blanc (variante blanche usuelle de la marque) | actuel : logo Pizza Hut 2025 (Commons)"
   },
   {
     "id": "pointp",
     "name": "Point.P",
     "sector": "Matériaux de construction",
     "website": "pointp.fr",
-    "logo": "pointp.png",
-    "source": "manuel",
+    "logo": null,
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#599AD7"
+    "color": "#E8500E",
+    "logoVariant": "aucun",
+    "confidence": "faible",
+    "sources": [
+      "(aucune)"
+    ],
+    "note": "Orange du cartouche du logo du catalogue (raster 164 px) ; pointp.fr bloqué (403), aucun logo vectoriel actuel trouvé ; couleur non attestée par une source"
   },
   {
     "id": "points",
@@ -1962,13 +3138,29 @@
     "sector": "Entretien auto",
     "website": "point-s.fr",
     "logo": "points.svg",
-    "source": "fr-wikipedia:Point S",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#33487F"
+    "color": "#004994",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.point-s.fr"
+    ],
+    "note": "Bleu #004994 = fill du logo officiel du site ; baseline noire et soulignement vert retirés | actuel : logo du site point-s.fr (catalogue), non re-daté"
+  },
+  {
+    "id": "pommedepain",
+    "name": "Pomme de Pain",
+    "sector": "Restauration rapide",
+    "website": "pommedepain.fr",
+    "color": "#761E48",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://pommedepain.fr/ (SVG du header : --color-contrast-higher #761E48, --color-accent #AAD190)"
+    ],
+    "note": "Logo = SVG inline du header actuel de pommedepain.fr (identité 2023) ; bg = couleur bordeaux du logo, parties bordeaux passées en blanc, vert #AAD190 conservé. Programme de fidélité non confirmé par une source (recherche sans résultat) : à vérifier.",
+    "license": "unknown",
+    "logo": "pommedepain.svg"
   },
   {
     "id": "primark",
@@ -1976,13 +3168,45 @@
     "sector": "Mode",
     "website": "primark.com",
     "logo": "primark.svg",
-    "source": "wikidata:Q137023",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#00A0D5"
+    "color": "#00A6D0",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Primark_Logo_2024.svg (logo 03.2024, fill #00A6D0)",
+      "https://fr.wikipedia.org/wiki/Primark (logo 03.2024 en infobox)"
+    ],
+    "note": "Ancien wordmark fin avec ® remplacé par le logo de mars 2024 (A à barre courbe, trait plus épais), recoloré en blanc sur le bleu #00A6D0 d'origine du logo."
+  },
+  {
+    "id": "printemps",
+    "name": "Printemps",
+    "sector": "Grand magasin",
+    "website": "printemps.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/2026/https://www.printemps.com/fr/fr (SVG inline du header, wordmark PRINTEMPS noir, snapshot 2026-10-25)"
+    ],
+    "note": "Wordmark PRINTEMPS actuel (vecteur inline du header) recoloré en blanc sur noir : marque noir et blanc, wordmark monochrome. Fond noir non prouvé par une charte, d'où confiance moyenne.",
+    "license": "unknown",
+    "logo": "printemps.svg"
+  },
+  {
+    "id": "promocash",
+    "name": "Promocash",
+    "sector": "Cash & carry (pro)",
+    "website": "promocash.com",
+    "color": "#008D3F",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.promocash.com/ (logo du header du site, PNG 3917 px, vert #008D3F)"
+    ],
+    "note": "Logo actuel du header promocash.com (toque + wordmark, vert #008D3F) ; passé en blanc sur fond vert #008D3F. Version inversée officielle non trouvée.",
+    "license": "unknown",
+    "logo": "promocash.png"
   },
   {
     "id": "promod",
@@ -1990,14 +3214,30 @@
     "sector": "Mode",
     "website": "promod.fr",
     "logo": "promod.svg",
-    "source": "wikidata:Q3407429",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.promod.fr/ (logo noir officiel, aucune couleur de marque)"
+    ],
+    "note": "Marque noir et blanc, aucune couleur d'enseigne attestée : fond noir, vecteur officiel du wordmark recoloré en blanc."
+  },
+  {
+    "id": "pullbear",
+    "name": "Pull&Bear",
+    "sector": "Mode",
+    "website": "pullandbear.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Pull%26Bear_logo_2023.svg",
+      "https://www.dealabs.com/codes-promo/pullandbear (PB Pass)"
+    ],
+    "note": "Marque noir et blanc ; wordmark de la refonte 2023 (Commons 'Pull&Bear logo 2023.svg', dernier en date) recoloré en blanc. Programme de fidélité non confirmé par une source officielle.",
+    "license": "unknown",
+    "logo": "pullbear.svg"
   },
   {
     "id": "quick",
@@ -2005,11 +3245,14 @@
     "sector": "Restauration rapide",
     "website": "quick.fr",
     "logo": "quick.png",
-    "source": "site:og:image",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#D6964A"
+    "color": "#E30017",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.quick.fr/ (logo du site : cartouche rouge #E30017)"
+    ],
+    "note": "Rouge du cartouche du logo officiel quick.fr ; le cartouche a la couleur de bg, seuls le Q et Quick blancs apparaissent. Source 344x570 agrandie x2."
   },
   {
     "id": "relay",
@@ -2017,29 +3260,63 @@
     "sector": "Presse / Kiosque",
     "website": "relay.com",
     "logo": "relay.png",
-    "source": "site:og:image",
     "license": "unknown",
-    "w": 512,
-    "h": 512,
-    "validated": true,
-    "background": "light",
-    "color": "#CD1E46"
+    "color": "#CA0538",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.relay.com/ (CSS : #ca0538 couleur dominante, favicon fond #CA0437)",
+      "https://www.relay.com/wp-content/uploads/2023/03/EXE-RELAY-LOGO2_CMYK-removebg-preview.png (logo blanc)"
+    ],
+    "note": "Rouge Relay du site officiel et de l'icône d'app ; logo blanc officiel du site (710 px, rogné)."
+  },
+  {
+    "id": "rituals",
+    "name": "Rituals",
+    "sector": "Beauté / Cosmétique",
+    "website": "rituals.com/fr-fr",
+    "color": "#756B5E",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://rituals.scene7.com/is/content/rituals/rituals-logo-vector-square-01",
+      "https://www.rituals.com/fr-fr"
+    ],
+    "note": "Logo carré (entrelacs celtique, RITUALS) = 'logo' du JSON-LD Organization et du pied de page de rituals.com 2026 ; bg = fill #756B5E du fond de ce SVG (taupe) ; programme de fidélité non revérifié sur le site (app Rituals présente).",
+    "license": "unknown",
+    "logo": "rituals.svg"
   },
   {
     "id": "roady",
     "name": "Roady",
     "sector": "Entretien auto",
     "website": "roady.fr",
-    "logo": "roady.jpg",
-    "source": "wikidata:Q3434112",
+    "logo": "roady.svg",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "rejected": "notlogo",
-    "exhausted": true,
-    "background": "light",
-    "validated": true,
-    "color": "#D7242C"
+    "color": "#D7242C",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.roady.fr/Assets/276079/Theme/Project/Roady/img/logo-roady.svg (rouge #D7242C du logo)",
+      "https://www.roady.fr/ (theme-color #E20000)"
+    ],
+    "note": "Rouge du bandeau CENTRE AUTO du logo officiel (#D7242C ; le theme-color du site est #E20000) ; vecteur officiel recoloré en blanc (silhouette unie, le texte du bandeau reste évidé)."
+  },
+  {
+    "id": "rougegorge",
+    "name": "RougeGorge",
+    "sector": "Lingerie",
+    "website": "rougegorge.com",
+    "color": "#E90027",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.rougegorge.com/fr-fr/ (logo header + couleur)",
+      "https://www.rougegorge.com/fr-fr/ (« Espace fidélité », cœurs)"
+    ],
+    "note": "Rouge #E90027 = couleur du logo actuel du header de rougegorge.com (PNG retina du header). Pas de SVG ni de version blanche trouvés : logo rouge recoloré en blanc ; raster de 530 px de large seulement (sous 600).",
+    "license": "unknown",
+    "logo": "rougegorge.png"
   },
   {
     "id": "saintalgue",
@@ -2047,13 +3324,15 @@
     "sector": "Coiffure",
     "website": "saint-algue.fr",
     "logo": "saintalgue.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": 640,
-    "h": 208,
-    "validated": true,
-    "background": "light",
-    "color": "#873128"
+    "color": "#B03229",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.saint-algue.com/ (logo rouge brique #B03229 sur blanc, couleur reprise dans le CSS)",
+      "https://www.saint-algue.com/_next/static/media/LogoSA.126b76d8.png"
+    ],
+    "note": "Rouge brique Saint Algue #B03229 = couleur du logo officiel du site ; aucune version blanche trouvée, logo monochrome recoloré en blanc."
   },
   {
     "id": "sephora",
@@ -2061,13 +3340,29 @@
     "sector": "Beauté / Parfumerie",
     "website": "sephora.fr",
     "logo": "sephora.svg",
-    "source": "wikidata:Q2408041",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.sephora.fr/ (identité noir et blanc)"
+    ],
+    "note": "Identité noir et blanc de Sephora : fond noir, wordmark officiel recoloré en blanc."
+  },
+  {
+    "id": "sergentmajor",
+    "name": "Sergent Major",
+    "sector": "Mode enfant",
+    "website": "sergent-major.com",
+    "color": "#211D3E",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.sergent-major.com/ (couleur et logo)"
+    ],
+    "note": "Fond = encre bleue de la charte (fichiers site SGMJ_..._EncreBleue, CSS #211D3E). Logo = new_logo.png, version blanche utilisée dans l'en-tête actuel du site (cache v=2026-03), 'Depuis 1987'.",
+    "license": "unknown",
+    "logo": "sergentmajor.png"
   },
   {
     "id": "shell",
@@ -2075,23 +3370,78 @@
     "sector": "Carburant / Station-service",
     "website": "shell.fr",
     "logo": "shell.svg",
-    "source": "manuel",
     "license": "unknown",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "background": "light",
-    "color": "#D6272B"
+    "color": "#FBCE07",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.shell.fr/ (favicon.svg officiel : fills #fbce07 et #dd1d21)",
+      "https://www.shell.fr/etc.clientlibs/amidala/clientlibs/theme-base/resources/favicon/favicon.svg"
+    ],
+    "note": "Jaune Shell #FBCE07 (fill de la coquille du favicon officiel) ; pecten officiel rouge/jaune avec son liseré blanc, tel quel sur le fond jaune."
+  },
+  {
+    "id": "snipes",
+    "name": "Snipes",
+    "sector": "Sport / Sneakers",
+    "website": "snipes.fr",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Snipes_logo.svg"
+    ],
+    "note": "Logo Commons 'Snipes logo.svg' (gris #494B52 + carré orange #EC6408) tel quel sur blanc : le site snipes.com n'a pas pu être lu (JS) pour confirmer que c'est le logo actuel ni la couleur de fond de la carte ; blanc par défaut, aucune couleur de fond attestée.",
+    "license": "unknown",
+    "logo": "snipes.svg"
+  },
+  {
+    "id": "sobio",
+    "name": "So.bio",
+    "sector": "Supermarché bio",
+    "website": "sobio.fr",
+    "color": "#007743",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.sobio.fr/ (logo header + couleur)",
+      "https://www.sobio.fr/pages/programme-de-fidelite (programme Entre Nous)"
+    ],
+    "note": "Vert #007743 = fond du logo actuel de sobio.fr (sobio_logo.png du header, 2126 px, cartouche vert intégré identique à bg, donc fondu dans la tuile).",
+    "license": "unknown",
+    "logo": "sobio.png"
   },
   {
     "id": "sophielebreuilly",
     "name": "Sophie Lebreuilly",
     "sector": "Boulangerie",
     "website": null,
-    "logo": null,
-    "source": null,
+    "logo": "sophielebreuilly.svg",
     "license": null,
-    "color": "#E73C51"
+    "color": "#E73C51",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://sophie-lebreuilly.com/ (CSS : #E73C50 couleur dominante)",
+      "https://sophie-lebreuilly.com/wp-content/uploads/sophie-lebreuilly-logo2.svg (fill du disque #e73c51)"
+    ],
+    "note": "Rose Sophie Lebreuilly (boulangeries) = disque #e73c51 du logo officiel du site ; logo blanc officiel, disque de fond retiré car identique à bg."
+  },
+  {
+    "id": "spar",
+    "name": "Spar",
+    "sector": "Supermarché de proximité",
+    "website": "spar.casino.fr",
+    "color": "#ED1B34",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:SPAR_Supermarch%C3%A9-Logo.png",
+      "https://milesopedia.fr/programme-fidelite/casino-coup-de-pouce/"
+    ],
+    "note": "Rouge #ED1B34 échantillonné dans le cartouche du logo Commons ; logo SPAR + pastille sapin vert, fond blanc extérieur détouré (PNG 2688 px). « Actuel » : logo Spar standard encore utilisé, mais l'enseigne a changé d'identité visuelle en 2025 (LSA) ; je n'ai pu comparer avec le nouveau visuel.",
+    "license": "unknown",
+    "logo": "spar.png"
   },
   {
     "id": "speedy",
@@ -2099,27 +3449,32 @@
     "sector": "Entretien auto",
     "website": "speedy.fr",
     "logo": "speedy.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": 172,
-    "h": 150,
-    "validated": true,
-    "background": "light",
-    "color": "#00ACED"
+    "color": "#3B7AB7",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://www.speedy.fr/ (meta theme-color #3b7ab7 ; CSS #3B7AB7 x41)",
+      "https://commons.wikimedia.org/wiki/File:Speedy-logo-onblue.jpg (fond du logo « on blue » #2E79BC)",
+      "https://www.speedy.fr/-/media/foundation/content/logos/speedylogo2x.png (logo)"
+    ],
+    "note": "Bleu Speedy ~#3B7AB7 : theme-color du site + fond du logo « on blue » (#2E79BC, Wikimedia), préféré au cyan #00A8FF du CSS (couleur d'accent). Médaillon actuel du site, MAIS raster natif 172 px (aucun SVG sur speedy.fr, .be parqué) : agrandi, à remplacer."
   },
   {
     "id": "sport2000",
     "name": "Sport 2000",
     "sector": "Sport",
     "website": "sport2000.fr",
-    "logo": "sport2000.webp",
-    "source": "manuel",
+    "logo": "sport2000.svg",
     "license": "unknown",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#D82026"
+    "color": "#E60005",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.sport2000.fr/sport2000PlaineTheme/img/logo-sport-2000.png (logo du site : rouge #E60005, via archive.org)",
+      "https://commons.wikimedia.org/wiki/File:SPORT_2000_NEW.svg (pastille vectorielle)"
+    ],
+    "note": "Rouge #E60005 du logo actuel du site (la pastille Commons utilise #d2091e, ancienne teinte) ; pastille officielle rouge/noire à liseré blanc, utilisable telle quelle sur fond rouge."
   },
   {
     "id": "starbucks",
@@ -2127,11 +3482,31 @@
     "sector": "Café",
     "website": "starbucks.fr",
     "logo": "starbucks.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#006241"
+    "color": "#006241",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.starbucks.fr/ (vert #006241 dans le CSS)",
+      "https://simpleicons.org/?q=starbucks (#006241)"
+    ],
+    "note": "Vert Starbucks #006241 ; sirène officielle en blanc (silhouette inversée du disque vert)."
+  },
+  {
+    "id": "stokomani",
+    "name": "Stokomani",
+    "sector": "Bazar / Destockage",
+    "website": "stokomani.fr",
+    "color": "#F0E518",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://www.stokomani.fr/cdn/shop/files/EXE_LOGO-STOKOMANI_GRIS_JAUNE-NL_cd413302-d7a8-4eb2-bfe8-84a67830e3fa.png",
+      "https://www.stokomani.fr/cdn/shop/files/EXE_LOGO-STOKOMANI_GRIS_JAUNE-FAVICON.svg"
+    ],
+    "note": "Jaune #F0E518 = fill du favicon SVG officiel et fond du cartouche du logo ; logo = wordmark 'STOKOMANI / DES MARQUES, DES PRIX !' (PNG 800 px, le plus grand dispo) servi dans l'en-tête du site (version v=1778156962, 2026), pas de SVG complet.",
+    "license": "unknown",
+    "logo": "stokomani.png"
   },
   {
     "id": "stradivarius",
@@ -2139,13 +3514,14 @@
     "sector": "Mode",
     "website": "stradivarius.com",
     "logo": "stradivarius.svg",
-    "source": "wikidata:Q3322945",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.stradivarius.com/ (logo noir sur blanc ; site bloqué par anti-bot)"
+    ],
+    "note": "Marque noir et blanc : fond noir, wordmark officiel recoloré en blanc (fill d'origine #020203)."
   },
   {
     "id": "subway",
@@ -2153,13 +3529,14 @@
     "sector": "Restauration rapide",
     "website": "subway.com",
     "logo": "subway.svg",
-    "source": "wikidata:Q244457",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#FBBB00"
+    "color": "#008938",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.subway.com/ (vert #008938 du logo)"
+    ],
+    "note": "Vert = fill du logo officiel (#008938) ; version inversée jaune #F2B700 + blanc (le vert du wordmark passe en blanc)."
   },
   {
     "id": "superu",
@@ -2167,13 +3544,61 @@
     "sector": "Supermarché",
     "website": "magasins-u.com",
     "logo": "superu.svg",
-    "source": "fr-wikipedia:Système U",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#AD5D21"
+    "color": "#E42313",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "Logo du catalogue (vecteur Système U, fill du U #e42313) ; magasins-u.com inaccessible (403)"
+    ],
+    "note": "Rouge Système U #E42313 = fill du U du logo ; médaillon officiel (U rouge sur disque blanc, anneau bleu) tel quel, baseline « Commerçants autrement » retirée (illisible sur rouge). Couleur non recoupée avec le site (403)."
+  },
+  {
+    "id": "sushishop",
+    "name": "Sushi Shop",
+    "sector": "Restauration rapide",
+    "website": "sushishop.fr",
+    "color": "#111111",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "faible",
+    "sources": [
+      "https://www.sushishop.fr/",
+      "https://fr.wikipedia.org/wiki/Fichier:Sushishop.png"
+    ],
+    "note": "Fond #111111 = header du site sushishop.fr ; logo taupe #BBAD95 (roundel + SUSHISHOP) de fr.wikipedia 'Sushishop.png', seul fichier trouvé : raster de 151 px, sous le seuil de 600 px et date non vérifiée (le header actuel affiche le même roundel taupe sur fond sombre). A remplacer si un vecteur est obtenu.",
+    "license": "unknown",
+    "logo": "sushishop.png"
+  },
+  {
+    "id": "swarovski",
+    "name": "Swarovski",
+    "sector": "Bijouterie / Cristal",
+    "website": "swarovski.com",
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://commons.wikimedia.org/wiki/File:Swarovski_Logo_05.2022.svg (logo)",
+      "https://www.swarovski.com/fr-FR/sclanding/ (Swarovski Club)"
+    ],
+    "note": "Marque noir et blanc (identité noire) : wordmark SWAROVSKI officiel de mai 2022 (SVG Wikimedia tiré de swarovski.com, noir #191717) recoloré en blanc sur fond noir. swarovski.com bloque les requêtes automatisées (Cloudflare), donc non comparé au header actuel ; Swarovski Club listé sur swarovski.com/fr-FR/club (France participante).",
+    "license": "unknown",
+    "logo": "swarovski.svg"
+  },
+  {
+    "id": "tapealoeil",
+    "name": "Tape à l'œil",
+    "sector": "Mode enfant",
+    "website": "taokids.com",
+    "color": "#FF6720",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.taokids.com/ (couleur et logo)"
+    ],
+    "note": "Orange du logo actuel du site (fill #FF6720, logo-tao.svg, wordmark TAPE À L'ŒIL), recoloré en blanc ; l'ancien logo PNG logo-desktop.png (pictos TAO) est écarté.",
+    "license": "unknown",
+    "logo": "tapealoeil.svg"
   },
   {
     "id": "thebodyshop",
@@ -2181,13 +3606,14 @@
     "sector": "Beauté / Cosmétique",
     "website": "thebodyshop.fr",
     "logo": "thebodyshop.svg",
-    "source": "fr-wikipedia:The Body Shop",
     "license": "non-libre",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#004236"
+    "color": "#004236",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.thebodyshop.fr/ (vert du logo #004236)"
+    ],
+    "note": "Vert foncé The Body Shop = fill du logo officiel (#004236) ; logo recoloré en blanc sur ce vert."
   },
   {
     "id": "thiriet",
@@ -2195,25 +3621,47 @@
     "sector": "Surgelés",
     "website": "thiriet.com",
     "logo": "thiriet.svg",
-    "source": "site:og:image",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#DA291C"
+    "color": "#DA291C",
+    "logoVariant": "officiel-inverse",
+    "confidence": "haute",
+    "sources": [
+      "https://www.thiriet.com/ (logo SVG du header : étiquette #DA291C)",
+      "https://static.thiriet.com/source/common_public/theme/theme_front_1/image/header/logo/logo.svg"
+    ],
+    "note": "Rouge de l'étiquette du logo officiel (#DA291C) ; logo officiel dont on retire l'étiquette rouge et son ombre raster, il reste le lettrage blanc MAISON THIRIET 1902."
+  },
+  {
+    "id": "tomco",
+    "name": "Tom&Co",
+    "sector": "Animalerie",
+    "website": "tomandco.com",
+    "color": "#005E56",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.tomandco.com/ (logo.svg du thème : fills #005E56 et #E8412F)",
+      "https://ac-franchise.com/article/lenseigne-tomco-lance-une-nouvelle-carte-de-fidelite-avec-plein-de-nouveaux-avantages"
+    ],
+    "note": "Logo = logo.svg actuel du site tomandco.com (version BE, même logo que FR) ; bg = vert #005E56 du logo, 'Tom' et 'Co' passés en blanc, esperluette rouge #E8412F conservée.",
+    "license": "unknown",
+    "logo": "tomco.svg"
   },
   {
     "id": "topoffice",
     "name": "Top Office",
     "sector": "Fournitures de bureau",
     "website": "top-office.com",
-    "logo": "topoffice.png",
-    "source": "fr-wikipedia:Top Office",
+    "logo": "topoffice.svg",
     "license": "non-libre",
-    "background": "light",
-    "validated": true,
-    "w": null,
-    "h": null,
-    "color": "#21409A"
+    "color": "#004F91",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.top-office.com/ (meta theme-color #004f91 ; CSS #004F91)",
+      "https://www.top-office.com/store/794/image/logo.jpg (logo du site, picto jaune + bleu #085090)"
+    ],
+    "note": "Bleu #004F91 (theme-color + CSS du site). Logo actuel du site (picto T jaune + TOP OFFICE), bleu passé en blanc, jaune conservé ; vectorisé (potrace) depuis le JPG 180 px, seule source publiée (aucun SVG)."
   },
   {
     "id": "totalenergies",
@@ -2221,23 +3669,29 @@
     "sector": "Carburant / Station-service",
     "website": "totalenergies.fr",
     "logo": "totalenergies.svg",
-    "source": "site:header-img",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#0071FF"
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.totalenergies.fr/ (logo vertical multicolore sur fond blanc, theme-color #ffffff)"
+    ],
+    "note": "Pas de couleur de fond de marque : le logo multicolore officiel s'emploie sur blanc (bg blanc, donc confiance moyenne)."
   },
   {
     "id": "truffaut",
     "name": "Truffaut",
     "sector": "Jardinerie / Animalerie",
     "website": "truffaut.com",
-    "logo": "truffaut.png",
-    "source": "site:og:image",
+    "logo": "truffaut.svg",
     "license": "unknown",
-    "validated": true,
-    "background": "light",
-    "color": "#014E37"
+    "color": "#014E37",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.truffaut.com/static/frontend/Truffaut/default/fr_FR/images/logo.svg (fill #014e37)"
+    ],
+    "note": "Vert Truffaut = fill du logo officiel du site (#014e37) ; wordmark recoloré en blanc."
   },
   {
     "id": "ugc",
@@ -2245,27 +3699,30 @@
     "sector": "Cinéma",
     "website": "ugc.fr",
     "logo": "ugc.png",
-    "source": "site:header-img",
     "license": "unknown",
-    "w": 590,
-    "h": 396,
-    "validated": true,
-    "background": "dark",
-    "color": "#00ADFF"
+    "color": "#001340",
+    "logoVariant": "officiel-inverse",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.ugc.fr/ (header : logo-ugc-cyan-blanc.png ; CSS .bg--dark-blue = #001340)",
+      "https://www.ugc.fr/assets/img/logo-ugc-cyan-blanc.png"
+    ],
+    "note": "Bleu nuit UGC #001340 (classe CSS bg--dark-blue du site, favicon #001450) ; logo officiel blanc + virgule cyan #00ADFF du header (source 590 px, agrandie x2)."
   },
   {
     "id": "undiz",
     "name": "Undiz",
     "sector": "Mode / Sous-vêtements",
     "website": "undiz.com",
-    "logo": "undiz.webp",
-    "source": "wikidata:Q105306275",
+    "logo": "undiz.png",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#345492"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.undiz.com/on/demandware.static/-/Sites/default/dwed399303/Logotype_undiz.png (logo noir #1D1D1B)"
+    ],
+    "note": "Aucune couleur de fond de marque attestée : le logotype officiel est monochrome noir #1D1D1B, donc fond noir et logo recoloré en blanc (PNG 1300 px)."
   },
   {
     "id": "uniqlo",
@@ -2273,11 +3730,77 @@
     "sector": "Mode",
     "website": "uniqlo.com",
     "logo": "uniqlo.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#FF0000"
+    "color": "#FF0000",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "haute",
+    "sources": [
+      "https://simpleicons.org/?q=uniqlo (#FF0000)",
+      "https://www.uniqlo.com/ (rouge Uniqlo)"
+    ],
+    "note": "Carré rouge officiel #FF0000 dont les lettres sont évidées : fond blanc derrière pour que UNIQLO se lise en blanc ; cartouche rouge de même teinte que bg."
+  },
+  {
+    "id": "vandb",
+    "name": "V and B",
+    "sector": "Caviste",
+    "website": "vandb.fr",
+    "color": "#F8BB09",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.vandb.fr/ (CSS : jaune #F8BB09, fond texturé jaune)",
+      "https://www.vandb.fr/logo-vandb-25-ans.svg (logo)",
+      "https://milesopedia.fr/programme-fidelite/v-and-b/ (fidélité)"
+    ],
+    "note": "Logo officiel du header vandb.fr nov. 2026 : fichier « 25 ans » dont j'ai retiré le sur-logo « 25 ans » (édition anniversaire) pour ne garder que le ruban noir VandB, tel quel (ruban noir à lettres blanches). bg jaune = couleur du site, non confirmée comme fond de carte.",
+    "license": "unknown",
+    "logo": "vandb.svg"
+  },
+  {
+    "id": "vertbaudet",
+    "name": "Vertbaudet",
+    "sector": "Mode enfant",
+    "website": "vertbaudet.fr",
+    "color": "#2D2A29",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260511094707/https://www.vertbaudet.fr/ (symbole inline #icon-logo du header, mai 2026; encre #2D2A29 du header)"
+    ],
+    "note": "Reprise de zéro (Cloudflare). Wordmark « vertbaudet » en gras minuscules, monochrome (currentColor = #2D2A29 sur le site), extrait du header inline de mai 2026. Identité noir et blanc : bg = encre #2D2A29 du site, logo recoloré en blanc. Pas de fond de marque attesté : confiance moyenne.",
+    "license": "unknown",
+    "logo": "vertbaudet.svg"
+  },
+  {
+    "id": "vibs",
+    "name": "Vib's",
+    "sector": "Mode multimarques",
+    "website": "vibs.com",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://web.archive.org/web/20260517003014im_/https://www.vibs.com/on/demandware.static/Sites-VIB_FR_SFRA-Site/-/default/dw378a9a0b/images/logo_VIB_FR.svg"
+    ],
+    "note": "Logo actuel Vib's noir #1d1d1b (avec mention Cache Cache / Bonobo / Bréal, tel que dans le header vibs.com en 2026). Fond blanc : icône d'app et site sont noir sur blanc, aucune couleur de fond de marque (moyenne).",
+    "license": "unknown",
+    "logo": "vibs.svg"
+  },
+  {
+    "id": "vival",
+    "name": "Vival",
+    "sector": "Supermarché de proximité",
+    "website": "vival.casino.fr",
+    "color": "#FFFFFF",
+    "logoVariant": "officiel-tel-quel",
+    "confidence": "moyenne",
+    "sources": [
+      "https://vival.casino.fr/ (SVG inline du header, vu nov. 2026)"
+    ],
+    "note": "Nouveau logo Vival (refonte 2025) : wordmark vert sauge #6C7C59 avec point de l'i #C6846D, SVG inline du header actuel, sur fond blanc du header. Remplace « Vival by Casino » (teal/rouge, ancien). Blanc faute de fond de marque attesté.",
+    "license": "unknown",
+    "logo": "vival.svg"
   },
   {
     "id": "weldom",
@@ -2285,13 +3808,14 @@
     "sector": "Bricolage",
     "website": "weldom.fr",
     "logo": "weldom.svg",
-    "source": "wikidata:Q16683226",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#F25C19"
+    "color": "#F25C19",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.weldom.fr/media/front/weldom.svg (logo actuel du header, fill #f25c19 ; theme-color du site #eb690a, via archive.org)"
+    ],
+    "note": "Orange Weldom #F25C19 = fill du logo actuel du site (theme-color #eb690a, légèrement différent) ; logo recoloré en blanc (le pictogramme orange serait invisible sur le fond)."
   },
   {
     "id": "yvesrocher",
@@ -2299,13 +3823,15 @@
     "sector": "Beauté / Cosmétique",
     "website": "yves-rocher.fr",
     "logo": "yvesrocher.svg",
-    "source": "wikidata:Q1477321",
     "license": "Public domain",
-    "w": null,
-    "h": null,
-    "background": "light",
-    "validated": true,
-    "color": "#2F4098"
+    "color": "#014E2E",
+    "logoVariant": "recolore",
+    "confidence": "moyenne",
+    "sources": [
+      "https://www.yves-rocher.fr/ (CSS #014E2E, 81 occurrences, via archive.org ; fill du logo du header)",
+      "https://www.yves-rocher.fr/img/icons/header/new_logo-2020.svg"
+    ],
+    "note": "Vert foncé Yves Rocher #014E2E (CSS du site et fill du logo du header, logo 2020 monochrome) ; logo recoloré en blanc, version blanche officielle non vérifiée."
   },
   {
     "id": "zara",
@@ -2313,10 +3839,14 @@
     "sector": "Mode",
     "website": "zara.com",
     "logo": "zara.svg",
-    "source": "simple-icons",
     "license": "CC0-1.0",
-    "validated": true,
-    "background": "light",
-    "color": "#000000"
+    "color": "#000000",
+    "logoVariant": "recolore",
+    "confidence": "haute",
+    "sources": [
+      "https://www.zara.com/ (identité noir et blanc)",
+      "https://simpleicons.org/?q=zara (#000000)"
+    ],
+    "note": "Zara = noir et blanc : fond noir, logo recoloré en blanc."
   }
 ]
