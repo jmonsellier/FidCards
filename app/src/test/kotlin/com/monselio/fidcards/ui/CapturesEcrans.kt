@@ -25,6 +25,7 @@ import com.monselio.fidcards.ui.detail.CardDetailScreen
 import com.monselio.fidcards.ui.edit.EditCardScreen
 import com.monselio.fidcards.ui.home.CardTile
 import com.monselio.fidcards.ui.home.HomeScreen
+import com.monselio.fidcards.ui.settings.SettingsScreen
 import com.monselio.fidcards.ui.theme.FidCardsTheme
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
@@ -45,7 +46,8 @@ import org.robolectric.annotation.GraphicsMode
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 // API 34 : Robolectric exige Java 21 au-delà, et le projet reste sur le JDK 17.
-@Config(sdk = [34], qualifiers = "w412dp-h915dp-xxhdpi")
+// « fr » explicite : sans lui, Robolectric prend la langue de la machine (anglais).
+@Config(sdk = [34], qualifiers = "fr-w412dp-h915dp-xxhdpi")
 class CapturesEcrans {
 
     @get:Rule
@@ -152,9 +154,40 @@ class CapturesEcrans {
         }
     }
 
+    /**
+     * Écran vide et réglages, en français puis en anglais (1.2.1) : relire la
+     * phrase d'accueil, la traduction et le contraste des descriptions en sombre.
+     */
+    @Test
+    fun accueil_vide_et_reglages_fr() = accueilVideEtReglages("fr")
+
+    @Test
+    @Config(qualifiers = "en-w412dp-h915dp-xxhdpi")
+    fun accueil_vide_et_reglages_en() = accueilVideEtReglages("en")
+
+    private fun accueilVideEtReglages(langue: String) {
+        runBlocking {
+            val repository = app.container.cardRepository
+            repository.getAll().forEach { repository.delete(it) }
+        }
+        val reglages = mutableStateOf(false)
+        compose.setContent {
+            FidCardsTheme(darkTheme = reglages.value) {
+                if (reglages.value) {
+                    SettingsScreen(onBack = {})
+                } else {
+                    HomeScreen(onCardClick = {}, onAddCard = {}, onOpenSettings = {})
+                }
+            }
+        }
+        capturer("vide-$langue")
+        reglages.value = true
+        capturer("reglages-sombre-$langue")
+    }
+
     /** Planche du catalogue entier, 36 vignettes par image. */
     @Test
-    @Config(qualifiers = "w900dp-h1100dp-xhdpi")
+    @Config(qualifiers = "fr-w900dp-h1100dp-xhdpi")
     fun planche_catalogue() {
         val catalog = app.container.brandCatalog
         val pages = catalog.brands.chunked(36)

@@ -5,7 +5,7 @@
     <!-- Accueil -->
     <string name="home_title" translatable="false">FidCards</string>
     <string name="home_empty_title">Aucune carte pour l\'instant</string>
-    <string name="home_empty_body">Touchez le bouton + pour ajouter votre première carte de fidélité.</string>
+    <string name="home_empty_body">Scannez une fois le code-barres de vos cartes de magasin, puis montrez-le en caisse d\'un simple toucher.\nTouchez le bouton + pour ajouter votre première carte.</string>
     <string name="home_add_card">Ajouter une carte</string>
     <string name="home_search_hint">Rechercher une carte</string>
     <string name="search_clear">Effacer la recherche</string>
@@ -88,8 +88,20 @@
     <string name="import_dialog_text">« Fusionner » ajoute les cartes absentes (les doublons sont ignorés). « Remplacer » supprime d\'abord toutes les cartes actuelles.</string>
     <string name="import_merge">Fusionner</string>
     <string name="import_replace">Remplacer</string>
-    <string name="backup_export_done">Export terminé : %1$d carte(s).</string>
-    <string name="backup_import_done">Import terminé : %1$d ajoutée(s), %2$d ignorée(s).</string>
+    <plurals name="backup_export_done">
+        <item quantity="one">Export terminé : %d carte.</item>
+        <item quantity="other">Export terminé : %d cartes.</item>
+    </plurals>
+    <!-- %1$s et %2$s : backup_import_added et backup_import_skipped. -->
+    <string name="backup_import_done">Import terminé : %1$s, %2$s.</string>
+    <plurals name="backup_import_added">
+        <item quantity="one">%d ajoutée</item>
+        <item quantity="other">%d ajoutées</item>
+    </plurals>
+    <plurals name="backup_import_skipped">
+        <item quantity="one">%d ignorée</item>
+        <item quantity="other">%d ignorées</item>
+    </plurals>
     <string name="backup_error_version">Version de sauvegarde inconnue — mettez d\'abord l\'application à jour.</string>
     <string name="backup_error_generic">Échec de l\'opération. Vérifiez le fichier choisi.</string>
     <string name="settings_about">À propos</string>

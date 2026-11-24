@@ -401,9 +401,14 @@ jalon 1.
 
 ## 9. Chaînes de caractères
 
-Français uniquement, mais **toutes les chaînes dans `values/strings.xml`**, aucune en dur.
-Coût nul aujourd'hui, et c'est ce qui rendrait une version anglaise possible plus tard sans
-reprendre chaque écran.
+Français par défaut, **toutes les chaînes dans `values/strings.xml`**, aucune en dur.
+
+**Anglais depuis la 1.2.1 (2026-11-24, décision de Jérôme)** : `values-en/strings.xml`. Sept
+des treize testeurs du test fermé l'ont demandé, et plusieurs n'avaient pas compris l'app.
+L'interface suit la langue du téléphone (anglais si l'appareil est en anglais, français
+sinon) et se choisit aussi dans les réglages de langue par app d'Android 13+
+(`generateLocaleConfig`). Le catalogue d'enseignes reste français, et la fiche Play vise
+toujours la France.
 
 ## 10. Environnement de développement
 

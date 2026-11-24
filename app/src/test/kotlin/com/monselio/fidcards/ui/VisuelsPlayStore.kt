@@ -111,7 +111,7 @@ import java.io.File
 @RunWith(RobolectricTestRunner::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 // API 34 : Robolectric exige Java 21 au-delà, et le projet reste sur le JDK 17.
-@Config(sdk = [34], qualifiers = "w360dp-h640dp-xxhdpi")
+@Config(sdk = [34], qualifiers = "fr-w360dp-h640dp-xxhdpi")
 class VisuelsPlayStore {
 
     @get:Rule
@@ -171,7 +171,7 @@ class VisuelsPlayStore {
      * son téléphone et ses encarts.
      */
     @Test
-    @Config(qualifiers = "w1800dp-h640dp-xxhdpi")
+    @Config(qualifiers = "fr-w1800dp-h640dp-xxhdpi")
     fun captures_panorama() {
         val parId = runBlocking { app.container.cardRepository.getAll() }.associateBy { it.brandId }
         compose.setContent {
@@ -594,7 +594,7 @@ class VisuelsPlayStore {
 
     /** Bannière de la fiche : 512 × 250 dp en xhdpi, soit 1024 × 500 px. */
     @Test
-    @Config(qualifiers = "w512dp-h250dp-xhdpi")
+    @Config(qualifiers = "fr-w512dp-h250dp-xhdpi")
     fun banniere() {
         val catalog = app.container.brandCatalog
         val tuiles = listOf("carrefour", "lafoirfouille", "sephora", "ikea").map { requireNotNull(catalog.byId(it)) }

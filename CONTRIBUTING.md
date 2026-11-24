@@ -4,7 +4,7 @@
 > commit messages are written in French. Contributions in English are welcome too,
 > and we will answer in English. The rules below boil down to this: the app never
 > gets network access, it only declares the `CAMERA` permission, every UI string
-> lives in `strings.xml` (in French), and a pull request is merged only once the
+> lives in `strings.xml` (French, with an English translation in `values-en/`), and a pull request is merged only once the
 > CI is green.
 
 Merci de vouloir améliorer FidCards. Les contributions les plus utiles, par ordre de
@@ -26,7 +26,8 @@ contre un des principes ne pourra pas être fusionnée, même bien écrite.
 - **Une seule permission : `CAMERA`**, avec un repli complet en saisie manuelle.
 - **Ni pub, ni compte, ni traceur, ni statistiques d'usage.**
 - **Toutes les chaînes de l'interface dans `app/src/main/res/values/strings.xml`**,
-  en français. Aucun texte en dur dans le code.
+  en français, et leur traduction dans `values-en/strings.xml` (anglais, depuis la
+  1.2.1). Aucun texte en dur dans le code.
 - **Architecture simple** : injection manuelle via `AppContainer`, un ViewModel par
   écran, un repository unique. Pas de Hilt, pas d'abstraction « pour plus tard ».
 - **Code-barres** : la génération reste en nearest-neighbour avec quiet zone. Le test

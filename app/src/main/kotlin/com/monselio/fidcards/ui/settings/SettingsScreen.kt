@@ -252,8 +252,12 @@ private fun destinationLabel(stored: String): String =
 
 /** Message localisé d'un résultat de sauvegarde ; le `when` en garantit la couverture. */
 private fun BackupResult.message(context: Context): String = when (this) {
-    is BackupResult.ExportOk -> context.getString(R.string.backup_export_done, cards)
-    is BackupResult.ImportOk -> context.getString(R.string.backup_import_done, imported, skipped)
+    is BackupResult.ExportOk -> context.resources.getQuantityString(R.plurals.backup_export_done, cards, cards)
+    is BackupResult.ImportOk -> context.getString(
+        R.string.backup_import_done,
+        context.resources.getQuantityString(R.plurals.backup_import_added, imported, imported),
+        context.resources.getQuantityString(R.plurals.backup_import_skipped, skipped, skipped),
+    )
     BackupResult.UnknownVersion -> context.getString(R.string.backup_error_version)
     BackupResult.Failed -> context.getString(R.string.backup_error_generic)
 }

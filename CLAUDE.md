@@ -12,6 +12,8 @@
 - **Aucun accès réseau dans l'app** : la permission `INTERNET` n'est pas déclarée et ne
   doit jamais l'être. Seule permission : `CAMERA`.
 - **Toutes les chaînes UI dans `res/values/strings.xml`**, en français, aucune en dur.
+  Depuis la 1.2.1, `res/values-en/strings.xml` porte la traduction anglaise : toute chaîne
+  ajoutée ou modifiée l'est dans les deux fichiers (lint `MissingTranslation`).
 - **Vérification obligatoire** avant de déclarer une tâche terminée :
   `./gradlew compileDebugKotlin` (type-check) puis `./gradlew :app:lintDebug` (lint).
   Les tests JVM : `./gradlew test`. Les tests instrumentés exigent un émulateur :

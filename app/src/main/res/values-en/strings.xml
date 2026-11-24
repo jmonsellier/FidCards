@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Traduction anglaise (1.2.1). Source de vérité : values/strings.xml, en français. -->
+<resources>
+    <!-- Accueil -->
+    <string name="home_empty_title">No cards yet</string>
+    <string name="home_empty_body">Scan the barcode of your store loyalty cards once, then show it at the checkout with a single tap.\nTap the + button to add your first card.</string>
+    <string name="home_add_card">Add a card</string>
+    <string name="home_search_hint">Search cards</string>
+    <string name="search_clear">Clear search</string>
+    <string name="home_no_results">No card matches your search.</string>
+    <string name="home_sort">Sort</string>
+    <string name="sort_recency">Recently used</string>
+    <string name="sort_name_asc">Name A → Z</string>
+    <string name="sort_name_desc">Name Z → A</string>
+    <string name="sort_recency_short">Recent</string>
+    <string name="sort_name_asc_short">A → Z</string>
+    <string name="sort_name_desc_short">Z → A</string>
+    <plurals name="home_card_count">
+        <item quantity="one">%d card</item>
+        <item quantity="other">%d cards</item>
+    </plurals>
+
+    <!-- Plein écran -->
+    <string name="detail_back">Back</string>
+    <string name="detail_edit">Edit card</string>
+    <string name="detail_generation_error">Unable to generate the code. Show the number below at the checkout.</string>
+    <string name="detail_back_photo">Back of the card</string>
+    <string name="detail_zoom_hint">Tap the code to enlarge it.</string>
+    <string name="detail_card_missing">This card no longer exists. It was deleted since this shortcut was created.</string>
+    <string name="detail_show_back">Show back</string>
+    <string name="detail_show_front">Show code</string>
+
+    <!-- Scan -->
+    <string name="scan_title">Scan a card</string>
+    <string name="scan_hint">Point at the card\'s barcode. Detection is automatic.</string>
+    <string name="scan_manual_entry">Enter manually</string>
+    <string name="scan_permission_rationale">Scanning needs camera access. You can enter the card manually, or allow the camera.</string>
+    <string name="scan_retry_permission">Allow camera</string>
+    <string name="scan_permission_denied_forever">Camera access was permanently denied: the system will not ask again. Allow it in the app settings, or enter the card manually.</string>
+    <string name="scan_open_settings">Open settings</string>
+    <string name="scan_camera_unavailable">No usable camera on this device. Enter the card manually.</string>
+
+    <!-- Ajout / édition -->
+    <string name="edit_title_new">New card</string>
+    <string name="edit_title_edit">Edit card</string>
+    <string name="edit_name_label">Store</string>
+    <string name="edit_name_help">The name shown on the card tile. Suggestions list known stores.</string>
+    <string name="edit_name_error">The name is required.</string>
+    <string name="edit_value_label">Code content</string>
+    <string name="edit_value_error">This value cannot be encoded in the selected format (length, characters or check digit).</string>
+    <string name="edit_format_label">Code format</string>
+    <string name="edit_display_value_label">Printed number (if different)</string>
+    <string name="edit_display_value_help">Only fill this in if the number printed on the card differs from the encoded content.</string>
+    <string name="edit_logo_label">Logo</string>
+    <string name="edit_front_label">Front photo</string>
+    <string name="edit_back_label">Back photo</string>
+    <string name="edit_logo_pick">Choose an image</string>
+    <string name="edit_logo_remove">Remove</string>
+    <string name="edit_color_label">Tile color</string>
+    <string name="edit_save">Save</string>
+    <string name="edit_delete">Delete</string>
+    <string name="edit_delete_confirm_title">Delete this card?</string>
+    <string name="edit_delete_confirm_text">The card and its photos will be permanently deleted.</string>
+    <string name="action_cancel">Cancel</string>
+
+    <!-- Réglages -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_open">Settings</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">Follow system</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_display">Display</string>
+    <string name="settings_auto_zoom">Automatic enlargement</string>
+    <string name="settings_auto_zoom_desc">Show the code enlarged as soon as a card is opened.</string>
+    <string name="settings_backup">Backup</string>
+    <string name="settings_export">Export cards</string>
+    <string name="settings_export_desc">ZIP archive with the cards and their images. It is the only way to move to another phone.</string>
+    <string name="settings_import">Import a backup</string>
+    <string name="settings_import_desc">Restores a ZIP archive exported by FidCards.</string>
+    <string name="settings_auto_backup">Automatic backup</string>
+    <string name="settings_auto_backup_off">After each change, the archive is rewritten to the same location: local folder, Drive, Dropbox, synced folder…</string>
+    <string name="settings_auto_backup_on">Destination: %1$s</string>
+    <string name="settings_auto_backup_failed">Destination: %1$s. The last backup failed, choose the location again.</string>
+    <string name="import_dialog_title">Import the backup?</string>
+    <string name="import_dialog_text">“Merge” adds the missing cards (duplicates are skipped). “Replace” first deletes all current cards.</string>
+    <string name="import_merge">Merge</string>
+    <string name="import_replace">Replace</string>
+    <plurals name="backup_export_done">
+        <item quantity="one">Export complete: %d card.</item>
+        <item quantity="other">Export complete: %d cards.</item>
+    </plurals>
+    <string name="backup_import_done">Import complete: %1$s, %2$s.</string>
+    <plurals name="backup_import_added">
+        <item quantity="one">%d added</item>
+        <item quantity="other">%d added</item>
+    </plurals>
+    <plurals name="backup_import_skipped">
+        <item quantity="one">%d skipped</item>
+        <item quantity="other">%d skipped</item>
+    </plurals>
+    <string name="backup_error_version">Unknown backup version. Update the app first.</string>
+    <string name="backup_error_generic">The operation failed. Check the selected file.</string>
+    <string name="settings_about">About</string>
+    <string name="settings_about_body">Version %1$s · GPL-3.0 · © 2026 Monselio.\nLoyalty cards with no network, no account, no tracker.</string>
+</resources>

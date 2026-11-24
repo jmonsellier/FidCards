@@ -25,10 +25,16 @@ android {
         applicationId = "com.monselio.fidcards"
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "1.2.0"
+        versionCode = 7
+        versionName = "1.2.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // Français par défaut (values/), anglais dans values-en/. Le localeConfig
+    // généré permet aussi de choisir la langue de l'app dans les réglages Android 13+.
+    androidResources {
+        generateLocaleConfig = true
     }
 
     signingConfigs {
