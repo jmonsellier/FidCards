@@ -32,7 +32,7 @@ l'autre ; les téléverser dans l'ordre 1 → 5.
 > FidCards n'utilise jamais Internet : vos cartes s'affichent même sans 4G ni Wi-Fi, au fond du magasin comme à l'étranger.
 >
 > RAPIDE EN CAISSE
-> Vos cartes les plus utilisées remontent en tête. Un toucher affiche le code en grand, luminosité au maximum. Le numéro reste écrit sous le code si le lecteur refuse l'écran.
+> Vos cartes les plus utilisées remontent en tête. Touchez une carte : le code s'affiche en grand, luminosité au maximum. Le numéro reste écrit sous le code si le lecteur refuse l'écran.
 >
 > AJOUT EN QUELQUES SECONDES
 > Scannez le code-barres de la carte avec l'appareil photo, ou saisissez-le à la main. Plus de 240 enseignes françaises sont reconnues, avec leur couleur et leur logo. Photo du recto et du verso en option.
@@ -46,6 +46,41 @@ l'autre ; les téléverser dans l'ordre 1 → 5.
 > Application libre et open source (GPL-3.0).
 >
 > Les marques et logos des enseignes appartiennent à leurs propriétaires respectifs. FidCards n'est affiliée à aucune enseigne.
+
+## Fiche en anglais (en-US, depuis la 1.2.1)
+
+À ajouter dans Play Console → Présence sur le Play Store → Fiche principale → Gérer les
+traductions → anglais (États-Unis). Mêmes visuels que la fiche française.
+
+**Description courte** :
+
+> Offline loyalty card wallet: free, no ads, no account.
+
+**Description complète** :
+
+> FidCards keeps all your loyalty cards on your phone. Open the app, tap the card, show it at the checkout: that's it.
+>
+> NO ADS, NO ACCOUNT
+> No advertising, no account to create, no subscription. The app is free.
+>
+> 100% OFFLINE
+> FidCards never uses the Internet: your cards show up even without mobile data or Wi-Fi, at the back of the store or abroad.
+>
+> FAST AT THE CHECKOUT
+> Your most used cards move to the top. Tap a card: the code is shown full size, with brightness at maximum. The number stays written under the code in case the scanner refuses the screen.
+>
+> ADD A CARD IN SECONDS
+> Scan the card's barcode with the camera, or type it in. Over 240 French retailers are recognized, with their color and logo; cards from any other store work too. Optional front and back photos.
+>
+> EVERY CODE FORMAT
+> EAN-13, EAN-8, UPC-A, UPC-E, Code 128, Code 39, Codabar, ITF, QR, Data Matrix, PDF417, Aztec.
+>
+> YOUR DATA STAYS WITH YOU
+> No tracker, no analytics, not even the permission to access the Internet: your cards never leave your phone. Optional automatic backup to the folder of your choice, on the phone or in the cloud (Drive, Dropbox…), to switch phones without losing anything.
+>
+> Interface in English and French. Free and open source software (GPL-3.0).
+>
+> Store brands and logos belong to their respective owners. FidCards is not affiliated with any store.
 
 ## Catégorisation
 
